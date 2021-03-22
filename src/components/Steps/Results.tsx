@@ -230,7 +230,8 @@ const Results: React.FunctionComponent<ResultsProps> = () => {
 						{getResults(serviceArray, 'Description').map(
 							(item: any) =>
 								item.fields['Link'] && (
-									<Card style={{ width: '18rem' }}>
+									<Card style={{ width: '370px', height: '220px' }}>
+										{console.log(item.fields['Description'].length)}
 										<Card.Body>
 											<Card.Title>{item.fields['Select']}</Card.Title>
 											<Card.Text>{item.fields['Description']}</Card.Text>
@@ -249,35 +250,13 @@ const Results: React.FunctionComponent<ResultsProps> = () => {
 					</StyledButton>
 				</Col>
 			</Row>
-			<Row>
-				<Col>
-					<p className='font-weight-bold'>SERVICE TIPS</p>
-					<CardColumns>
-						{getResults(resourcesArray, 'Name').map((item: any) => (
-							<Card style={{ width: '18rem' }}>
-								<Card.Body>
-									<Card.Title>{item.fields['Name']}</Card.Title>
-									<Card.Text>{item.fields['Description']}</Card.Text>
-									<Card.Link href={item.fields['Link']}>
-										OPEN LINK <FontAwesomeIcon icon={faExternalLinkAlt} />
-									</Card.Link>
-								</Card.Body>
-							</Card>
-						))}
-					</CardColumns>
-				</Col>
-				<Col md={{ span: 6, offset: 3 }}>
-					<StyledButton variant='info' onClick={() => handleMore()}>
-						VIEW MORE <FontAwesomeIcon icon={faArrowDown} />
-					</StyledButton>
-				</Col>
-			</Row>
+
 			<Row>
 				<Col>
 					<p className='font-weight-bold'>SUGGESTED ONLINE RESOURCES</p>
 					<CardColumns>
 						{getResults(resourcesArray, 'Name').map((item: any) => (
-							<Card style={{ width: '18rem' }}>
+							<Card style={{ width: '370px', height: '220px' }}>
 								<Card.Body>
 									<Card.Title>{item.fields['Name']}</Card.Title>
 									<Card.Text>{item.fields['Description']}</Card.Text>

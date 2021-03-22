@@ -63,13 +63,13 @@ const App: React.FunctionComponent = () => {
 			}}>
 			<Header />
 			<Hero currentStep={currentStep} />
+			<Navigation
+				currentStep={currentStep}
+				handleNext={handleNext}
+				handleBack={handleBack}
+				handleReset={handleReset}
+			/>
 			<Container className='my-4'>
-				<Navigation
-					currentStep={currentStep}
-					handleNext={handleNext}
-					handleBack={handleBack}
-					handleReset={handleReset}
-				/>
 				{currentStep !== 4 && (
 					<Row>
 						<Col sm={3} className='flex-column'>

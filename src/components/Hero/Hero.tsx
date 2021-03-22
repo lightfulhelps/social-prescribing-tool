@@ -8,18 +8,20 @@ export interface HeroProps {
 
 const textOptions: { [key: number]: ReactNode } = {
 	1: (
-		<div>
-			<p className='font-weight-bold'>
-				Are you a link worker or service provider?
-			</p>
-			<p className='font-weight-bold'>
-				Or are you someone who is looking for community support, but you aren’t
-				sure where to start?
-			</p>
-		</div>
+		<Row>
+			<Col>
+				<p className='font-weight-bold'>
+					Are you a link worker or service provider?
+				</p>
+				<p className='font-weight-bold'>
+					Or are you someone who is looking for community support, but you
+					aren’t sure where to start?
+				</p>
+			</Col>
+		</Row>
 	),
 	2: (
-		<>
+		<Row>
 			<Col>
 				<p className='font-weight-bold'>
 					Are you a link worker or service provider?
@@ -37,10 +39,10 @@ const textOptions: { [key: number]: ReactNode } = {
 					below.
 				</p>
 			</Col>
-		</>
+		</Row>
 	),
 	3: (
-		<>
+		<Row>
 			<Col>
 				<p className='font-weight-bold'>
 					Are you a link worker or service provider?
@@ -58,10 +60,10 @@ const textOptions: { [key: number]: ReactNode } = {
 					below.
 				</p>
 			</Col>
-		</>
+		</Row>
 	),
 	4: (
-		<>
+		<Row>
 			<Col>
 				<p className='font-weight-bold'>
 					Below is a representation of someone who may be similar to the person
@@ -76,7 +78,7 @@ const textOptions: { [key: number]: ReactNode } = {
 					profiles are also included.
 				</p>
 			</Col>
-		</>
+		</Row>
 	),
 }
 
@@ -84,11 +86,7 @@ const Hero: React.FunctionComponent<HeroProps> = ({ currentStep }) => {
 	return (
 		<Row>
 			<HeroContainer>
-				<Container>
-					<Row>
-						<Col>{textOptions[currentStep]}</Col>
-					</Row>
-				</Container>
+				<Container>{textOptions[currentStep]}</Container>
 			</HeroContainer>
 		</Row>
 	)

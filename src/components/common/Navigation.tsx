@@ -21,7 +21,7 @@ const Navigation: React.SFC<NavigationProps> = ({
 	const { choices } = React.useContext(AppContext)
 	if (currentStep === 1)
 		return (
-			<Row className='my-4 justify-content-end'>
+			<Row className='fixed-bottom bg-white justify-content-end'>
 				<StyledButton variant='info' onClick={() => handleNext()}>
 					Begin →
 				</StyledButton>
@@ -29,7 +29,7 @@ const Navigation: React.SFC<NavigationProps> = ({
 		)
 
 	return (
-		<Row className='my-4'>
+		<Row className='fixed-bottom bg-white'>
 			<Col
 				className={`${
 					currentStep === 4
@@ -55,6 +55,7 @@ const Navigation: React.SFC<NavigationProps> = ({
 				{currentStep !== 4 && (
 					<StyledButton
 						variant='info'
+						className='ml-4'
 						onClick={() => handleNext()}
 						disabled={
 							currentStep === 2
