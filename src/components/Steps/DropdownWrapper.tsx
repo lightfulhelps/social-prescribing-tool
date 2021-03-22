@@ -16,11 +16,11 @@ const DropdownWrapper: React.FunctionComponent<DropdownWrapperProps> = ({
 	const { choices, setChoices } = React.useContext(AppContext)
 	const [active, setActive] = React.useState<string>()
 	return (
-		<Dropdown className={hasMargin ? 'mr-3' : ''}>
+		<Dropdown className={`w-100 ${hasMargin ? 'mr-3' : ''}`}>
 			<Dropdown.Toggle
 				id='dropdown-basic'
 				variant='white'
-				className='dropdown-toggle font-weight-bold text-info border-info'
+				className='dropdown-toggle font-weight-bold text-info border-info w-100'
 				style={{ width: 270 }}>
 				{active === undefined ? title : active}
 			</Dropdown.Toggle>

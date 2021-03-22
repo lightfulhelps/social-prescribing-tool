@@ -69,7 +69,7 @@ const App: React.FunctionComponent = () => {
 				handleBack={handleBack}
 				handleReset={handleReset}
 			/>
-			<Container className='my-4'>
+			<Container className='my-4 pb-5'>
 				{currentStep !== 4 && (
 					<Row>
 						<Col sm={3} className='flex-column'>

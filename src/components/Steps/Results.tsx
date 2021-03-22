@@ -1,6 +1,8 @@
 import {
 	faArrowDown,
+	faChevronDown,
 	faExternalLinkAlt,
+	faPlus,
 	faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -17,9 +19,12 @@ import {
 } from 'react-bootstrap'
 import base from '../../api/base'
 import { AppContext } from '../../App'
-import { StyledButton } from '../Styles'
+import { CardLink, StyledButton } from '../Styles'
 import DropdownWrapper from './DropdownWrapper'
 import ListWrapper from './ListWrapper'
+import img1 from '../../assets/old_img1.png'
+import img2 from '../../assets/old_img2.png'
+import img3 from '../../assets/old_img3.png'
 
 export interface ResultsProps {}
 
@@ -134,7 +139,7 @@ const Results: React.FunctionComponent<ResultsProps> = () => {
 	console.log(challengesArray)
 	return (
 		<>
-			<Row>
+			<Row className='mb-4'>
 				<Col>
 					<Row className='my-2'>
 						<Col>
@@ -165,7 +170,7 @@ const Results: React.FunctionComponent<ResultsProps> = () => {
 					<Row className='my-2'>
 						<Col>
 							<Form.Label className='font-weight-bold'>ISSUES: </Form.Label>{' '}
-							<div className='d-flex align-items-center'>
+							<div className='d-flex align-items-center w-100'>
 								<DropdownWrapper
 									title='66-80 Years'
 									options={['1', '2']}
@@ -177,12 +182,13 @@ const Results: React.FunctionComponent<ResultsProps> = () => {
 					</Row>
 				</Col>
 				<Col>
-					<Figure.Image
-						width={860}
-						height={186}
-						alt='171x180'
-						src='https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80'
-					/>
+					<Row>
+						<Col>
+							<Figure.Image width={188} height={186} alt='171x180' src={img1} />
+							<Figure.Image width={188} height={186} alt='171x180' src={img2} />
+							<Figure.Image width={188} height={186} alt='171x180' src={img3} />
+						</Col>
+					</Row>
 					<Row className='my-2'>
 						<Col>
 							<Form.Label className='font-weight-bold'>
@@ -206,130 +212,158 @@ const Results: React.FunctionComponent<ResultsProps> = () => {
 						POTENTIAL CHALLENGES &amp; OBSTACLES
 					</p>
 					<ListWrapper
-						data={getResults(challengesArray, 'Challenge')}
+						data={getResults(challengesArray, 'Challenge').slice(0, 3)}
 						type='Challenge'
 					/>
 				</Col>
 				<Col>
 					<p className='font-weight-bold'>SO CONSIDER...</p>
 					<ListWrapper
-						data={getResults(challengesArray, 'Suggestion')}
+						data={getResults(challengesArray, 'Suggestion').slice(0, 3)}
 						type='Suggestion'
 					/>
 				</Col>
-				<Col md={{ span: 6, offset: 3 }}>
-					<StyledButton variant='info' onClick={() => handleMore()}>
-						VIEW MORE <FontAwesomeIcon icon={faArrowDown} />
-					</StyledButton>
-				</Col>
+			</Row>
+			<Row className='justify-content-center mb-4'>
+				<StyledButton variant='info' onClick={() => handleMore()}>
+					VIEW MORE <FontAwesomeIcon icon={faArrowDown} />
+				</StyledButton>
 			</Row>
 			<Row>
 				<Col>
 					<p className='font-weight-bold'>SERVICE TIPS</p>
 					<CardColumns>
-						{getResults(serviceArray, 'Description').map(
-							(item: any) =>
-								item.fields['Link'] && (
-									<Card style={{ width: '370px', height: '220px' }}>
-										{console.log(item.fields['Description'].length)}
-										<Card.Body>
-											<Card.Title>{item.fields['Select']}</Card.Title>
-											<Card.Text>{item.fields['Description']}</Card.Text>
-											<Card.Link href={item.fields['Link']}>
-												READ MORE
-											</Card.Link>
-										</Card.Body>
-									</Card>
-								)
-						)}
+						{getResults(serviceArray, 'Description')
+							.slice(0, 6)
+							.map(
+								(item: any) =>
+									item.fields['Link'] && (
+										<Card style={{ width: '370px', height: '220px' }}>
+											{console.log(item.fields['Description'].length)}
+											<Card.Body>
+												<Card.Title>{item.fields['Select']}</Card.Title>
+												<Card.Text>{item.fields['Description']}</Card.Text>
+												<CardLink href={item.fields['Link']} target='_blank'>
+													READ MORE <FontAwesomeIcon icon={faExternalLinkAlt} />
+												</CardLink>
+											</Card.Body>
+										</Card>
+									)
+							)}
 					</CardColumns>
 				</Col>
-				<Col md={{ span: 6, offset: 3 }}>
-					<StyledButton variant='info' onClick={() => handleMore()}>
-						VIEW MORE <FontAwesomeIcon icon={faArrowDown} />
-					</StyledButton>
-				</Col>
 			</Row>
-
+			<Row className='justify-content-center mb-4'>
+				<StyledButton variant='info' onClick={() => handleMore()}>
+					VIEW MORE <FontAwesomeIcon icon={faChevronDown} />
+				</StyledButton>
+			</Row>
 			<Row>
 				<Col>
 					<p className='font-weight-bold'>SUGGESTED ONLINE RESOURCES</p>
 					<CardColumns>
-						{getResults(resourcesArray, 'Name').map((item: any) => (
-							<Card style={{ width: '370px', height: '220px' }}>
-								<Card.Body>
-									<Card.Title>{item.fields['Name']}</Card.Title>
-									<Card.Text>{item.fields['Description']}</Card.Text>
-									<Card.Link href={item.fields['Link']}>
-										OPEN LINK <FontAwesomeIcon icon={faExternalLinkAlt} />
-									</Card.Link>
-								</Card.Body>
-							</Card>
-						))}
+						{getResults(resourcesArray, 'Name')
+							.slice(0, 6)
+							.map((item: any) => (
+								<Card style={{ width: '370px', height: '220px' }}>
+									<Card.Body>
+										<Card.Title>{item.fields['Name']}</Card.Title>
+										<Card.Text>{item.fields['Description']}</Card.Text>
+										<CardLink href={item.fields['Link']} target='_blank'>
+											OPEN LINK <FontAwesomeIcon icon={faExternalLinkAlt} />
+										</CardLink>
+									</Card.Body>
+								</Card>
+							))}
 					</CardColumns>
 				</Col>
-				<Col md={{ span: 6, offset: 3 }}>
-					<StyledButton variant='info' onClick={() => handleMore()}>
-						VIEW MORE <FontAwesomeIcon icon={faArrowDown} />
-					</StyledButton>
-				</Col>
+			</Row>
+			<Row className='justify-content-center mb-4'>
+				<StyledButton variant='info' onClick={() => handleMore()}>
+					VIEW MORE <FontAwesomeIcon icon={faChevronDown} />
+				</StyledButton>
 			</Row>
 			<Row>
-				<p className='font-weight-bold'>CASE STUDIES</p>
-				<p>
-					These case studies are what’s worked or hasn’t worked for people
-					matching this profile.
-				</p>
-				{getResults(caseStudiesArray, 'Name').map((item: any) => (
-					<Card>
-						<Card.Header as='h5'>{item.fields['Name']}</Card.Header>
-						<Card.Body>
-							<Row>
-								<Col>
-									<Card>
-										<Card.Header as='h5'>Beneficiary Profile</Card.Header>
-										<Card.Body>
-											<Card.Text>
-												{item.fields['Beneficiary profile']}
-											</Card.Text>
-										</Card.Body>
-									</Card>
-								</Col>
-								<Col>
-									<Card>
-										<Card.Header as='h5'>Agreed Action Plan</Card.Header>
-										<Card.Body>
-											<Card.Text>{item.fields['Agreed action plan']}</Card.Text>
-										</Card.Body>
-									</Card>
-								</Col>
-							</Row>
-							<Row>
-								<Col>
-									<Card>
-										<Card.Header as='h5'>What's Helped Them</Card.Header>
-										<Card.Body>
-											<Card.Text>{item.fields[`What's helped`]}</Card.Text>
-										</Card.Body>
-									</Card>
-								</Col>
-								<Col>
-									<Card>
-										<Card.Header as='h5'>What Didn't Help Them</Card.Header>
-										<Card.Body>
-											<Card.Text>{item.fields[`What didn't help`]}</Card.Text>
-										</Card.Body>
-									</Card>
-								</Col>
-							</Row>
-						</Card.Body>
-					</Card>
-				))}
-				<Col md={{ span: 6, offset: 3 }}>
-					<StyledButton variant='info' onClick={() => handleMore()}>
-						VIEW MORE <FontAwesomeIcon icon={faArrowDown} />
+				<Col>
+					<p className='font-weight-bold'>CASE STUDIES</p>
+					<p>
+						These case studies are what’s worked or hasn’t worked for people
+						matching this profile.
+					</p>
+				</Col>
+				<Col className='d-flex justify-content-end'>
+					<StyledButton
+						className='border-info text-info d-block'
+						variant='white'
+						width={270}
+						onClick={() => window.open('https://forms.gle/6FnfyjR8E1my6taeA')}>
+						ADD NEW CASE STUDY <FontAwesomeIcon icon={faPlus} />
 					</StyledButton>
 				</Col>
+				<Row>
+					<Col>
+						{getResults(caseStudiesArray, 'Name')
+							.slice(0, 1)
+							.map((item: any) => (
+								<Card className='my-4'>
+									<Card.Header as='h5'>{item.fields['Name']}</Card.Header>
+									<Card.Body>
+										<Row className='mb-4'>
+											<Col>
+												<Card>
+													<Card.Header as='h5'>Beneficiary Profile</Card.Header>
+													<Card.Body>
+														<Card.Text>
+															{item.fields['Beneficiary profile']}
+														</Card.Text>
+													</Card.Body>
+												</Card>
+											</Col>
+											<Col>
+												<Card>
+													<Card.Header as='h5'>Agreed Action Plan</Card.Header>
+													<Card.Body>
+														<Card.Text>
+															{item.fields['Agreed action plan']}
+														</Card.Text>
+													</Card.Body>
+												</Card>
+											</Col>
+										</Row>
+										<Row className='mb-4'>
+											<Col>
+												<Card>
+													<Card.Header as='h5'>What's Helped Them</Card.Header>
+													<Card.Body>
+														<Card.Text>
+															{item.fields[`What's helped`]}
+														</Card.Text>
+													</Card.Body>
+												</Card>
+											</Col>
+											<Col>
+												<Card>
+													<Card.Header as='h5'>
+														What Didn't Help Them
+													</Card.Header>
+													<Card.Body>
+														<Card.Text>
+															{item.fields[`What didn't help`]}
+														</Card.Text>
+													</Card.Body>
+												</Card>
+											</Col>
+										</Row>
+									</Card.Body>
+								</Card>
+							))}
+					</Col>
+				</Row>
+			</Row>
+			<Row className='justify-content-center'>
+				<StyledButton variant='info' onClick={() => handleMore()}>
+					VIEW MORE <FontAwesomeIcon icon={faChevronDown} />
+				</StyledButton>
 			</Row>
 		</>
 	)

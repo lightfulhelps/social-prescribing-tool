@@ -29,7 +29,7 @@ const Navigation: React.SFC<NavigationProps> = ({
 		)
 
 	return (
-		<Row className='fixed-bottom bg-white'>
+		<Row className='mt-5 fixed-bottom bg-white'>
 			<Col
 				className={`${
 					currentStep === 4

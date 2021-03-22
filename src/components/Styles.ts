@@ -1,9 +1,10 @@
+import { Card } from 'react-bootstrap'
 import Button from 'react-bootstrap/Button'
 import styled from 'styled-components'
 
 export const StyledButton = styled(Button)`
 	height: 48px;
-	width: 170px;
+	width: ${(props) => (props.width ? `${props.width}px` : '170px')};
 	font-weight: bold;
 	text-transform: uppercase;
 `
@@ -24,4 +25,8 @@ export const Divider = styled.span`
 	border-left: 2px dotted #ffc200;
 	position: relative;
 	width: 50px;
+`
+export const CardLink = styled(Card.Link)`
+	position: absolute;
+	bottom: 20px;
 `
