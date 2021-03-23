@@ -12,17 +12,19 @@ export const StyledButton = styled(Button)`
 export const Circle = styled.span<{ active: boolean }>`
 	height: 25px;
 	width: 25px;
-	background-color: ${(props) => (props.active ? '#ffc200' : '#ffc300')};
+	background-color: ${(props) => (props.active ? '#ffc200' : '#8E2082')};
+	opacity: ${(props) => (props.active ? '1' : '0.5')};
 	border-radius: 50%;
 	display: inline-block;
 `
 
-export const Divider = styled.span`
+export const Divider = styled.span<{ active: boolean }>`
 	content: '';
 	z-index: -1;
 	left: 12px;
 	height: inherit;
-	border-left: 2px dotted #ffc200;
+	border-left: 4px dotted ${(props) => (props.active ? '#ffc200' : '#8E2082')};
+	opacity: ${(props) => (props.active ? '1' : '0.5')};
 	position: relative;
 	width: 50px;
 `

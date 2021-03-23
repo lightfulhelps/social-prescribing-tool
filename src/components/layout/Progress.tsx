@@ -17,13 +17,13 @@ const Progress: React.SFC<ProgressProps> = ({ steps, currentStep }) => {
 							<Circle active={currentStep === i + 1} />
 							<Button
 								variant='link'
-								className={`text-left ${
-									currentStep === i + 1 ? 'font-weight-bold' : 'text-muted'
+								className={`text-left text-dark font-weight-bold ${
+									currentStep === i + 1 ? '' : 'text-muted'
 								}`}>
 								{step.toUpperCase()}
 							</Button>
 						</li>
-						{i !== 3 && <Divider />}
+						{i !== 3 && <Divider active={currentStep === i + 1} />}
 					</div>
 				))}
 			</ul>
