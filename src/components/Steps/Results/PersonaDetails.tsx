@@ -1,4 +1,4 @@
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+import { faPlusCircle, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { Col, Figure, Form, Row, Spinner } from 'react-bootstrap'
@@ -9,6 +9,7 @@ import img3 from '../../../assets/old_img3.png'
 import { AppContext } from '../../../App'
 import { StyledButton } from '../../Styles'
 import base from '../../../api/base'
+import PersonaDetail from './PersonaDetail'
 
 export interface PersonaDetailsProps {}
 
@@ -61,78 +62,18 @@ const PersonaDetails: React.FunctionComponent<PersonaDetailsProps> = () => {
 	return (
 		<Row className='mb-4'>
 			<Col>
-				<Row className='my-2'>
-					<Col>
-						<Form.Label className='font-weight-bold'>GENDER: </Form.Label>{' '}
-						{choices.gender ? (
-							<StyledButton variant='info'>{choices.gender}</StyledButton>
-						) : (
-							<div className='d-flex align-items-center'>
-								<DropdownWrapper
-									title='Please select...'
-									options={genderArray.map((item: any) => item.fields.Name)}
-									hasMargin
-									type='gender'
-									choices={choices}
-									handleChoice={setChoices}
-								/>
-								<FontAwesomeIcon icon={faTrashAlt} />
-							</div>
-						)}
-					</Col>
-				</Row>
-				<Row className='my-2'>
-					<Col>
-						<Form.Label className='font-weight-bold'>AGE RANGE: </Form.Label>{' '}
-						{choices.age ? (
-							<StyledButton variant='info'>{choices.age}</StyledButton>
-						) : (
-							<div className='d-flex align-items-center'>
-								<DropdownWrapper
-									title='Please select...'
-									options={ageArray.map((item: any) => item.fields.Name)}
-									hasMargin
-									type='age'
-									choices={choices}
-									handleChoice={setChoices}
-								/>
-								<FontAwesomeIcon icon={faTrashAlt} />
-							</div>
-						)}
-					</Col>
-				</Row>
-				<Row className='my-2'>
-					<Col>
-						<Form.Label className='font-weight-bold'>ISSUES: </Form.Label>
-						{choices.issues ? (
-							choices.issues.map((item) => (
-								<>
-									<div key={item} className='d-flex align-items-center'>
-										<StyledButton
-											variant='white'
-											className='text-info border-info'>
-											{item}
-										</StyledButton>
-										<FontAwesomeIcon icon={faTrashAlt} />
-									</div>
-									<FontAwesomeIcon icon={faTrashAlt} /> Add
-								</>
-							))
-						) : (
-							<div className='d-flex align-items-center w-100'>
-								<DropdownWrapper
-									title='Please select...'
-									options={issuesArray.map((item: any) => item.fields.Name)}
-									hasMargin
-									type='issues'
-									choices={choices}
-									handleChoice={setChoices}
-								/>
-								<FontAwesomeIcon icon={faTrashAlt} />
-							</div>
-						)}
-					</Col>
-				</Row>
+				<PersonaDetail
+					data={genderArray}
+					type='gender'
+					title='Gender Identification'
+				/>
+				<PersonaDetail data={ageArray} type='age' title='Age Range' />
+				<PersonaDetail
+					data={issuesArray}
+					type='issues'
+					title='Issues'
+					multiple
+				/>
 			</Col>
 			<Col>
 				<Row>
@@ -144,35 +85,12 @@ const PersonaDetails: React.FunctionComponent<PersonaDetailsProps> = () => {
 				</Row>
 				<Row className='my-2'>
 					<Col>
-						<Form.Label className='font-weight-bold'>
-							OTHER CHARACTERISTICS:
-						</Form.Label>
-						{choices.demographics && choices.demographics.length > 0 ? (
-							choices.demographics.map((item) => (
-								<div key={item} className='d-flex align-items-center'>
-									<StyledButton
-										variant='white'
-										className='text-info border-info'>
-										{item}
-									</StyledButton>
-									<FontAwesomeIcon icon={faTrashAlt} />
-								</div>
-							))
-						) : (
-							<div className='d-flex align-items-center'>
-								<DropdownWrapper
-									title='Please select...'
-									options={demographicsArray.map(
-										(item: any) => item.fields.Name
-									)}
-									hasMargin
-									type='demographics'
-									choices={choices}
-									handleChoice={setChoices}
-								/>
-								<FontAwesomeIcon icon={faTrashAlt} />
-							</div>
-						)}
+						<PersonaDetail
+							data={demographicsArray}
+							type='demographics'
+							title='Other Characteristics'
+							multiple
+						/>
 					</Col>
 				</Row>
 			</Col>

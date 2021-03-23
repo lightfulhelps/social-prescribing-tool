@@ -29,6 +29,8 @@ const DropdownWrapper: React.FunctionComponent<DropdownWrapperProps> = ({
 			[type]: e,
 		})
 	}
+
+	console.log(choices)
 	return (
 		<Dropdown className={`w-100 ${hasMargin ? 'mr-3' : ''}`}>
 			<Dropdown.Toggle
@@ -36,7 +38,7 @@ const DropdownWrapper: React.FunctionComponent<DropdownWrapperProps> = ({
 				variant='white'
 				className={`dropdown-toggle font-weight-bold text-info border-info w-100 ${props.className}`}
 				style={{ width: 270 }}>
-				{active === undefined ? title : active}
+				{choices[type] ? choices[type] : active === undefined ? title : active}
 			</Dropdown.Toggle>
 			<Dropdown.Menu className='w-100'>
 				{options.map((option, i) => (
