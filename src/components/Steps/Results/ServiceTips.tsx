@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, CardColumns, Col, Row } from 'react-bootstrap'
+import { Card, CardColumns, Col, Row, Spinner } from 'react-bootstrap'
 import {
 	faChevronDown,
 	faExternalLinkAlt,
@@ -30,6 +30,13 @@ const ServiceTips: React.FunctionComponent<ServiceTipsProps> = () => {
 	}, [])
 
 	const handleMore = () => setShowMore(!showMore)
+
+	if (loading)
+		return (
+			<Spinner animation='border' role='status'>
+				<span className='sr-only'>Loading...</span>
+			</Spinner>
+		)
 
 	if (!choices) return <p>Error, no choices found.</p>
 

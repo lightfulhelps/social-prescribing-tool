@@ -1,5 +1,5 @@
 import React from 'react'
-import { Col, Container, Button, Row } from 'react-bootstrap'
+import { Col, Container, Row } from 'react-bootstrap'
 import Navigation from './components/layout/Navigation'
 import Header from './components/Header'
 import Hero from './components/Hero'
@@ -7,17 +7,9 @@ import Demographics from './components/Steps/Demographics/Demographics'
 import Intro from './components/Steps/Intro/Intro'
 import Issues from './components/Steps/Issues/Issues'
 import Results from './components/Steps/Results/Results'
-import { Circle, Divider } from './components/Styles'
 import Progress from './components/layout/Progress'
 
 const steps = ['Introduction', 'Issues', 'Demographics', 'Results']
-
-// Test persona
-const persona = {
-	gender: 'Female',
-	age: '26-40',
-	issues: ['Low motivation/purpose'],
-}
 
 export type Choices = {
 	issues: string[]

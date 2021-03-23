@@ -1,7 +1,7 @@
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
-import { Col, Figure, Form, Row } from 'react-bootstrap'
+import { Col, Figure, Form, Row, Spinner } from 'react-bootstrap'
 import DropdownWrapper from '../../common/DropdownWrapper'
 import img1 from '../../../assets/old_img1.png'
 import img2 from '../../../assets/old_img2.png'
@@ -48,6 +48,13 @@ const PersonaDetails: React.FunctionComponent<PersonaDetailsProps> = () => {
 			})
 		setLoading(false)
 	}, [])
+
+	if (loading)
+		return (
+			<Spinner animation='border' role='status'>
+				<span className='sr-only'>Loading...</span>
+			</Spinner>
+		)
 
 	return (
 		<Row className='mb-4'>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Col, Row } from 'react-bootstrap'
+import { Col, Row, Spinner } from 'react-bootstrap'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { StyledButton } from '../../Styles'
@@ -28,6 +28,13 @@ const Challenges: React.FunctionComponent<ChallengesProps> = () => {
 	}, [])
 
 	const handleMore = () => setShowMore(!showMore)
+
+	if (loading)
+		return (
+			<Spinner animation='border' role='status'>
+				<span className='sr-only'>Loading...</span>
+			</Spinner>
+		)
 
 	if (!choices) return <p>Error, no choices found.</p>
 	return (

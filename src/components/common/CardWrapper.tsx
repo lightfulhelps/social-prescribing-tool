@@ -1,7 +1,6 @@
 import React from 'react'
 import Card from 'react-bootstrap/Card'
 import styled from 'styled-components'
-import { Choices } from '../../App'
 import { Issue } from '../Steps/Issues/Issues'
 import { Demographic } from '../Steps/Demographics/Demographics'
 

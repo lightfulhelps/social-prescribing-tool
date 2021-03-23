@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Col, Row } from 'react-bootstrap'
+import { Card, Col, Row, Spinner } from 'react-bootstrap'
 import { faChevronDown, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { StyledButton } from '../../Styles'
@@ -28,7 +28,15 @@ const CaseStudies: React.FunctionComponent<CaseStudiesProps> = () => {
 
 	const handleMore = () => setShowMore(!showMore)
 
+	if (loading)
+		return (
+			<Spinner animation='border' role='status'>
+				<span className='sr-only'>Loading...</span>
+			</Spinner>
+		)
+
 	if (!choices) return <p>Error, no choices found.</p>
+
 	return (
 		<>
 			<Row>

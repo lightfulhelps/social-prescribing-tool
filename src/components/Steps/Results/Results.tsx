@@ -1,25 +1,5 @@
-import {
-	faArrowDown,
-	faChevronDown,
-	faExternalLinkAlt,
-	faPlus,
-	faTrashAlt,
-} from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
-import {
-	Card,
-	CardColumns,
-	Col,
-	Figure,
-	Form,
-	Row,
-	Spinner,
-} from 'react-bootstrap'
-import base from '../../../api/base'
-import { AppContext, Choices } from '../../../App'
-import { CardLink, StyledButton } from '../../Styles'
-import DropdownWrapper from '../../common/DropdownWrapper'
+import { Choices } from '../../../App'
 import Challenges from './Challenges'
 import ServiceRecs from './ServiceTips'
 import OnlineResources from './OnlineResources'
@@ -49,51 +29,7 @@ export const getResults = ({
 }
 
 const Results: React.FunctionComponent<ResultsProps> = () => {
-	const { choices } = React.useContext(AppContext)
-	// const choices = {
-	// 	gender: 'Male',
-	// 	age: '18-25',
-	// }
-	const [resultsArray, setResultsArray] = React.useState([])
-	const [loading, setLoading] = React.useState(false)
-
-	// React.useEffect(() => {
-	// 	setLoading(true)
-	// 	base('Gender')
-	// 		.select({
-	// 			// Selecting the first 3 records in Grid view:
-	// 			maxRecords: 12,
-	// 			view: 'Grid view',
-	// 		})
-	// 		.eachPage(
-	// 			function page(records, fetchNextPage) {
-	// 				// This function (`page`) will get called for each page of records.
-	// 				records.forEach(function (record) {
-	// 					console.log('Retrieved', record.get('Name'))
-	// 				})
-
-	// 				// To fetch the next page of records, call `fetchNextPage`.
-	// 				// If there are more records, `page` will get called again.
-	// 				// If there are no more records, `done` will get called.
-	// 				fetchNextPage()
-	// 			},
-	// 			function done(err) {
-	// 				if (err) {
-	// 					console.error(err)
-	// 					return
-	// 				}
-	// 			}
-	// 		)
-	// }, [])
-
-	if (loading)
-		return (
-			<Spinner animation='border' role='status'>
-				<span className='sr-only'>Loading...</span>
-			</Spinner>
-		)
-
-	const data = {
+	const genderData = {
 		recnGP1GF49pCQvwJ: 'Female',
 		reclmJZ5VtKCKZYhx: 'Male',
 		reclb6Xvp5W2z73i0: 'Transgender',

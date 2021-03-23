@@ -4,7 +4,7 @@ import {
 	faExternalLinkAlt,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Card, CardColumns, Col, Row } from 'react-bootstrap'
+import { Card, CardColumns, Col, Row, Spinner } from 'react-bootstrap'
 import base from '../../../api/base'
 import { AppContext } from '../../../App'
 import { CardLink, StyledButton } from '../../Styles'
@@ -30,6 +30,13 @@ const OnlineResources: React.FunctionComponent<OnlineResourcesProps> = () => {
 	}, [])
 
 	const handleMore = () => setShowMore(!showMore)
+
+	if (loading)
+		return (
+			<Spinner animation='border' role='status'>
+				<span className='sr-only'>Loading...</span>
+			</Spinner>
+		)
 
 	if (!choices) return <p>Error, no choices found.</p>
 	return (
