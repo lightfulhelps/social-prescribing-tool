@@ -1,9 +1,9 @@
 import React from 'react'
 import { Col, Row, Spinner } from 'react-bootstrap'
-import CardWrapper from './CardWrapper'
-import placeholderImg from '../../assets/image1.png'
-import { AppContext, Choices } from '../../App'
-import base from '../../api/base'
+import CardWrapper from '../../common/CardWrapper'
+import placeholderImg from '../../../assets/image1.png'
+import { AppContext } from '../../../App'
+import base from '../../../api/base'
 
 export type Issue = {
 	id: 'string'
@@ -21,7 +21,6 @@ export interface IssuesProps {}
 
 const Issues: React.FunctionComponent<IssuesProps> = () => {
 	const { choices, setChoices } = React.useContext(AppContext)
-	console.log(choices)
 	const [issuesArray, setIssuesArray] = React.useState<any>([])
 	const [loading, setLoading] = React.useState(false)
 
@@ -30,7 +29,6 @@ const Issues: React.FunctionComponent<IssuesProps> = () => {
 		base('Issues')
 			.select({ view: 'Grid view' })
 			.eachPage((records, processNextPage) => {
-				// console.log(records)
 				setIssuesArray(records)
 				processNextPage()
 				setLoading(false)

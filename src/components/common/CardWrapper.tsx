@@ -2,8 +2,8 @@ import React from 'react'
 import Card from 'react-bootstrap/Card'
 import styled from 'styled-components'
 import { Choices } from '../../App'
-import { Issue } from './Issues'
-import { Demographic } from './Demographics'
+import { Issue } from '../Steps/Issues/Issues'
+import { Demographic } from '../Steps/Demographics/Demographics'
 
 export interface CardWrapperProps {
 	imageUrl: string

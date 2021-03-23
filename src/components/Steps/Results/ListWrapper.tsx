@@ -10,7 +10,6 @@ const ListWrapper: React.FunctionComponent<ListWrapperProps> = ({
 	data,
 	type,
 }) => {
-	console.log(data)
 	return (
 		<ListGroup>
 			{data.map((item: any) => (
