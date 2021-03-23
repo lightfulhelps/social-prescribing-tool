@@ -28,8 +28,6 @@ const DropdownWrapper: React.FunctionComponent<DropdownWrapperProps> = ({
 			[type]: e,
 		})
 	}
-
-	console.log(choices)
 	return (
 		<Dropdown className={`w-100 ${hasMargin ? 'mr-3' : ''}`}>
 			<Dropdown.Toggle

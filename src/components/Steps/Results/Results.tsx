@@ -58,11 +58,7 @@ export const getResults = ({
 					: item
 				: item
 		)
-	console.log('CHOICES: ', choices)
-	console.log(`ORIGINAL ${type} DATA: `, data)
-	console.log('RESULTS: ', results)
 	return results
-	// .filter((item) => item['Issues'].includes(persona.issues))
 }
 
 const Results: React.FunctionComponent<ResultsProps> = () => {
