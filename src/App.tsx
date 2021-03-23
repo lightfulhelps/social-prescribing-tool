@@ -48,7 +48,6 @@ const App: React.FunctionComponent = () => {
 		setCurrentStep(1)
 	}
 
-	console.log(choices)
 	return (
 		<AppContext.Provider
 			value={{

@@ -84,7 +84,7 @@ const PersonaDetails: React.FunctionComponent<PersonaDetailsProps> = () => {
 				<Row className='my-2'>
 					<Col>
 						<Form.Label className='font-weight-bold'>AGE RANGE: </Form.Label>{' '}
-						{choices.gender ? (
+						{choices.age ? (
 							<StyledButton variant='info'>{choices.age}</StyledButton>
 						) : (
 							<div className='d-flex align-items-center'>
@@ -104,8 +104,20 @@ const PersonaDetails: React.FunctionComponent<PersonaDetailsProps> = () => {
 				<Row className='my-2'>
 					<Col>
 						<Form.Label className='font-weight-bold'>ISSUES: </Form.Label>
-						{choices.gender ? (
-							<StyledButton variant='info'>{choices.age}</StyledButton>
+						{choices.issues ? (
+							choices.issues.map((item) => (
+								<>
+									<div key={item} className='d-flex align-items-center'>
+										<StyledButton
+											variant='white'
+											className='text-info border-info'>
+											{item}
+										</StyledButton>
+										<FontAwesomeIcon icon={faTrashAlt} />
+									</div>
+									<FontAwesomeIcon icon={faTrashAlt} /> Add
+								</>
+							))
 						) : (
 							<div className='d-flex align-items-center w-100'>
 								<DropdownWrapper
@@ -137,7 +149,7 @@ const PersonaDetails: React.FunctionComponent<PersonaDetailsProps> = () => {
 						</Form.Label>
 						{choices.demographics && choices.demographics.length > 0 ? (
 							choices.demographics.map((item) => (
-								<div className='d-flex align-items-center'>
+								<div key={item} className='d-flex align-items-center'>
 									<StyledButton
 										variant='white'
 										className='text-info border-info'>

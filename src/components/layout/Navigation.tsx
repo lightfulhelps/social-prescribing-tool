@@ -28,6 +28,8 @@ const Navigation: React.SFC<NavigationProps> = ({
 			</Row>
 		)
 
+	if (!choices) return <p>Error, no choices found.</p>
+
 	return (
 		<Row className='mt-5 fixed-bottom bg-white'>
 			<Col
@@ -59,9 +61,7 @@ const Navigation: React.SFC<NavigationProps> = ({
 						onClick={() => handleNext()}
 						disabled={
 							currentStep === 2
-								? choices?.issues.length === 0
-								: currentStep === 3
-								? choices?.issues.length === 0
+								? choices.issues.length === 0 || choices.issues.length > 3
 								: false
 						}>
 						Next <FontAwesomeIcon icon={faArrowRight} />
