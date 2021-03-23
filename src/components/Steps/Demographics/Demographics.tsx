@@ -40,21 +40,21 @@ const Demographics: React.FunctionComponent<DemographicsProps> = () => {
 		setLoading(true)
 		base('Other')
 			.select({ view: 'Grid view' })
-			.eachPage((records, processNextPage) => {
+			.eachPage((records, fetchNextPage) => {
 				setDemographicsArray(records)
-				processNextPage()
+				fetchNextPage()
 			})
 		base('Gender')
 			.select({ view: 'Grid view' })
-			.eachPage((records, processNextPage) => {
+			.eachPage((records, fetchNextPage) => {
 				setGenderArray(records)
-				processNextPage()
+				fetchNextPage()
 			})
 		base('Age Range')
 			.select({ view: 'Grid view' })
-			.eachPage((records, processNextPage) => {
+			.eachPage((records, fetchNextPage) => {
 				setAgeArray(records)
-				processNextPage()
+				fetchNextPage()
 			})
 		setLoading(false)
 	}, [])
@@ -92,24 +92,24 @@ const Demographics: React.FunctionComponent<DemographicsProps> = () => {
 				</Col>
 			</Row>
 			<Row className='mb-4'>
-				<Col className='d-flex'>
-					<div>
-						<Form.Label className='font-weight-bold'>
-							Gender Identification
-						</Form.Label>
-						<DropdownWrapper
-							title='Choose gender'
-							options={genderArray.map((item: any) => item.fields.Name)}
-							hasMargin
-						/>
-					</div>
-					<div>
-						<Form.Label className='font-weight-bold'>Age Range</Form.Label>
-						<DropdownWrapper
-							title='Choose age range'
-							options={ageArray.map((item: any) => item.fields.Name)}
-						/>
-					</div>
+				<Col lg={4}>
+					<Form.Label className='font-weight-bold'>
+						GENDER IDENTIFICATION:
+					</Form.Label>
+					<DropdownWrapper
+						title='Please select...'
+						options={genderArray.map((item: any) => item.fields.Name)}
+						hasMargin
+						className='d-flex justify-content-between align-items-center'
+					/>
+				</Col>
+				<Col lg={4}>
+					<Form.Label className='font-weight-bold'>AGE RANGE:</Form.Label>
+					<DropdownWrapper
+						title='Please select...'
+						options={ageArray.map((item: any) => item.fields.Name)}
+						className='d-flex justify-content-between align-items-center'
+					/>
 				</Col>
 			</Row>
 			<Row>

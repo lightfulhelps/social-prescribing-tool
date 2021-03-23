@@ -6,12 +6,14 @@ export interface DropdownWrapperProps {
 	title: string
 	options: Array<string>
 	hasMargin?: boolean
+	className?: string
 }
 
 const DropdownWrapper: React.FunctionComponent<DropdownWrapperProps> = ({
 	title,
 	options,
 	hasMargin,
+	...props
 }) => {
 	const { choices, setChoices } = React.useContext(AppContext)
 	const [active, setActive] = React.useState<string>()
@@ -20,7 +22,7 @@ const DropdownWrapper: React.FunctionComponent<DropdownWrapperProps> = ({
 			<Dropdown.Toggle
 				id='dropdown-basic'
 				variant='white'
-				className='dropdown-toggle font-weight-bold text-info border-info w-100'
+				className={`dropdown-toggle font-weight-bold text-info border-info w-100 ${props.className}`}
 				style={{ width: 270 }}>
 				{active === undefined ? title : active}
 			</Dropdown.Toggle>

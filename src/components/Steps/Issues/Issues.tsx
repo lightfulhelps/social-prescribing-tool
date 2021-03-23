@@ -28,9 +28,9 @@ const Issues: React.FunctionComponent<IssuesProps> = () => {
 		setLoading(true)
 		base('Issues')
 			.select({ view: 'Grid view' })
-			.eachPage((records, processNextPage) => {
+			.eachPage((records, fetchNextPage) => {
 				setIssuesArray(records)
-				processNextPage()
+				fetchNextPage()
 				setLoading(false)
 			})
 	}, [])

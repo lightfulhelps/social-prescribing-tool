@@ -6,46 +6,101 @@ import DropdownWrapper from '../../common/DropdownWrapper'
 import img1 from '../../../assets/old_img1.png'
 import img2 from '../../../assets/old_img2.png'
 import img3 from '../../../assets/old_img3.png'
+import { AppContext } from '../../../App'
+import { StyledButton } from '../../Styles'
+import base from '../../../api/base'
 
 export interface PersonaDetailsProps {}
 
 const PersonaDetails: React.FunctionComponent<PersonaDetailsProps> = () => {
+	const { choices, setChoices } = React.useContext(AppContext)
+	const [genderArray, setGenderArray] = React.useState<any>([])
+	const [ageArray, setAgeArray] = React.useState<any>([])
+	const [demographicsArray, setDemographicsArray] = React.useState<any>([])
+	const [issuesArray, setIssuesArray] = React.useState<any>([])
+	const [loading, setLoading] = React.useState(false)
+
+	React.useEffect(() => {
+		setLoading(true)
+		base('Gender')
+			.select({ view: 'Grid view' })
+			.eachPage((records, fetchNextPage) => {
+				setGenderArray(records)
+				fetchNextPage()
+			})
+		base('Age Range')
+			.select({ view: 'Grid view' })
+			.eachPage((records, fetchNextPage) => {
+				setAgeArray(records)
+				fetchNextPage()
+			})
+		base('Issues')
+			.select({ view: 'Grid view' })
+			.eachPage((records, fetchNextPage) => {
+				setIssuesArray(records)
+				fetchNextPage()
+			})
+		base('Other')
+			.select({ view: 'Grid view' })
+			.eachPage((records, fetchNextPage) => {
+				setDemographicsArray(records)
+				fetchNextPage()
+			})
+		setLoading(false)
+	}, [])
+
 	return (
 		<Row className='mb-4'>
 			<Col>
 				<Row className='my-2'>
 					<Col>
 						<Form.Label className='font-weight-bold'>GENDER: </Form.Label>{' '}
-						<div className='d-flex align-items-center'>
-							<DropdownWrapper title='Female' options={['1', '2']} hasMargin />
-							<FontAwesomeIcon icon={faTrashAlt} />
-						</div>
+						{choices?.gender ? (
+							<StyledButton variant='info'>{choices?.gender}</StyledButton>
+						) : (
+							<div className='d-flex align-items-center'>
+								<DropdownWrapper
+									title='Please select'
+									options={genderArray.map((item: any) => item.fields.Name)}
+									hasMargin
+								/>
+								<FontAwesomeIcon icon={faTrashAlt} />
+							</div>
+						)}
 					</Col>
 				</Row>
 				<Row className='my-2'>
 					<Col>
 						<Form.Label className='font-weight-bold'>AGE RANGE: </Form.Label>{' '}
-						<div className='d-flex align-items-center'>
-							<DropdownWrapper
-								title='66-80 Years'
-								options={['1', '2']}
-								hasMargin
-							/>
-							<FontAwesomeIcon icon={faTrashAlt} />
-						</div>
+						{choices?.gender ? (
+							<StyledButton variant='info'>{choices?.age}</StyledButton>
+						) : (
+							<div className='d-flex align-items-center'>
+								<DropdownWrapper
+									title='Please select...'
+									options={ageArray.map((item: any) => item.fields.Name)}
+									hasMargin
+								/>
+								<FontAwesomeIcon icon={faTrashAlt} />
+							</div>
+						)}
 					</Col>
 				</Row>
 				<Row className='my-2'>
 					<Col>
-						<Form.Label className='font-weight-bold'>ISSUES: </Form.Label>{' '}
-						<div className='d-flex align-items-center w-100'>
-							<DropdownWrapper
-								title='66-80 Years'
-								options={['1', '2']}
-								hasMargin
-							/>
-							<FontAwesomeIcon icon={faTrashAlt} />
-						</div>
+						<Form.Label className='font-weight-bold'>ISSUES: </Form.Label>
+						{choices?.gender ? (
+							<StyledButton variant='info'>{choices?.age}</StyledButton>
+						) : (
+							<div className='d-flex align-items-center w-100'>
+								<DropdownWrapper
+									title='Please select...'
+									options={issuesArray.map((item: any) => item.fields.Name)}
+									hasMargin
+								/>
+								<FontAwesomeIcon icon={faTrashAlt} />
+							</div>
+						)}
 					</Col>
 				</Row>
 			</Col>
@@ -60,16 +115,27 @@ const PersonaDetails: React.FunctionComponent<PersonaDetailsProps> = () => {
 				<Row className='my-2'>
 					<Col>
 						<Form.Label className='font-weight-bold'>
-							OTHER CHARACTERISTICS:{' '}
+							OTHER CHARACTERISTICS:
 						</Form.Label>
-						<div className='d-flex align-items-center'>
-							<DropdownWrapper
-								title='66-80 Years'
-								options={['1', '2']}
-								hasMargin
-							/>
-							<FontAwesomeIcon icon={faTrashAlt} />
-						</div>
+						{choices?.demographics && choices?.demographics.length > 0 ? (
+							choices?.demographics.map((item) => (
+								<div className='d-flex align-items-center'>
+									<StyledButton variant='info'>{item}</StyledButton>
+									<FontAwesomeIcon icon={faTrashAlt} />
+								</div>
+							))
+						) : (
+							<div className='d-flex align-items-center'>
+								<DropdownWrapper
+									title='Please select...'
+									options={demographicsArray.map(
+										(item: any) => item.fields.Name
+									)}
+									hasMargin
+								/>
+								<FontAwesomeIcon icon={faTrashAlt} />
+							</div>
+						)}
 					</Col>
 				</Row>
 			</Col>
