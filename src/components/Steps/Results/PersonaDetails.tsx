@@ -1,20 +1,16 @@
-import { faPlusCircle, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
-import { Col, Figure, Form, Row, Spinner } from 'react-bootstrap'
-import DropdownWrapper from '../../common/DropdownWrapper'
+import { Col, Figure, Row, Spinner } from 'react-bootstrap'
 import img1 from '../../../assets/old_img1.png'
 import img2 from '../../../assets/old_img2.png'
 import img3 from '../../../assets/old_img3.png'
 import { AppContext } from '../../../App'
-import { StyledButton } from '../../Styles'
 import base from '../../../api/base'
 import PersonaDetail from './PersonaDetail'
 
 export interface PersonaDetailsProps {}
 
 const PersonaDetails: React.FunctionComponent<PersonaDetailsProps> = () => {
-	const { choices, setChoices } = React.useContext(AppContext)
+	const { choices } = React.useContext(AppContext)
 	const [genderArray, setGenderArray] = React.useState<any>([])
 	const [ageArray, setAgeArray] = React.useState<any>([])
 	const [demographicsArray, setDemographicsArray] = React.useState<any>([])

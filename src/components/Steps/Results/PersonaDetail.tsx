@@ -1,8 +1,8 @@
 import { faPlusCircle, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
-import { Col, Form, Row, Spinner } from 'react-bootstrap'
-import { AppContext, Choices } from '../../../App'
+import { Col, Form, Row } from 'react-bootstrap'
+import { AppContext } from '../../../App'
 import DropdownWrapper from '../../common/DropdownWrapper'
 
 export interface PersonaDetailProps {

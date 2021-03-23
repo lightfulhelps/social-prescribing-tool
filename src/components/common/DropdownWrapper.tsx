@@ -1,6 +1,5 @@
 import React from 'react'
 import { Dropdown } from 'react-bootstrap'
-import { AppContext, Choices } from '../../App'
 
 export interface DropdownWrapperProps {
 	title: string
