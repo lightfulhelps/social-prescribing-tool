@@ -28,7 +28,7 @@ export const AppContext = React.createContext<Partial<ContextProps>>({})
 const App: React.FunctionComponent = () => {
 	const [currentStep, setCurrentStep] = React.useState<number>(1)
 	const [choices, setChoices] = React.useState<Choices>({
-		issues: ['test'],
+		issues: [],
 		demographics: [],
 		gender: '',
 		age: '',
@@ -48,6 +48,7 @@ const App: React.FunctionComponent = () => {
 		setCurrentStep(1)
 	}
 
+	console.log(choices)
 	return (
 		<AppContext.Provider
 			value={{

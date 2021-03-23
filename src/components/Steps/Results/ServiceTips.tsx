@@ -51,7 +51,7 @@ const ServiceTips: React.FunctionComponent<ServiceTipsProps> = () => {
 							.map(
 								(item: any) =>
 									item.fields['Link'] && (
-										<Card style={{ height: '220px' }}>
+										<Card key={item.id} style={{ height: '220px' }}>
 											<Card.Body>
 												<Card.Title>{item.fields['Select']}</Card.Title>
 												<Card.Text>{item.fields['Description']}</Card.Text>

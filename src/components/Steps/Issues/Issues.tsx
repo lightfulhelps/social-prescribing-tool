@@ -54,7 +54,7 @@ const Issues: React.FunctionComponent<IssuesProps> = () => {
 						<CardWrapper
 							imageUrl={placeholderImg}
 							item={issue}
-							choices={choices?.issues}
+							choices={choices}
 							setChoices={setChoices}
 							type='issues'
 						/>

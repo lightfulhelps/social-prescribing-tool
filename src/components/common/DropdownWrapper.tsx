@@ -1,20 +1,34 @@
 import React from 'react'
 import { Dropdown } from 'react-bootstrap'
+import { AppContext, Choices } from '../../App'
 
 export interface DropdownWrapperProps {
 	title: string
 	options: Array<string>
 	hasMargin?: boolean
 	className?: string
+	choices: any
+	handleChoice: any
+	type: string
 }
 
 const DropdownWrapper: React.FunctionComponent<DropdownWrapperProps> = ({
 	title,
 	options,
 	hasMargin,
+	choices,
+	handleChoice,
+	type,
 	...props
 }) => {
 	const [active, setActive] = React.useState<string>()
+	const handleSelect = (e: any) => {
+		setActive(e)
+		handleChoice({
+			...choices,
+			[type]: e,
+		})
+	}
 	return (
 		<Dropdown className={`w-100 ${hasMargin ? 'mr-3' : ''}`}>
 			<Dropdown.Toggle
@@ -29,7 +43,7 @@ const DropdownWrapper: React.FunctionComponent<DropdownWrapperProps> = ({
 					<Dropdown.Item
 						eventKey={option}
 						key={`${option}${i}`}
-						onSelect={(e: any) => setActive(e)}
+						onSelect={(e: any) => handleSelect(e)}
 						active={active === option}>
 						{option}
 					</Dropdown.Item>

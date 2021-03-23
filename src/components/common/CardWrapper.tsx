@@ -26,9 +26,11 @@ const CardWrapper: React.FunctionComponent<CardWrapperProps> = ({
 	const [active, setActive] = React.useState<boolean>(false)
 
 	const handleClick = () => {
+		console.log(choices)
 		if (!active) {
 			setChoices({
-				[type]: [...choices],
+				...choices,
+				[type]: [...choices[type], item.fields.Name],
 			})
 			setActive(!active)
 			return

@@ -37,6 +37,8 @@ const CaseStudies: React.FunctionComponent<CaseStudiesProps> = () => {
 
 	if (!choices) return <p>Error, no choices found.</p>
 
+	console.log(choices)
+
 	return (
 		<>
 			<Row>

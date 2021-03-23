@@ -56,20 +56,25 @@ const PersonaDetails: React.FunctionComponent<PersonaDetailsProps> = () => {
 			</Spinner>
 		)
 
+	if (!choices) return <p>Error, no choices found.</p>
+
 	return (
 		<Row className='mb-4'>
 			<Col>
 				<Row className='my-2'>
 					<Col>
 						<Form.Label className='font-weight-bold'>GENDER: </Form.Label>{' '}
-						{choices?.gender ? (
-							<StyledButton variant='info'>{choices?.gender}</StyledButton>
+						{choices.gender ? (
+							<StyledButton variant='info'>{choices.gender}</StyledButton>
 						) : (
 							<div className='d-flex align-items-center'>
 								<DropdownWrapper
-									title='Please select'
+									title='Please select...'
 									options={genderArray.map((item: any) => item.fields.Name)}
 									hasMargin
+									type='gender'
+									choices={choices}
+									handleChoice={setChoices}
 								/>
 								<FontAwesomeIcon icon={faTrashAlt} />
 							</div>
@@ -79,14 +84,17 @@ const PersonaDetails: React.FunctionComponent<PersonaDetailsProps> = () => {
 				<Row className='my-2'>
 					<Col>
 						<Form.Label className='font-weight-bold'>AGE RANGE: </Form.Label>{' '}
-						{choices?.gender ? (
-							<StyledButton variant='info'>{choices?.age}</StyledButton>
+						{choices.gender ? (
+							<StyledButton variant='info'>{choices.age}</StyledButton>
 						) : (
 							<div className='d-flex align-items-center'>
 								<DropdownWrapper
 									title='Please select...'
 									options={ageArray.map((item: any) => item.fields.Name)}
 									hasMargin
+									type='age'
+									choices={choices}
+									handleChoice={setChoices}
 								/>
 								<FontAwesomeIcon icon={faTrashAlt} />
 							</div>
@@ -96,14 +104,17 @@ const PersonaDetails: React.FunctionComponent<PersonaDetailsProps> = () => {
 				<Row className='my-2'>
 					<Col>
 						<Form.Label className='font-weight-bold'>ISSUES: </Form.Label>
-						{choices?.gender ? (
-							<StyledButton variant='info'>{choices?.age}</StyledButton>
+						{choices.gender ? (
+							<StyledButton variant='info'>{choices.age}</StyledButton>
 						) : (
 							<div className='d-flex align-items-center w-100'>
 								<DropdownWrapper
 									title='Please select...'
 									options={issuesArray.map((item: any) => item.fields.Name)}
 									hasMargin
+									type='issues'
+									choices={choices}
+									handleChoice={setChoices}
 								/>
 								<FontAwesomeIcon icon={faTrashAlt} />
 							</div>
@@ -124,10 +135,14 @@ const PersonaDetails: React.FunctionComponent<PersonaDetailsProps> = () => {
 						<Form.Label className='font-weight-bold'>
 							OTHER CHARACTERISTICS:
 						</Form.Label>
-						{choices?.demographics && choices?.demographics.length > 0 ? (
-							choices?.demographics.map((item) => (
+						{choices.demographics && choices.demographics.length > 0 ? (
+							choices.demographics.map((item) => (
 								<div className='d-flex align-items-center'>
-									<StyledButton variant='info'>{item}</StyledButton>
+									<StyledButton
+										variant='white'
+										className='text-info border-info'>
+										{item}
+									</StyledButton>
 									<FontAwesomeIcon icon={faTrashAlt} />
 								</div>
 							))
@@ -139,6 +154,9 @@ const PersonaDetails: React.FunctionComponent<PersonaDetailsProps> = () => {
 										(item: any) => item.fields.Name
 									)}
 									hasMargin
+									type='demographics'
+									choices={choices}
+									handleChoice={setChoices}
 								/>
 								<FontAwesomeIcon icon={faTrashAlt} />
 							</div>

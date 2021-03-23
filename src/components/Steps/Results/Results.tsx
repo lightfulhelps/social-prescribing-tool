@@ -17,13 +17,14 @@ export const getResults = ({
 	type: string
 	choices: Choices
 }) => {
+	console.log(data)
 	return data
 		.filter((item: any) => item.fields[type] && item.fields[type].length !== 0)
 		.filter((item: any) =>
-			choices?.gender ? item.fields['Gender'].includes(choices?.gender) : item
+			choices.gender ? item.fields['Gender'].includes(choices.gender) : item
 		)
 		.filter((item: any) =>
-			choices?.age ? item.fields['Age Range'].includes(choices?.age) : item
+			choices.age ? item.fields['Age Range'].includes(choices.age) : item
 		)
 	// .filter((item) => item['Issues'].includes(persona.issues))
 }

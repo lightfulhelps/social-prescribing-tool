@@ -101,6 +101,9 @@ const Demographics: React.FunctionComponent<DemographicsProps> = () => {
 						options={genderArray.map((item: any) => item.fields.Name)}
 						hasMargin
 						className='d-flex justify-content-between align-items-center'
+						type='gender'
+						choices={choices}
+						handleChoice={setChoices}
 					/>
 				</Col>
 				<Col lg={4}>
@@ -109,6 +112,9 @@ const Demographics: React.FunctionComponent<DemographicsProps> = () => {
 						title='Please select...'
 						options={ageArray.map((item: any) => item.fields.Name)}
 						className='d-flex justify-content-between align-items-center'
+						type='age'
+						choices={choices}
+						handleChoice={setChoices}
 					/>
 				</Col>
 			</Row>
@@ -118,7 +124,7 @@ const Demographics: React.FunctionComponent<DemographicsProps> = () => {
 						<CardWrapper
 							imageUrl={placeholderImg}
 							item={demographic}
-							choices={choices?.demographics}
+							choices={choices}
 							setChoices={setChoices}
 							type='demographics'
 						/>
