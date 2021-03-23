@@ -26,7 +26,6 @@ const CardWrapper: React.FunctionComponent<CardWrapperProps> = ({
 	const [active, setActive] = React.useState<boolean>(false)
 
 	const handleClick = () => {
-		console.log(choices)
 		if (!active) {
 			setChoices({
 				...choices,
@@ -35,10 +34,10 @@ const CardWrapper: React.FunctionComponent<CardWrapperProps> = ({
 			setActive(!active)
 			return
 		}
+
 		setChoices({
-			[type]: choices.filter((each: any) => each !== item.fields.Name),
-			gender: choices.gender,
-			age: choices.age,
+			...choices,
+			[type]: choices[type].filter((each: any) => each !== item.fields.Name),
 		})
 		setActive(!active)
 	}
