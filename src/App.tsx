@@ -8,6 +8,7 @@ import Intro from './components/Steps/Intro/Intro'
 import Issues from './components/Steps/Issues/Issues'
 import Results from './components/Steps/Results/Results'
 import { Circle, Divider } from './components/Styles'
+import Progress from './components/layout/Progress'
 
 const steps = ['Introduction', 'Issues', 'Demographics', 'Results']
 
@@ -72,27 +73,7 @@ const App: React.FunctionComponent = () => {
 			<Container className='my-4 pb-5'>
 				{currentStep !== 4 && (
 					<Row>
-						<Col sm={3} className='flex-column'>
-							<ul className='pl-0'>
-								{steps.map((step, i) => (
-									<div key={i}>
-										<li className='list-unstyled'>
-											<Circle active={currentStep === i + 1} />
-											<Button
-												variant='link'
-												className={`text-left ${
-													currentStep === i + 1
-														? 'font-weight-bold'
-														: 'text-muted'
-												}`}>
-												{step.toUpperCase()}
-											</Button>
-										</li>
-										<Divider />
-									</div>
-								))}
-							</ul>
-						</Col>
+						<Progress steps={steps} currentStep={currentStep} />
 						<Col>
 							{currentStep === 1 && <Intro />}
 							{currentStep === 2 && <Issues />}
