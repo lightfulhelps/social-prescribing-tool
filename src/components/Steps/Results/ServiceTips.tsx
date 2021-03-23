@@ -17,8 +17,7 @@ const ServiceTips: React.FunctionComponent<ServiceTipsProps> = () => {
 
 	const [serviceArray, setServiceArray] = React.useState<any>([])
 	const [loading, setLoading] = React.useState(false)
-
-	const handleMore = () => console.log('Loading more...')
+	const [showMore, setShowMore] = React.useState(false)
 
 	React.useEffect(() => {
 		base('Service Recommendations')
@@ -29,6 +28,8 @@ const ServiceTips: React.FunctionComponent<ServiceTipsProps> = () => {
 				setLoading(false)
 			})
 	}, [])
+
+	const handleMore = () => setShowMore(!showMore)
 
 	if (!choices) return <p>Error, no choices found.</p>
 
@@ -54,13 +55,37 @@ const ServiceTips: React.FunctionComponent<ServiceTipsProps> = () => {
 										</Card>
 									)
 							)}
+						{showMore &&
+							getResults({ data: serviceArray, type: 'Description', choices })
+								.slice(6)
+								.map(
+									(item: any) =>
+										item.fields['Link'] && (
+											<Card style={{ height: '220px' }}>
+												<Card.Body>
+													<Card.Title>{item.fields['Select']}</Card.Title>
+													<Card.Text>{item.fields['Description']}</Card.Text>
+													<CardLink href={item.fields['Link']} target='_blank'>
+														READ MORE{' '}
+														<FontAwesomeIcon icon={faExternalLinkAlt} />
+													</CardLink>
+												</Card.Body>
+											</Card>
+										)
+								)}
 					</CardColumns>
 				</Col>
 			</Row>
 			<Row className='justify-content-center mb-4'>
-				<StyledButton variant='info' onClick={() => handleMore()}>
-					VIEW MORE <FontAwesomeIcon icon={faChevronDown} />
-				</StyledButton>
+				{!showMore ? (
+					<StyledButton variant='info' onClick={() => handleMore()}>
+						VIEW MORE <FontAwesomeIcon icon={faChevronDown} />
+					</StyledButton>
+				) : (
+					<StyledButton variant='info' onClick={() => handleMore()}>
+						VIEW LESS <FontAwesomeIcon icon={faChevronDown} />
+					</StyledButton>
+				)}
 			</Row>
 		</>
 	)

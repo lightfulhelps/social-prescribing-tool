@@ -14,8 +14,7 @@ const CaseStudies: React.FunctionComponent<CaseStudiesProps> = () => {
 
 	const [caseStudiesArray, setCaseStudiesArray] = React.useState<any>([])
 	const [loading, setLoading] = React.useState(false)
-
-	const handleMore = () => console.log('Loading more...')
+	const [showMore, setShowMore] = React.useState(false)
 
 	React.useEffect(() => {
 		base('Case Studies')
@@ -26,6 +25,8 @@ const CaseStudies: React.FunctionComponent<CaseStudiesProps> = () => {
 				setLoading(false)
 			})
 	}, [])
+
+	const handleMore = () => setShowMore(!showMore)
 
 	if (!choices) return <p>Error, no choices found.</p>
 	return (
@@ -104,9 +105,15 @@ const CaseStudies: React.FunctionComponent<CaseStudiesProps> = () => {
 				</Col>
 			</Row>
 			<Row className='justify-content-center'>
-				<StyledButton variant='info' onClick={() => handleMore()}>
-					VIEW MORE <FontAwesomeIcon icon={faChevronDown} />
-				</StyledButton>
+				{!showMore ? (
+					<StyledButton variant='info' onClick={() => handleMore()}>
+						VIEW MORE <FontAwesomeIcon icon={faChevronDown} />
+					</StyledButton>
+				) : (
+					<StyledButton variant='info' onClick={() => handleMore()}>
+						VIEW LESS <FontAwesomeIcon icon={faChevronDown} />
+					</StyledButton>
+				)}
 			</Row>
 		</>
 	)

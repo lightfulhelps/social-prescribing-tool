@@ -17,8 +17,7 @@ const OnlineResources: React.FunctionComponent<OnlineResourcesProps> = () => {
 
 	const [resourcesArray, setResourcesArray] = React.useState<any>([])
 	const [loading, setLoading] = React.useState(false)
-
-	const handleMore = () => console.log('Loading more...')
+	const [showMore, setShowMore] = React.useState(false)
 
 	React.useEffect(() => {
 		base('Online Resources')
@@ -29,6 +28,8 @@ const OnlineResources: React.FunctionComponent<OnlineResourcesProps> = () => {
 				setLoading(false)
 			})
 	}, [])
+
+	const handleMore = () => setShowMore(!showMore)
 
 	if (!choices) return <p>Error, no choices found.</p>
 	return (
@@ -54,9 +55,15 @@ const OnlineResources: React.FunctionComponent<OnlineResourcesProps> = () => {
 				</Col>
 			</Row>
 			<Row className='justify-content-center mb-4'>
-				<StyledButton variant='info' onClick={() => handleMore()}>
-					VIEW MORE <FontAwesomeIcon icon={faChevronDown} />
-				</StyledButton>
+				{!showMore ? (
+					<StyledButton variant='info' onClick={() => handleMore()}>
+						VIEW MORE <FontAwesomeIcon icon={faChevronDown} />
+					</StyledButton>
+				) : (
+					<StyledButton variant='info' onClick={() => handleMore()}>
+						VIEW LESS <FontAwesomeIcon icon={faChevronDown} />
+					</StyledButton>
+				)}
 			</Row>
 		</>
 	)

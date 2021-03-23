@@ -1,6 +1,6 @@
 import React from 'react'
 import { Col, Row } from 'react-bootstrap'
-import { faArrowDown } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { StyledButton } from '../../Styles'
 import ListWrapper from './ListWrapper'
@@ -15,6 +15,7 @@ const Challenges: React.FunctionComponent<ChallengesProps> = () => {
 
 	const [challengesArray, setChallengesArray] = React.useState<any>([])
 	const [loading, setLoading] = React.useState(false)
+	const [showMore, setShowMore] = React.useState(false)
 
 	React.useEffect(() => {
 		base('Challenges and Obstacles')
@@ -26,7 +27,7 @@ const Challenges: React.FunctionComponent<ChallengesProps> = () => {
 			})
 	}, [])
 
-	const handleMore = () => console.log('Loading more...')
+	const handleMore = () => setShowMore(!showMore)
 
 	if (!choices) return <p>Error, no choices found.</p>
 	return (
@@ -44,6 +45,16 @@ const Challenges: React.FunctionComponent<ChallengesProps> = () => {
 						}).slice(0, 3)}
 						type='Challenge'
 					/>
+					{showMore && (
+						<ListWrapper
+							data={getResults({
+								data: challengesArray,
+								type: 'Challenge',
+								choices,
+							}).slice(3)}
+							type='Challenge'
+						/>
+					)}
 				</Col>
 				<Col>
 					<p className='font-weight-bold'>SO CONSIDER...</p>
@@ -55,12 +66,28 @@ const Challenges: React.FunctionComponent<ChallengesProps> = () => {
 						}).slice(0, 3)}
 						type='Suggestion'
 					/>
+					{showMore && (
+						<ListWrapper
+							data={getResults({
+								data: challengesArray,
+								type: 'Suggestion',
+								choices: choices && choices,
+							}).slice(3)}
+							type='Suggestion'
+						/>
+					)}
 				</Col>
 			</Row>
 			<Row className='justify-content-center mb-4'>
-				<StyledButton variant='info' onClick={() => handleMore()}>
-					VIEW MORE <FontAwesomeIcon icon={faArrowDown} />
-				</StyledButton>
+				{!showMore ? (
+					<StyledButton variant='info' onClick={() => handleMore()}>
+						VIEW MORE <FontAwesomeIcon icon={faChevronDown} />
+					</StyledButton>
+				) : (
+					<StyledButton variant='info' onClick={() => handleMore()}>
+						VIEW LESS <FontAwesomeIcon icon={faChevronDown} />
+					</StyledButton>
+				)}
 			</Row>
 		</>
 	)
