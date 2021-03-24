@@ -23,10 +23,30 @@ const DropdownWrapper: React.FunctionComponent<DropdownWrapperProps> = ({
 	const [active, setActive] = React.useState<string>()
 	const handleSelect = (e: any) => {
 		setActive(e)
-		handleChoice({
-			...choices,
-			[type]: e,
-		})
+
+		if (type === 'issues' || type === 'demographics') {
+			console.log(choices[type].length)
+			if (choices[type].length === 1) {
+				handleChoice({
+					...choices,
+					[type]: [e],
+				})
+				return
+			}
+			if (choices[type].length > 1) {
+				console.log('GOT HERE')
+				const updatedArray = choices[type].pop()
+				handleChoice({
+					...choices,
+					[type]: [...choices[type], e],
+				})
+			}
+		} else {
+			handleChoice({
+				...choices,
+				[type]: e,
+			})
+		}
 	}
 	return (
 		<Dropdown className={`w-100 ${hasMargin ? 'mr-3' : ''}`}>

@@ -102,7 +102,6 @@ export const getResults = ({
 			return null
 		})
 		.filter((item: any) => {
-			console.log('got here')
 			if (
 				choices.issues.some((each) =>
 					item.fields['Issues'].includes(getKeyByValue(issueData, each))
@@ -113,12 +112,6 @@ export const getResults = ({
 			return null
 		})
 
-	// if (results.length === 0) {
-	// 	let resultsByAge = filterByAge(data)
-	// 	let resultsByGender = filterByGender(data)
-	// 	results = resultsByAge.concat(resultsByGender)
-	// }
-	console.log('RESULTS: ', results)
 	return results
 }
 
