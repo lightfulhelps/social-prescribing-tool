@@ -59,7 +59,9 @@ const PersonaDetails: React.FunctionComponent<PersonaDetailsProps> = () => {
 		<Row className='mb-4'>
 			<Col>
 				<PersonaDetail
-					data={genderArray}
+					data={genderArray.filter(
+						(item: any) => item.fields.Name !== 'Any / All'
+					)}
 					type='gender'
 					title='Gender Identification'
 				/>

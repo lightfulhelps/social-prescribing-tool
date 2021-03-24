@@ -58,14 +58,12 @@ const PersonaDetail: React.FunctionComponent<PersonaDetailProps> = ({
 	if (type === 'issues' || type === 'demographics')
 		return (
 			<Row className='mb-5'>
-				{console.log(choices)}
 				<Col>
 					<Form.Label className='font-weight-bold'>{title}</Form.Label>
-					{console.log(choices[type])}
 					{choices[type].map((item) => (
 						<div key={item} className='d-flex align-items-center'>
 							<DropdownWrapper
-								title='Please select...'
+								title={item || 'Please select...'}
 								options={data.map((item: any) => item.fields.Name)}
 								className='d-flex justify-content-between align-items-center'
 								type={type}
@@ -99,7 +97,7 @@ const PersonaDetail: React.FunctionComponent<PersonaDetailProps> = ({
 					<>
 						<div className='d-flex align-items-center'>
 							<DropdownWrapper
-								title='Please select...'
+								title={choices[type] || 'Please select...'}
 								options={data.map((item: any) => item.fields.Name)}
 								className='d-flex justify-content-between align-items-center'
 								type={type}

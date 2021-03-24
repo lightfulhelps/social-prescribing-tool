@@ -37,6 +37,16 @@ const Challenges: React.FunctionComponent<ChallengesProps> = () => {
 		)
 
 	if (!choices) return <p>Error, no choices found.</p>
+
+	console.log('ORIGINAL DATA: ', challengesArray)
+	console.log(
+		'FINAL RESULTS: ',
+		getResults({
+			data: challengesArray,
+			type: 'Suggestion',
+			choices,
+		})
+	)
 	return (
 		<>
 			<Row>
@@ -69,7 +79,7 @@ const Challenges: React.FunctionComponent<ChallengesProps> = () => {
 						data={getResults({
 							data: challengesArray,
 							type: 'Suggestion',
-							choices: choices && choices,
+							choices,
 						}).slice(0, 3)}
 						type='Suggestion'
 					/>
@@ -78,7 +88,7 @@ const Challenges: React.FunctionComponent<ChallengesProps> = () => {
 							data={getResults({
 								data: challengesArray,
 								type: 'Suggestion',
-								choices: choices && choices,
+								choices,
 							}).slice(3)}
 							type='Suggestion'
 						/>

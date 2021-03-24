@@ -38,26 +38,38 @@ export const getResults = ({
 	choices: Choices
 }) => {
 	if (!data) return
+
 	const results = data
-		.filter((item: any) => item.fields[type] && item.fields[type].length !== 0)
-		.filter((item: any) =>
-			choices.gender
-				? item.fields['Gender'] !== undefined
-					? item.fields['Gender'].indexOf(
-							getKeyByValue(genderData, choices.gender)
-					  )
-					: item
-				: item
-		)
-		.filter((item: any) =>
-			choices.age
-				? item.fields['Gender'] !== undefined
-					? item.fields['Age Range'].indexOf(
-							getKeyByValue(ageData, choices.age)
-					  )
-					: item
-				: item
-		)
+		.filter((item: any) => {
+			if (
+				item.fields['Age Range'].includes(getKeyByValue(ageData, choices.age))
+			) {
+				return item
+			}
+		})
+		.filter((item: any) => {
+			if (
+				item.fields['Gender'].includes(
+					getKeyByValue(genderData, choices.gender)
+				)
+			) {
+				return item
+			}
+		})
+
+	// .filter((item: any) => item.fields[type] && item.fields[type].length !== 0)
+	// .filter((item: any) =>
+	// 	choices.gender
+	// 		? item.fields['Gender'] !== undefined
+	// 			? item.fields['Gender'].indexOf(
+	// 					getKeyByValue(genderData, choices.gender)
+	// 			  ) ||
+	// 			  item.fields['Gender'].indexOf(
+	// 					getKeyByValue(genderData, 'Any / All')
+	// 			  )
+	// 			: item
+	// 		: null
+	// )
 	return results
 }
 
