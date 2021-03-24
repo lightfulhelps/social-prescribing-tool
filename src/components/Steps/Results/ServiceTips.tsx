@@ -48,20 +48,19 @@ const ServiceTips: React.FunctionComponent<ServiceTipsProps> = () => {
 					<CardColumns>
 						{getResults({ data: serviceArray, type: 'Description', choices })
 							.slice(0, 6)
-							.map(
-								(item: any) =>
-									item.fields['Link'] && (
-										<Card key={item.id} style={{ height: '220px' }}>
-											<Card.Body>
-												<Card.Title>{item.fields['Select']}</Card.Title>
-												<Card.Text>{item.fields['Description']}</Card.Text>
-												<CardLink href={item.fields['Link']} target='_blank'>
-													READ MORE <FontAwesomeIcon icon={faExternalLinkAlt} />
-												</CardLink>
-											</Card.Body>
-										</Card>
-									)
-							)}
+							.map((item: any) => (
+								<Card key={item.id} style={{ height: '220px' }}>
+									<Card.Body>
+										<Card.Title>{item.fields['Select']}</Card.Title>
+										<Card.Text>{item.fields['Description']}</Card.Text>
+										{item.fields['Link'] && (
+											<CardLink href={item.fields['Link']} target='_blank'>
+												READ MORE <FontAwesomeIcon icon={faExternalLinkAlt} />
+											</CardLink>
+										)}
+									</Card.Body>
+								</Card>
+							))}
 						{showMore &&
 							getResults({ data: serviceArray, type: 'Description', choices })
 								.slice(6)

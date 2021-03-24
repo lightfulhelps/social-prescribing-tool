@@ -44,10 +44,35 @@ export const getResults = ({
 }) => {
 	if (!data) return
 
-	const results = data
+	const filterByAge = (data: any) =>
+		data.filter((item: any) => {
+			if (item.fields[type] === undefined || item.fields[type].length === 0)
+				return null
+			if (
+				item.fields['Age Range'].includes('rec6P9Xfy1Qg1NVGi') ||
+				item.fields['Age Range'].includes(getKeyByValue(ageData, choices.age))
+			) {
+				return item
+			}
+		})
+
+	const filterByGender = (data: any) =>
+		data.filter((item: any) => {
+			if (!choices.gender) return item
+			if (
+				item.fields['Gender'].includes('rec6P9Xfy1Qg1NVGi') ||
+				item.fields['Gender'].includes(
+					getKeyByValue(genderData, choices.gender)
+				)
+			) {
+				return item
+			}
+		})
+
+	let results = data
 		.filter((item: any) => {
 			if (item.fields[type] === undefined || item.fields[type].length === 0)
-				return
+				return null
 			if (
 				item.fields['Age Range'].includes('rec6P9Xfy1Qg1NVGi') ||
 				item.fields['Age Range'].includes(getKeyByValue(ageData, choices.age))
@@ -75,6 +100,13 @@ export const getResults = ({
 				return item
 			}
 		})
+
+	if (results.length === 0) {
+		let resultsByAge = filterByAge(data)
+		let resultsByGender = filterByAge(data)
+		results = resultsByAge.concat(resultsByGender)
+	}
+	console.log('RESULTS: ', results)
 	return results
 }
 
