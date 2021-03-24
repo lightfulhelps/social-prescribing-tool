@@ -103,7 +103,7 @@ export const getResults = ({
 
 	if (results.length === 0) {
 		let resultsByAge = filterByAge(data)
-		let resultsByGender = filterByAge(data)
+		let resultsByGender = filterByGender(data)
 		results = resultsByAge.concat(resultsByGender)
 	}
 	console.log('RESULTS: ', results)

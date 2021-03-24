@@ -9,9 +9,9 @@ export const StyledButton = styled(Button)`
 	text-transform: uppercase;
 `
 
-export const Circle = styled.span<{ active: boolean }>`
-	height: 25px;
-	width: 25px;
+export const Circle = styled.span<{ active?: boolean; card?: boolean }>`
+	height: ${(props) => (props.card ? '60px' : '25px')};
+	width: ${(props) => (props.card ? '60px' : '25px')};
 	background-color: ${(props) => (props.active ? '#ffc200' : '#8E2082')};
 	opacity: ${(props) => (props.active ? '1' : '0.5')};
 	border-radius: 50%;

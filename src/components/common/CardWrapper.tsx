@@ -1,8 +1,8 @@
 import React from 'react'
 import Card from 'react-bootstrap/Card'
-import styled from 'styled-components'
 import { Issue } from '../Steps/Issues/Issues'
 import { Demographic } from '../Steps/Demographics/Demographics'
+import { Circle } from '../Styles'
 
 export interface CardWrapperProps {
 	imageUrl: string
@@ -11,10 +11,6 @@ export interface CardWrapperProps {
 	setChoices: any
 	type: string
 }
-
-const StyledCard = styled(Card)`
-	width: 270px;
-`
 
 const CardWrapper: React.FunctionComponent<CardWrapperProps> = ({
 	imageUrl,
@@ -46,8 +42,23 @@ const CardWrapper: React.FunctionComponent<CardWrapperProps> = ({
 	}
 
 	return (
-		<StyledCard value={item.fields.Name} onClick={() => handleClick()}>
-			<Card.Img variant='top' src={imageUrl} />
+		<Card onClick={() => handleClick()}>
+			{active ? (
+				<div className='bg-dark'>
+					<Circle active card className='position-absolute' />
+					<Card.Img
+						variant='top'
+						src={imageUrl}
+						style={{ opacity: active ? 0.5 : 1 }}
+					/>
+				</div>
+			) : (
+				<Card.Img
+					variant='top'
+					src={imageUrl}
+					style={{ opacity: active ? 0.5 : 1 }}
+				/>
+			)}
 			<Card bg={active ? 'warning' : 'primary'} className='border-0 rounded-0'>
 				<Card.Header
 					className={`text-center font-weight-bold ${
@@ -56,7 +67,7 @@ const CardWrapper: React.FunctionComponent<CardWrapperProps> = ({
 					{item.fields.Name}
 				</Card.Header>
 			</Card>
-		</StyledCard>
+		</Card>
 	)
 }
 
