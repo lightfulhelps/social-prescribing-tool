@@ -46,8 +46,10 @@ export const getResults = ({
 
 	const filterByAge = (data: any) =>
 		data.filter((item: any) => {
-			if (item.fields[type] === undefined || item.fields[type].length === 0)
+			if (!choices.age) return item
+			if (item.fields[type] === undefined || item.fields[type].length === 0) {
 				return null
+			}
 			if (
 				item.fields['Age Range'].includes('rec6P9Xfy1Qg1NVGi') ||
 				item.fields['Age Range'].includes(getKeyByValue(ageData, choices.age))
@@ -60,6 +62,9 @@ export const getResults = ({
 	const filterByGender = (data: any) =>
 		data.filter((item: any) => {
 			if (!choices.gender) return item
+			if (item.fields[type] === undefined || item.fields[type].length === 0) {
+				return null
+			}
 			if (
 				item.fields['Gender'].includes('rec6P9Xfy1Qg1NVGi') ||
 				item.fields['Gender'].includes(
@@ -73,8 +78,9 @@ export const getResults = ({
 
 	let results = data
 		.filter((item: any) => {
-			if (item.fields[type] === undefined || item.fields[type].length === 0)
+			if (item.fields[type] === undefined) {
 				return null
+			}
 			if (
 				item.fields['Age Range'].includes('rec6P9Xfy1Qg1NVGi') ||
 				item.fields['Age Range'].includes(getKeyByValue(ageData, choices.age))
@@ -96,6 +102,7 @@ export const getResults = ({
 			return null
 		})
 		.filter((item: any) => {
+			console.log('got here')
 			if (
 				choices.issues.some((each) =>
 					item.fields['Issues'].includes(getKeyByValue(issueData, each))
@@ -106,11 +113,11 @@ export const getResults = ({
 			return null
 		})
 
-	if (results.length === 0) {
-		let resultsByAge = filterByAge(data)
-		let resultsByGender = filterByGender(data)
-		results = resultsByAge.concat(resultsByGender)
-	}
+	// if (results.length === 0) {
+	// 	let resultsByAge = filterByAge(data)
+	// 	let resultsByGender = filterByGender(data)
+	// 	results = resultsByAge.concat(resultsByGender)
+	// }
 	console.log('RESULTS: ', results)
 	return results
 }

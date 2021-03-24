@@ -3,6 +3,8 @@ import Card from 'react-bootstrap/Card'
 import { Issue } from '../Steps/Issues/Issues'
 import { Demographic } from '../Steps/Demographics/Demographics'
 import { Circle } from '../Styles'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
 export interface CardWrapperProps {
 	imageUrl: string
@@ -44,8 +46,14 @@ const CardWrapper: React.FunctionComponent<CardWrapperProps> = ({
 	return (
 		<Card onClick={() => handleClick()}>
 			{active ? (
-				<div className='bg-dark'>
-					<Circle active card className='position-absolute' />
+				<div className='bg-dark d-flex justify-content-around align-items-center'>
+					<Circle
+						active
+						card
+						className='position-absolute d-flex align-items-center justify-content-around'
+						style={{ zIndex: 999 }}>
+						<FontAwesomeIcon icon={faCheck} style={{ fontSize: 30 }} />
+					</Circle>
 					<Card.Img
 						variant='top'
 						src={imageUrl}
