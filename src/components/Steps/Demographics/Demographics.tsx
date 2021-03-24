@@ -98,7 +98,9 @@ const Demographics: React.FunctionComponent<DemographicsProps> = () => {
 					</Form.Label>
 					<DropdownWrapper
 						title='Please select...'
-						options={genderArray.map((item: any) => item.fields.Name)}
+						options={genderArray
+							.filter((item: any) => item.fields.Name !== 'Any / All')
+							.map((item: any) => item.fields.Name)}
 						hasMargin
 						className='d-flex justify-content-between align-items-center'
 						type='gender'
@@ -110,7 +112,9 @@ const Demographics: React.FunctionComponent<DemographicsProps> = () => {
 					<Form.Label className='font-weight-bold'>AGE RANGE:</Form.Label>
 					<DropdownWrapper
 						title='Please select...'
-						options={ageArray.map((item: any) => item.fields.Name)}
+						options={ageArray
+							.filter((item: any) => item.fields.Name !== 'Any / All')
+							.map((item: any) => item.fields.Name)}
 						className='d-flex justify-content-between align-items-center'
 						type='age'
 						choices={choices}

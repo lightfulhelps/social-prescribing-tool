@@ -1,5 +1,5 @@
 import React from 'react'
-import { Col, Row } from 'react-bootstrap'
+import { Col, Nav, Row } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { StyledButton } from '../Styles'
@@ -21,23 +21,20 @@ const Navigation: React.SFC<NavigationProps> = ({
 	const { choices } = React.useContext(AppContext)
 	if (currentStep === 1)
 		return (
-			<Row className='fixed-bottom bg-white justify-content-end'>
-				<StyledButton variant='info' onClick={() => handleNext()}>
-					Begin →
-				</StyledButton>
-			</Row>
+			<Nav className='fixed-bottom bg-white'>
+				<Nav.Item>
+					<StyledButton variant='info' onClick={() => handleNext()}>
+						Begin →
+					</StyledButton>
+				</Nav.Item>
+			</Nav>
 		)
 
 	if (!choices) return <p>Error, no choices found.</p>
 
 	return (
-		<Row className='mt-5 fixed-bottom bg-white'>
-			<Col
-				className={`${
-					currentStep === 4
-						? 'justify-content-start'
-						: 'justify-content-between'
-				}`}>
+		<Nav className='fixed-bottom bg-white'>
+			<Nav.Item>
 				<StyledButton
 					variant='white'
 					className='text-info border-info'
@@ -67,8 +64,8 @@ const Navigation: React.SFC<NavigationProps> = ({
 						Next <FontAwesomeIcon icon={faArrowRight} />
 					</StyledButton>
 				)}
-			</Col>
-		</Row>
+			</Nav.Item>
+		</Nav>
 	)
 }
 
