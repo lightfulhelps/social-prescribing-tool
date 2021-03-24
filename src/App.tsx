@@ -1,7 +1,6 @@
 import React from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import Navigation from './components/layout/Navigation'
-import Header from './components/Header'
 import Hero from './components/Hero'
 import Demographics from './components/Steps/Demographics/Demographics'
 import Intro from './components/Steps/Intro/Intro'

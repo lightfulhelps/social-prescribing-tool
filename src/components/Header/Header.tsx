@@ -1,5 +1,5 @@
 import React from 'react'
-import { Col, Container, Row, Nav } from 'react-bootstrap'
+import { Col, Row, Nav } from 'react-bootstrap'
 import styled from 'styled-components'
 
 const StyledNav = styled(Nav)`

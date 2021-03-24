@@ -54,6 +54,7 @@ export const getResults = ({
 			) {
 				return item
 			}
+			return null
 		})
 
 	const filterByGender = (data: any) =>
@@ -67,6 +68,7 @@ export const getResults = ({
 			) {
 				return item
 			}
+			return null
 		})
 
 	let results = data
@@ -79,6 +81,7 @@ export const getResults = ({
 			) {
 				return item
 			}
+			return null
 		})
 		.filter((item: any) => {
 			if (!choices.gender) return item
@@ -90,6 +93,7 @@ export const getResults = ({
 			) {
 				return item
 			}
+			return null
 		})
 		.filter((item: any) => {
 			if (
@@ -99,6 +103,7 @@ export const getResults = ({
 			) {
 				return item
 			}
+			return null
 		})
 
 	if (results.length === 0) {
