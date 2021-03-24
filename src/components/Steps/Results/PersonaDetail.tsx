@@ -61,7 +61,7 @@ const PersonaDetail: React.FunctionComponent<PersonaDetailProps> = ({
 				<Col>
 					<Form.Label className='font-weight-bold'>{title}</Form.Label>
 					{choices[type].map((item) => (
-						<div key={item} className='d-flex align-items-center'>
+						<div key={item} className='d-flex align-items-center mb-2'>
 							<DropdownWrapper
 								title={item || 'Please select...'}
 								options={data.map((item: any) => item.fields.Name)}
@@ -72,18 +72,18 @@ const PersonaDetail: React.FunctionComponent<PersonaDetailProps> = ({
 							/>
 							<FontAwesomeIcon
 								icon={faTrashAlt}
+								className='ml-2 text-info'
 								onClick={() => handleClear({ type, item })}
 							/>
 						</div>
 					))}
 					{choices[type] && (
-						<>
-							<div
-								className='d-flex align-items-center'
-								onClick={() => handleAdd(type)}>
-								<FontAwesomeIcon icon={faPlusCircle} /> Add
-							</div>
-						</>
+						<div
+							className='d-flex align-items-center text-info font-weight-bold mt-2 text-underline'
+							onClick={() => handleAdd(type)}>
+							<FontAwesomeIcon icon={faPlusCircle} className='mr-2' />{' '}
+							<u>ADD</u>
+						</div>
 					)}
 				</Col>
 			</Row>
@@ -106,6 +106,7 @@ const PersonaDetail: React.FunctionComponent<PersonaDetailProps> = ({
 							/>
 							<FontAwesomeIcon
 								icon={faTrashAlt}
+								className='ml-2 text-info'
 								onClick={() => handleClear({ type })}
 							/>
 						</div>
@@ -123,6 +124,7 @@ const PersonaDetail: React.FunctionComponent<PersonaDetailProps> = ({
 							/>
 							<FontAwesomeIcon
 								icon={faTrashAlt}
+								className='ml-2 text-info'
 								onClick={() => handleClear({ type })}
 							/>
 						</div>

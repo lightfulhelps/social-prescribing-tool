@@ -38,7 +38,7 @@ const CaseStudies: React.FunctionComponent<CaseStudiesProps> = () => {
 	if (!choices) return <p>Error, no choices found.</p>
 
 	return (
-		<>
+		<div className='mb-4'>
 			<Row>
 				<Col>
 					<p className='font-weight-bold'>CASE STUDIES</p>
@@ -112,18 +112,21 @@ const CaseStudies: React.FunctionComponent<CaseStudiesProps> = () => {
 						))}
 				</Col>
 			</Row>
-			<Row className='justify-content-center'>
-				{!showMore ? (
-					<StyledButton variant='info' onClick={() => handleMore()}>
-						VIEW MORE <FontAwesomeIcon icon={faChevronDown} />
-					</StyledButton>
-				) : (
-					<StyledButton variant='info' onClick={() => handleMore()}>
-						VIEW LESS <FontAwesomeIcon icon={faChevronDown} />
-					</StyledButton>
-				)}
-			</Row>
-		</>
+			{getResults({ data: caseStudiesArray, type: 'Name', choices }).length >
+				3 && (
+				<Row className='justify-content-center'>
+					{!showMore ? (
+						<StyledButton variant='info' onClick={() => handleMore()}>
+							VIEW MORE <FontAwesomeIcon icon={faChevronDown} />
+						</StyledButton>
+					) : (
+						<StyledButton variant='info' onClick={() => handleMore()}>
+							VIEW LESS <FontAwesomeIcon icon={faChevronDown} />
+						</StyledButton>
+					)}
+				</Row>
+			)}
+		</div>
 	)
 }
 

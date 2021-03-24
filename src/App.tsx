@@ -45,6 +45,7 @@ const App: React.FunctionComponent = () => {
 	}
 
 	const handleReset = () => {
+		setChoices({ issues: [], demographics: [], gender: '', age: '' })
 		setCurrentStep(1)
 	}
 

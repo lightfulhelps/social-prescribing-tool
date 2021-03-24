@@ -26,6 +26,9 @@ const CardWrapper: React.FunctionComponent<CardWrapperProps> = ({
 	const [active, setActive] = React.useState<boolean>(false)
 
 	const handleClick = () => {
+		if (type === 'issues' && choices.issues.length === 3) {
+			return
+		}
 		if (!active) {
 			setChoices({
 				...choices,

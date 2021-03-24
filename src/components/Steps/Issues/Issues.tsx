@@ -42,12 +42,21 @@ const Issues: React.FunctionComponent<IssuesProps> = () => {
 			</Spinner>
 		)
 
+	if (!choices) return <p>Error, no choices found.</p>
+
 	return (
 		<>
-			<p>
-				Please select <strong>up to 3 issue areas</strong> that are most
-				relevant for the person in need
-			</p>
+			{choices.issues.length > 3 ? (
+				<p className='text-danger'>
+					Please select <strong>up to 3 issue areas</strong> that are most
+					relevant for the person in need
+				</p>
+			) : (
+				<p>
+					Please select <strong>up to 3 issue areas</strong> that are most
+					relevant for the person in need
+				</p>
+			)}
 			<Row>
 				{issuesArray.map((issue: any) => (
 					<Col lg={4} className='mb-4' key={issue.fields.Name}>

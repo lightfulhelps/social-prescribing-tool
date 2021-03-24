@@ -38,17 +38,8 @@ const Challenges: React.FunctionComponent<ChallengesProps> = () => {
 
 	if (!choices) return <p>Error, no choices found.</p>
 
-	console.log('ORIGINAL DATA: ', challengesArray)
-	console.log(
-		'FINAL RESULTS: ',
-		getResults({
-			data: challengesArray,
-			type: 'Suggestion',
-			choices,
-		})
-	)
 	return (
-		<>
+		<div className='mb-4'>
 			<Row>
 				<Col>
 					<p className='font-weight-bold'>
@@ -95,18 +86,24 @@ const Challenges: React.FunctionComponent<ChallengesProps> = () => {
 					)}
 				</Col>
 			</Row>
-			<Row className='justify-content-center mb-4'>
-				{!showMore ? (
-					<StyledButton variant='info' onClick={() => handleMore()}>
-						VIEW MORE <FontAwesomeIcon icon={faChevronDown} />
-					</StyledButton>
-				) : (
-					<StyledButton variant='info' onClick={() => handleMore()}>
-						VIEW LESS <FontAwesomeIcon icon={faChevronDown} />
-					</StyledButton>
-				)}
-			</Row>
-		</>
+			{getResults({
+				data: challengesArray,
+				type: 'Suggestion',
+				choices,
+			}).length > 3 && (
+				<Row className='justify-content-center'>
+					{!showMore ? (
+						<StyledButton variant='info' onClick={() => handleMore()}>
+							VIEW MORE <FontAwesomeIcon icon={faChevronDown} />
+						</StyledButton>
+					) : (
+						<StyledButton variant='info' onClick={() => handleMore()}>
+							VIEW LESS <FontAwesomeIcon icon={faChevronDown} />
+						</StyledButton>
+					)}
+				</Row>
+			)}
+		</div>
 	)
 }
 

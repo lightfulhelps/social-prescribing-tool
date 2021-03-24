@@ -41,7 +41,7 @@ const ServiceTips: React.FunctionComponent<ServiceTipsProps> = () => {
 	if (!choices) return <p>Error, no choices found.</p>
 
 	return (
-		<>
+		<div className='mb-4'>
 			<Row>
 				<Col>
 					<p className='font-weight-bold'>SERVICE TIPS</p>
@@ -83,18 +83,21 @@ const ServiceTips: React.FunctionComponent<ServiceTipsProps> = () => {
 					</CardColumns>
 				</Col>
 			</Row>
-			<Row className='justify-content-center mb-4'>
-				{!showMore ? (
-					<StyledButton variant='info' onClick={() => handleMore()}>
-						VIEW MORE <FontAwesomeIcon icon={faChevronDown} />
-					</StyledButton>
-				) : (
-					<StyledButton variant='info' onClick={() => handleMore()}>
-						VIEW LESS <FontAwesomeIcon icon={faChevronDown} />
-					</StyledButton>
-				)}
-			</Row>
-		</>
+			{getResults({ data: serviceArray, type: 'Description', choices }).length >
+				3 && (
+				<Row className='justify-content-center'>
+					{!showMore ? (
+						<StyledButton variant='info' onClick={() => handleMore()}>
+							VIEW MORE <FontAwesomeIcon icon={faChevronDown} />
+						</StyledButton>
+					) : (
+						<StyledButton variant='info' onClick={() => handleMore()}>
+							VIEW LESS <FontAwesomeIcon icon={faChevronDown} />
+						</StyledButton>
+					)}
+				</Row>
+			)}
+		</div>
 	)
 }
 

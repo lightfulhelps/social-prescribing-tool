@@ -8,6 +8,15 @@ import PersonaDetails from './PersonaDetails'
 
 export interface ResultsProps {}
 
+const genderData = {
+	recnGP1GF49pCQvwJ: 'Female',
+	reclmJZ5VtKCKZYhx: 'Male',
+	reclb6Xvp5W2z73i0: 'Transgender',
+	recRstark10tnr6wL: 'Intersex',
+	reckjwoZ84qzhzkN9: 'Non-binary',
+	rec6P9Xfy1Qg1NVGi: 'Any / All',
+}
+
 const ageData = {
 	recAFiLBiZN7XAk3A: '18-25',
 	recYvwpgjVMhhTOfC: '26-40',
@@ -16,13 +25,9 @@ const ageData = {
 	recIY3Lzaz1Kfs9XB: '81+',
 }
 
-const genderData = {
-	recnGP1GF49pCQvwJ: 'Female',
-	reclmJZ5VtKCKZYhx: 'Male',
-	reclb6Xvp5W2z73i0: 'Transgender',
-	recRstark10tnr6wL: 'Intersex',
-	reckjwoZ84qzhzkN9: 'Non-binary',
-	rec6P9Xfy1Qg1NVGi: 'Any / All',
+const issueData = {
+	recRhYzlcW1bjJOj5: 'Low motivation / purpose',
+	reclnD05bTSvL0DRL: 'Domestic abuse',
 }
 
 const getKeyByValue = (obj: { [key: string]: string }, val: string) =>
@@ -41,14 +46,19 @@ export const getResults = ({
 
 	const results = data
 		.filter((item: any) => {
+			if (item.fields[type] === undefined || item.fields[type].length === 0)
+				return
 			if (
+				item.fields['Age Range'].includes('rec6P9Xfy1Qg1NVGi') ||
 				item.fields['Age Range'].includes(getKeyByValue(ageData, choices.age))
 			) {
 				return item
 			}
 		})
 		.filter((item: any) => {
+			if (!choices.gender) return item
 			if (
+				item.fields['Gender'].includes('rec6P9Xfy1Qg1NVGi') ||
 				item.fields['Gender'].includes(
 					getKeyByValue(genderData, choices.gender)
 				)
@@ -56,20 +66,15 @@ export const getResults = ({
 				return item
 			}
 		})
-
-	// .filter((item: any) => item.fields[type] && item.fields[type].length !== 0)
-	// .filter((item: any) =>
-	// 	choices.gender
-	// 		? item.fields['Gender'] !== undefined
-	// 			? item.fields['Gender'].indexOf(
-	// 					getKeyByValue(genderData, choices.gender)
-	// 			  ) ||
-	// 			  item.fields['Gender'].indexOf(
-	// 					getKeyByValue(genderData, 'Any / All')
-	// 			  )
-	// 			: item
-	// 		: null
-	// )
+		.filter((item: any) => {
+			if (
+				choices.issues.some((each) =>
+					item.fields['Issues'].includes(getKeyByValue(issueData, each))
+				)
+			) {
+				return item
+			}
+		})
 	return results
 }
 

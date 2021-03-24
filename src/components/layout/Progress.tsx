@@ -19,7 +19,8 @@ const Progress: React.SFC<ProgressProps> = ({ steps, currentStep }) => {
 								variant='link'
 								className={`text-left text-dark font-weight-bold ${
 									currentStep === i + 1 ? '' : 'text-muted'
-								}`}>
+								}`}
+								style={{ opacity: currentStep === i + 1 ? 1 : 0.5 }}>
 								{step.toUpperCase()}
 							</Button>
 						</li>
