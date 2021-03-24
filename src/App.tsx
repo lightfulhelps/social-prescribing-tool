@@ -56,15 +56,8 @@ const App: React.FunctionComponent = () => {
 				choices,
 				setChoices,
 			}}>
-			<Header />
 			<Hero currentStep={currentStep} />
-			<Navigation
-				currentStep={currentStep}
-				handleNext={handleNext}
-				handleBack={handleBack}
-				handleReset={handleReset}
-			/>
-			<Container className='my-4 pb-5'>
+			<Container>
 				{currentStep !== 4 && (
 					<Row>
 						<Progress steps={steps} currentStep={currentStep} />
@@ -77,6 +70,12 @@ const App: React.FunctionComponent = () => {
 				)}
 				{currentStep === 4 && <Results />}
 			</Container>
+			<Navigation
+				currentStep={currentStep}
+				handleNext={handleNext}
+				handleBack={handleBack}
+				handleReset={handleReset}
+			/>
 		</AppContext.Provider>
 	)
 }

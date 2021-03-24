@@ -21,7 +21,7 @@ const Navigation: React.SFC<NavigationProps> = ({
 	const { choices } = React.useContext(AppContext)
 	if (currentStep === 1)
 		return (
-			<Nav className='fixed-bottom bg-white'>
+			<Nav className='fixed-bottom bg-white justify-content-end container'>
 				<Nav.Item>
 					<StyledButton variant='info' onClick={() => handleNext()}>
 						Begin →
@@ -33,7 +33,7 @@ const Navigation: React.SFC<NavigationProps> = ({
 	if (!choices) return <p>Error, no choices found.</p>
 
 	return (
-		<Nav className='fixed-bottom bg-white'>
+		<Nav className='fixed-bottom bg-white container'>
 			<Nav.Item>
 				<StyledButton
 					variant='white'

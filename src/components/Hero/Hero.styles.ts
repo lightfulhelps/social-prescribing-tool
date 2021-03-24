@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
-export const HeroContainer = styled.div`
-	padding: 1rem 2rem;
+export const HeroSection = styled.section`
+	background-image: linear-gradient(315deg, #8e2082 0%, #420b57 100%);
 	width: 100%;
-
-	background-color: #eff5fa;
+	height: 208px;
+	color: white;
 `
