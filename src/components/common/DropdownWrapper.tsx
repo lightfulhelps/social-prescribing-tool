@@ -25,7 +25,6 @@ const DropdownWrapper: React.FunctionComponent<DropdownWrapperProps> = ({
 		setActive(e)
 
 		if (type === 'issues' || type === 'demographics') {
-			console.log(choices[type].length)
 			if (choices[type].length === 1) {
 				handleChoice({
 					...choices,
@@ -34,8 +33,6 @@ const DropdownWrapper: React.FunctionComponent<DropdownWrapperProps> = ({
 				return
 			}
 			if (choices[type].length > 1) {
-				console.log('GOT HERE')
-				const updatedArray = choices[type].pop()
 				handleChoice({
 					...choices,
 					[type]: [...choices[type], e],

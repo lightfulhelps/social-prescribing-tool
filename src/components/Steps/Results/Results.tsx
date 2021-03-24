@@ -28,6 +28,19 @@ const ageData = {
 const issueData = {
 	recRhYzlcW1bjJOj5: 'Low motivation / purpose',
 	reclnD05bTSvL0DRL: 'Domestic abuse',
+	recC05E3vlAt1MT7m: 'Isolation and loneliness',
+	rec4ZLhGz9LCpOPBw: 'Emotional trauma',
+	rec5wULU383kD4xBX: 'General mental health',
+	rec9ExhjFYmUaH6Wq: 'Challenges with family',
+	recXcfDe462eIoSi1: 'Housing',
+	recU3ouTyDzDouQrX: 'Unemployed or underemployed',
+	recBNKR3jVWFoCHXz: 'Money issues',
+	recHlqgykQZokmCJS: 'Legal issues',
+	recjenK8BgEm48liI: 'Difficulty in applying for benefits',
+	recaQ65Q4PfWtVpbN: 'Transportation / mobility',
+	rec4Gk0Ql3ch1Fv9O: 'Immigration',
+	rec7klIkHJFUhHuo0: 'English language skills',
+	rec4W1FqDcn00dSBH: 'Computer skills',
 }
 
 const getKeyByValue = (obj: { [key: string]: string }, val: string) =>
