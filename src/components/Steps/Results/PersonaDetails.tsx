@@ -1,13 +1,32 @@
 import React from 'react'
 import { Col, Figure, Row, Spinner } from 'react-bootstrap'
-import img1 from '../../../assets/old_img1.png'
-import img2 from '../../../assets/old_img2.png'
-import img3 from '../../../assets/old_img3.png'
 import { AppContext } from '../../../App'
 import base from '../../../api/base'
 import PersonaDetail from './PersonaDetail'
+import female_6680_1 from '../../../assets/66-80_1.png'
+import female_6680_2 from '../../../assets/66-80_2.png'
+import female_6680_3 from '../../../assets/66-80_3.png'
 
 export interface PersonaDetailsProps {}
+
+export const imageTypes: { [key: string]: any } = {
+	Female: {
+		'18-25': ['', ''],
+		'66-80': [female_6680_1, female_6680_2, female_6680_3],
+	},
+	Male: {
+		'18-25': ['', ''],
+	},
+	Transgender: {
+		'18-25': ['', ''],
+	},
+	Intersex: {
+		'18-25': ['', ''],
+	},
+	'Non-binary': {
+		'18-25': ['', ''],
+	},
+}
 
 const PersonaDetails: React.FunctionComponent<PersonaDetailsProps> = () => {
 	const { choices } = React.useContext(AppContext)
@@ -75,10 +94,10 @@ const PersonaDetails: React.FunctionComponent<PersonaDetailsProps> = () => {
 			</Col>
 			<Col>
 				<Row>
-					<Col>
-						<Figure.Image width={188} height={186} alt='171x180' src={img1} />
-						<Figure.Image width={188} height={186} alt='171x180' src={img2} />
-						<Figure.Image width={188} height={186} alt='171x180' src={img3} />
+					<Col className='d-flex'>
+						{imageTypes[choices.gender][choices.age].map((item: any) => (
+							<Figure.Image width={188} height={186} alt='171x180' src={item} />
+						))}
 					</Col>
 				</Row>
 				<Row className='my-2'>

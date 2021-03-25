@@ -43,6 +43,17 @@ const issueData = {
 	rec4W1FqDcn00dSBH: 'Computer skills',
 }
 
+const demographicsData = {
+	recJ1ZSOdkxoxj2Wn: 'Hearing impaired',
+	recHku9zMtyGPJyx4: 'Visually impaired',
+	recfjXXh8EzvEUoOG: 'Learning disability',
+	recPGvWWTGy3ILdog: 'Physical disability',
+	recVCZ2zraatAF9rd: 'Addictions',
+	recHOL8k56RNoJS8w: 'Mental illness',
+	recWxRcy7NWANCUKp: 'Carer',
+	recWpMJ6j6mgu8fFN: 'Ex-offender',
+}
+
 const getKeyByValue = (obj: { [key: string]: string }, val: string) =>
 	Object.keys(obj).find((key) => obj[key] === val)
 
@@ -57,40 +68,9 @@ export const getResults = ({
 }) => {
 	if (!data) return
 
-	const filterByAge = (data: any) =>
-		data.filter((item: any) => {
-			if (!choices.age) return item
-			if (item.fields[type] === undefined || item.fields[type].length === 0) {
-				return null
-			}
-			if (
-				item.fields['Age Range'].includes('rec6P9Xfy1Qg1NVGi') ||
-				item.fields['Age Range'].includes(getKeyByValue(ageData, choices.age))
-			) {
-				return item
-			}
-			return null
-		})
-
-	const filterByGender = (data: any) =>
-		data.filter((item: any) => {
-			if (!choices.gender) return item
-			if (item.fields[type] === undefined || item.fields[type].length === 0) {
-				return null
-			}
-			if (
-				item.fields['Gender'].includes('rec6P9Xfy1Qg1NVGi') ||
-				item.fields['Gender'].includes(
-					getKeyByValue(genderData, choices.gender)
-				)
-			) {
-				return item
-			}
-			return null
-		})
-
 	let results = data
 		.filter((item: any) => {
+			if (!choices.age) return item
 			if (item.fields[type] === undefined) {
 				return null
 			}
@@ -104,6 +84,9 @@ export const getResults = ({
 		})
 		.filter((item: any) => {
 			if (!choices.gender) return item
+			if (item.fields[type] === undefined) {
+				return null
+			}
 			if (
 				item.fields['Gender'].includes('rec6P9Xfy1Qg1NVGi') ||
 				item.fields['Gender'].includes(
@@ -115,16 +98,39 @@ export const getResults = ({
 			return null
 		})
 		.filter((item: any) => {
+			if (choices.issues.length === 0) return item
+			if (item.fields[type] === undefined) {
+				return null
+			}
+			if (item.fields['Issues'] === undefined) return null
 			if (
-				choices.issues.some((each) =>
-					item.fields['Issues'].includes(getKeyByValue(issueData, each))
-				)
+				choices.issues.some((each) => {
+					return item.fields['Issues'].includes(getKeyByValue(issueData, each))
+				})
+			) {
+				return item
+			}
+			return null
+		})
+		.filter((item: any) => {
+			if (choices.demographics.length === 0) return item
+			if (item.fields[type] === undefined) {
+				return null
+			}
+			if (item.fields['Other'] === undefined) return null
+			if (
+				choices.demographics.some((each) => {
+					return item.fields['Other'].includes(
+						getKeyByValue(demographicsData, each)
+					)
+				})
 			) {
 				return item
 			}
 			return null
 		})
 
+	console.log('RESULTS: ', results)
 	return results
 }
 
