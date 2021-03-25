@@ -3,6 +3,9 @@ import { Col, Figure, Row, Spinner } from 'react-bootstrap'
 import { AppContext } from '../../../App'
 import base from '../../../api/base'
 import PersonaDetail from './PersonaDetail'
+import default_1 from '../../../assets/66-80_1.png'
+import default_2 from '../../../assets/66-80_2.png'
+import default_3 from '../../../assets/66-80_3.png'
 import female_6680_1 from '../../../assets/66-80_1.png'
 import female_6680_2 from '../../../assets/66-80_2.png'
 import female_6680_3 from '../../../assets/66-80_3.png'
@@ -95,9 +98,37 @@ const PersonaDetails: React.FunctionComponent<PersonaDetailsProps> = () => {
 			<Col>
 				<Row>
 					<Col className='d-flex'>
-						{imageTypes[choices.gender][choices.age].map((item: any) => (
-							<Figure.Image width={188} height={186} alt='171x180' src={item} />
-						))}
+						{choices.gender && choices.age ? (
+							imageTypes[choices.gender][choices.age].map((item: any) => (
+								<Figure.Image
+									width={188}
+									height={186}
+									alt='171x180'
+									src={item}
+								/>
+							))
+						) : (
+							<>
+								<Figure.Image
+									width={188}
+									height={186}
+									alt='171x180'
+									src={default_1}
+								/>
+								<Figure.Image
+									width={188}
+									height={186}
+									alt='171x180'
+									src={default_2}
+								/>
+								<Figure.Image
+									width={188}
+									height={186}
+									alt='171x180'
+									src={default_3}
+								/>
+							</>
+						)}
 					</Col>
 				</Row>
 				<Row className='my-2'>
