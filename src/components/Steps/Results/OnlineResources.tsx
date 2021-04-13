@@ -1,10 +1,8 @@
 import React from 'react';
-import { faChevronDown, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Card, CardColumns, Col, Row, Spinner } from 'react-bootstrap';
+import { FaChevronDown, FaExternalLinkAlt } from 'react-icons/fa';
+import { Card, CardColumns, Col, Row, Spinner, Button } from 'react-bootstrap';
 import base from '../../../api/base';
 import { AppContext } from '../../../App';
-import { CardLink, StyledButton } from '../../Styles';
 import { getResults } from './Results';
 
 export interface OnlineResourcesProps {}
@@ -49,9 +47,9 @@ const OnlineResources: React.FunctionComponent<OnlineResourcesProps> = () => {
                   <Card.Body>
                     <Card.Title>{item.fields['Name']}</Card.Title>
                     <Card.Text>{item.fields['Description']}</Card.Text>
-                    <CardLink href={item.fields['Link']} target="_blank">
-                      OPEN LINK <FontAwesomeIcon icon={faExternalLinkAlt} />
-                    </CardLink>
+                    <Card.Link href={item.fields['Link']} target="_blank">
+                      OPEN LINK <FaExternalLinkAlt />
+                    </Card.Link>
                   </Card.Body>
                 </Card>
               ))}
@@ -61,13 +59,13 @@ const OnlineResources: React.FunctionComponent<OnlineResourcesProps> = () => {
       {getResults({ data: resourcesArray, type: 'Name', choices }).length > 3 && (
         <Row className="justify-content-center">
           {!showMore ? (
-            <StyledButton variant="info" onClick={() => handleMore()}>
-              VIEW MORE <FontAwesomeIcon icon={faChevronDown} />
-            </StyledButton>
+            <Button variant="info" onClick={() => handleMore()}>
+              VIEW MORE <FaChevronDown />
+            </Button>
           ) : (
-            <StyledButton variant="info" onClick={() => handleMore()}>
-              VIEW LESS <FontAwesomeIcon icon={faChevronDown} />
-            </StyledButton>
+            <Button variant="info" onClick={() => handleMore()}>
+              VIEW LESS <FaChevronDown />
+            </Button>
           )}
         </Row>
       )}

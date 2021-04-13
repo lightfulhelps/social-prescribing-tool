@@ -1,8 +1,6 @@
 import React from 'react';
-import { Card, Col, Row, Spinner } from 'react-bootstrap';
-import { faChevronDown, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { StyledButton } from '../../Styles';
+import { Card, Col, Row, Spinner, Button } from 'react-bootstrap';
+import { FaChevronDown, FaPlus } from 'react-icons/fa';
 import { getResults } from './Results';
 import { AppContext } from '../../../App';
 import base from '../../../api/base';
@@ -47,14 +45,13 @@ const CaseStudies: React.FunctionComponent<CaseStudiesProps> = () => {
           </p>
         </Col>
         <Col className="d-flex justify-content-end">
-          <StyledButton
+          <Button
             className="border-info text-info d-block"
             variant="white"
-            width={270}
             onClick={() => window.open('https://forms.gle/6FnfyjR8E1my6taeA')}
           >
-            <FontAwesomeIcon icon={faPlus} /> ADD NEW CASE STUDY
-          </StyledButton>
+            <FaPlus /> ADD NEW CASE STUDY
+          </Button>
         </Col>
       </Row>
       <Row>
@@ -109,13 +106,13 @@ const CaseStudies: React.FunctionComponent<CaseStudiesProps> = () => {
       {getResults({ data: caseStudiesArray, type: 'Name', choices }).length > 3 && (
         <Row className="justify-content-center">
           {!showMore ? (
-            <StyledButton variant="info" onClick={() => handleMore()}>
-              VIEW MORE <FontAwesomeIcon icon={faChevronDown} />
-            </StyledButton>
+            <Button variant="info" onClick={() => handleMore()}>
+              VIEW MORE <FaChevronDown />
+            </Button>
           ) : (
-            <StyledButton variant="info" onClick={() => handleMore()}>
-              VIEW LESS <FontAwesomeIcon icon={faChevronDown} />
-            </StyledButton>
+            <Button variant="info" onClick={() => handleMore()}>
+              VIEW LESS <FaChevronDown />
+            </Button>
           )}
         </Row>
       )}

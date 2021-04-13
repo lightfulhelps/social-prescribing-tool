@@ -1,8 +1,6 @@
 import React from 'react';
-import { Col, Row, Spinner } from 'react-bootstrap';
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { StyledButton } from '../../Styles';
+import { Col, Row, Spinner, Button } from 'react-bootstrap';
+import { FaChevronDown } from 'react-icons/fa';
 import ListWrapper from './ListWrapper';
 import { getResults } from './Results';
 import { AppContext } from '../../../App';
@@ -91,13 +89,13 @@ const Challenges: React.FunctionComponent<ChallengesProps> = () => {
       }).length > 3 && (
         <Row className="justify-content-center">
           {!showMore ? (
-            <StyledButton variant="info" onClick={() => handleMore()}>
-              VIEW MORE <FontAwesomeIcon icon={faChevronDown} />
-            </StyledButton>
+            <Button variant="info" onClick={() => handleMore()}>
+              VIEW MORE <FaChevronDown />
+            </Button>
           ) : (
-            <StyledButton variant="info" onClick={() => handleMore()}>
-              VIEW LESS <FontAwesomeIcon icon={faChevronDown} />
-            </StyledButton>
+            <Button variant="info" onClick={() => handleMore()}>
+              VIEW LESS <FaChevronDown />
+            </Button>
           )}
         </Row>
       )}

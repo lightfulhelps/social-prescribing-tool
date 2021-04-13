@@ -1,9 +1,7 @@
 import React from 'react';
-import { Nav } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import { StyledButton } from '../Styles';
-import { AppContext } from '../../App';
+import { Nav, Button } from 'react-bootstrap';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { AppContext } from '../App';
 
 export interface NavigationProps {
   currentStep: number;
@@ -12,7 +10,7 @@ export interface NavigationProps {
   handleReset: Function;
 }
 
-const Navigation: React.SFC<NavigationProps> = ({
+const Navigation: React.FC<NavigationProps> = ({
   currentStep,
   handleNext,
   handleBack,
@@ -31,37 +29,40 @@ const Navigation: React.SFC<NavigationProps> = ({
       >
         {currentStep === 1 ? (
           <Nav.Item>
-            <StyledButton variant="info" onClick={() => handleNext()}>
-              Begin →
-            </StyledButton>
+            <Button variant="info" size="lg" onClick={() => handleNext()}>
+              Begin <FaArrowRight />
+            </Button>
           </Nav.Item>
         ) : (
           <>
             <Nav.Item>
-              <StyledButton
+              <Button
                 variant="white"
+                size="lg"
                 className="text-info bg-white border-info"
                 onClick={() => handleBack()}
               >
-                <FontAwesomeIcon icon={faArrowLeft} /> Back
-              </StyledButton>
+                <FaArrowLeft /> Back
+              </Button>
             </Nav.Item>
             <Nav.Item>
               {currentStep === 4 && (
                 <>
-                  <StyledButton
+                  <Button
                     variant="white"
+                    size="lg"
                     className="text-info border-info ml-4"
                     onClick={() => handleReset()}
                   >
                     Start Over
-                  </StyledButton>
+                  </Button>
                 </>
               )}
               {currentStep !== 4 && (
-                <StyledButton
+                <Button
                   variant="info"
                   className="ml-4"
+                  size="lg"
                   onClick={() => handleNext()}
                   disabled={
                     currentStep === 2
@@ -69,8 +70,8 @@ const Navigation: React.SFC<NavigationProps> = ({
                       : false
                   }
                 >
-                  Next <FontAwesomeIcon icon={faArrowRight} />
-                </StyledButton>
+                  Next <FaArrowRight />
+                </Button>
               )}
             </Nav.Item>
           </>

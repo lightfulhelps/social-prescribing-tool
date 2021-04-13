@@ -3,7 +3,7 @@ import { Figure } from 'react-bootstrap';
 
 export interface IntroProps {}
 
-const Intro: React.SFC<IntroProps> = () => {
+const Intro: React.FC<IntroProps> = () => {
   return (
     <div>
       <p>

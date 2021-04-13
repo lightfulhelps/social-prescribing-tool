@@ -1,6 +1,5 @@
 import React, { ReactNode } from 'react';
 import { Col, Row } from 'react-bootstrap';
-import { HeroSection } from './Hero.styles';
 
 export interface HeroProps {
   currentStep: number;
@@ -70,12 +69,18 @@ const textOptions: { [key: number]: ReactNode } = {
 
 const Hero: React.FunctionComponent<HeroProps> = ({ currentStep }) => {
   return (
-    <HeroSection className="d-flex flex-column justify-content-center mb-5">
+    <section
+      className="d-flex flex-column justify-content-center mb-5 w-100 bg-white"
+      style={{
+        backgroundImage: 'linear-gradient(315deg, #8e2082 0%, #420b57 100%)',
+        height: '208px',
+      }}
+    >
       <div className="container">
         <h1 className="h4 font-weight-bold mb-2">Welcome to the Social Prescribing Support Tool</h1>
         {textOptions[currentStep]}
       </div>
-    </HeroSection>
+    </section>
   );
 };
 

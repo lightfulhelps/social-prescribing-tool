@@ -1,10 +1,8 @@
 import React from 'react';
-import { Card, CardColumns, Col, Row, Spinner } from 'react-bootstrap';
-import { faChevronDown, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Card, CardColumns, Col, Row, Spinner, Button } from 'react-bootstrap';
+import { FaChevronDown, FaExternalLinkAlt } from 'react-icons/fa';
 import { AppContext } from '../../../App';
 import base from '../../../api/base';
-import { CardLink, StyledButton } from '../../Styles';
 import { getResults } from './Results';
 
 export interface ServiceTipsProps {}
@@ -51,9 +49,9 @@ const ServiceTips: React.FunctionComponent<ServiceTipsProps> = () => {
                     <Card.Title>{item.fields['Select']}</Card.Title>
                     <Card.Text>{item.fields['Description']}</Card.Text>
                     {item.fields['Link'] && (
-                      <CardLink href={item.fields['Link']} target="_blank">
-                        READ MORE <FontAwesomeIcon icon={faExternalLinkAlt} />
-                      </CardLink>
+                      <Card.Link href={item.fields['Link']} target="_blank">
+                        READ MORE <FaExternalLinkAlt />
+                      </Card.Link>
                     )}
                   </Card.Body>
                 </Card>
@@ -68,9 +66,9 @@ const ServiceTips: React.FunctionComponent<ServiceTipsProps> = () => {
                         <Card.Body>
                           <Card.Title>{item.fields['Select']}</Card.Title>
                           <Card.Text>{item.fields['Description']}</Card.Text>
-                          <CardLink href={item.fields['Link']} target="_blank">
-                            READ MORE <FontAwesomeIcon icon={faExternalLinkAlt} />
-                          </CardLink>
+                          <Card.Link href={item.fields['Link']} target="_blank">
+                            READ MORE <FaExternalLinkAlt />
+                          </Card.Link>
                         </Card.Body>
                       </Card>
                     )
@@ -81,13 +79,13 @@ const ServiceTips: React.FunctionComponent<ServiceTipsProps> = () => {
       {getResults({ data: serviceArray, type: 'Description', choices }).length > 3 && (
         <Row className="justify-content-center">
           {!showMore ? (
-            <StyledButton variant="info" onClick={() => handleMore()}>
-              VIEW MORE <FontAwesomeIcon icon={faChevronDown} />
-            </StyledButton>
+            <Button variant="info" onClick={() => handleMore()}>
+              VIEW MORE <FaChevronDown />
+            </Button>
           ) : (
-            <StyledButton variant="info" onClick={() => handleMore()}>
-              VIEW LESS <FontAwesomeIcon icon={faChevronDown} />
-            </StyledButton>
+            <Button variant="info" onClick={() => handleMore()}>
+              VIEW LESS <FaChevronDown />
+            </Button>
           )}
         </Row>
       )}

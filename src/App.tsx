@@ -1,12 +1,12 @@
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import Navigation from './components/layout/Navigation';
+import Navigation from './components/Navigation';
 import Hero from './components/Hero';
-import Demographics from './components/Steps/Demographics/Demographics';
-import Intro from './components/Steps/Intro/Intro';
-import Issues from './components/Steps/Issues/Issues';
+import Demographics from './components/Steps/Demographics';
+import Intro from './components/Steps/Intro';
+import Issues from './components/Steps/Issues';
 import Results from './components/Steps/Results/Results';
-import Progress from './components/layout/Progress';
+import Progress from './components/Progress';
 
 const steps = ['Introduction', 'Issues', 'Demographics', 'Results'];
 

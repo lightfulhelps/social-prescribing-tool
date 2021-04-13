@@ -1,12 +1,11 @@
 import React from 'react';
 import { Col, Row, Spinner, OverlayTrigger, Tooltip, Form } from 'react-bootstrap';
-import base from '../../../api/base';
-import CardWrapper from '../../common/CardWrapper';
-import placeholderImg from '../../../assets/image1.png';
-import { AppContext } from '../../../App';
-import DropdownWrapper from '../../common/DropdownWrapper';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import base from '../../api/base';
+import CardWrapper from '../CardWrapper';
+import placeholderImg from '../../assets/image1.png';
+import { AppContext } from '../../App';
+import DropdownWrapper from '../DropdownWrapper';
+import { FaInfoCircle } from 'react-icons/fa';
 
 export type Demographic = {
   id: 'string';
@@ -78,7 +77,7 @@ const Demographics: React.FunctionComponent<DemographicsProps> = () => {
               delay={{ show: 250, hide: 400 }}
               overlay={renderTooltip}
             >
-              <FontAwesomeIcon icon={faInfoCircle} />
+              <FaInfoCircle />
             </OverlayTrigger>
           </p>
           <p>If you don’t want to or nothing applies, just click next.</p>

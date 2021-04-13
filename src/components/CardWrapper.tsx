@@ -1,10 +1,8 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
-import { Issue } from '../Steps/Issues/Issues';
-import { Demographic } from '../Steps/Demographics/Demographics';
-import { Circle } from '../Styles';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { Issue } from './Steps/Issues';
+import { Demographic } from './Steps/Demographics';
+import { FaCheck } from 'react-icons/fa';
 
 export interface CardWrapperProps {
   imageUrl: string;
@@ -47,14 +45,17 @@ const CardWrapper: React.FunctionComponent<CardWrapperProps> = ({
     <Card onClick={() => handleClick()}>
       {active ? (
         <div className="bg-dark d-flex justify-content-around align-items-center">
-          <Circle
-            active
-            card
-            className="position-absolute d-flex align-items-center justify-content-around"
-            style={{ zIndex: 999 }}
+          <div
+            className="position-absolute d-flex align-items-center justify-content-around rounded-circle"
+            style={{
+              zIndex: 999,
+              height: '60px',
+              width: '60px',
+              backgroundColor: '#ffc200',
+            }}
           >
-            <FontAwesomeIcon icon={faCheck} style={{ fontSize: 30 }} />
-          </Circle>
+            <FaCheck size={30} />
+          </div>
           <Card.Img variant="top" src={imageUrl} style={{ opacity: active ? 0.5 : 1 }} />
         </div>
       ) : (

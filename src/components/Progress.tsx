@@ -1,20 +1,41 @@
 import React from 'react';
 import { Button, Col } from 'react-bootstrap';
-import { Circle, Divider } from '../Styles';
 
 export interface ProgressProps {
   steps: string[];
   currentStep: number;
 }
 
-const Progress: React.SFC<ProgressProps> = ({ steps, currentStep }) => {
+const Divider: React.FC<{ active: boolean }> = ({ active }) => (
+  <span
+    style={{
+      zIndex: -1,
+      left: '12px',
+      height: 'inherit',
+      borderLeft: `4px dotted ${active ? '#ffc200' : '#8E2082'}`,
+      opacity: active ? 1 : 0.5,
+      position: 'relative',
+      width: '50px',
+    }}
+  />
+);
+
+const Progress: React.FC<ProgressProps> = ({ steps, currentStep }) => {
   return (
     <Col sm={3} className="flex-column">
       <ul className="pl-0">
         {steps.map((step, i) => (
           <div key={i}>
             <li className="list-unstyled d-flex align-items-center">
-              <Circle active={currentStep === i + 1} />
+              <div
+                className="rounded-circle d-inline-block"
+                style={{
+                  width: '25px',
+                  height: '25px',
+                  backgroundColor: currentStep === i + 1 ? '#ffc200' : '#8e2082',
+                  opacity: currentStep === i + 1 ? 1 : 0.5,
+                }}
+              />
               <Button
                 variant="link"
                 className={`text-left text-dark font-weight-bold ${

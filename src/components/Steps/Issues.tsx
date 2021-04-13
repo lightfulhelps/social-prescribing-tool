@@ -1,9 +1,9 @@
 import React from 'react';
 import { Col, Row, Spinner } from 'react-bootstrap';
-import CardWrapper from '../../common/CardWrapper';
-import placeholderImg from '../../../assets/image1.png';
-import { AppContext } from '../../../App';
-import base from '../../../api/base';
+import CardWrapper from '../CardWrapper';
+import placeholderImg from '../../assets/image1.png';
+import { AppContext } from '../../App';
+import base from '../../api/base';
 
 export type Issue = {
   id: 'string';

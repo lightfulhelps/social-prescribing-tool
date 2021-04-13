@@ -1,9 +1,8 @@
-import { faPlusCircle, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Col, Form, Row } from 'react-bootstrap';
+import { FaPlusCircle, FaTrashAlt } from 'react-icons/fa';
 import { AppContext } from '../../../App';
-import DropdownWrapper from '../../common/DropdownWrapper';
+import DropdownWrapper from '../../DropdownWrapper';
 
 export interface PersonaDetailProps {
   type: 'gender' | 'age' | 'issues' | 'demographics';
@@ -64,11 +63,7 @@ const PersonaDetail: React.FunctionComponent<PersonaDetailProps> = ({
                 choices={choices}
                 handleChoice={setChoices}
               />
-              <FontAwesomeIcon
-                icon={faTrashAlt}
-                className="ml-2 text-info"
-                onClick={() => handleClear({ type, item })}
-              />
+              <FaTrashAlt className="ml-2 text-info" onClick={() => handleClear({ type, item })} />
             </div>
           ))}
           {choices[type] && (
@@ -76,7 +71,7 @@ const PersonaDetail: React.FunctionComponent<PersonaDetailProps> = ({
               className="d-flex align-items-center text-info font-weight-bold mt-2 text-underline"
               onClick={() => handleAdd(type)}
             >
-              <FontAwesomeIcon icon={faPlusCircle} className="mr-2" /> <u>ADD</u>
+              <FaPlusCircle className="mr-2" /> <u>ADD</u>
             </div>
           )}
         </Col>
@@ -98,11 +93,7 @@ const PersonaDetail: React.FunctionComponent<PersonaDetailProps> = ({
                 choices={choices}
                 handleChoice={setChoices}
               />
-              <FontAwesomeIcon
-                icon={faTrashAlt}
-                className="ml-2 text-info"
-                onClick={() => handleClear({ type })}
-              />
+              <FaTrashAlt className="ml-2 text-info" onClick={() => handleClear({ type })} />
             </div>
           </>
         ) : (
@@ -116,11 +107,7 @@ const PersonaDetail: React.FunctionComponent<PersonaDetailProps> = ({
                 choices={choices}
                 handleChoice={setChoices}
               />
-              <FontAwesomeIcon
-                icon={faTrashAlt}
-                className="ml-2 text-info"
-                onClick={() => handleClear({ type })}
-              />
+              <FaTrashAlt className="ml-2 text-info" onClick={() => handleClear({ type })} />
             </div>
           </>
         )}
