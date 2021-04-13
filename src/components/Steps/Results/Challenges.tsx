@@ -2,28 +2,16 @@ import React from 'react';
 import { Col, Row, Spinner, Button } from 'react-bootstrap';
 import { FaChevronDown } from 'react-icons/fa';
 import ListWrapper from './ListWrapper';
-import { getResults } from './Results';
-import { AppContext } from '../../../App';
-import base from '../../../api/base';
+import { getResults } from '../Results';
+import { useAppContext } from '../../../App';
+import { useAllRecords } from '../../../api/base';
 
 export interface ChallengesProps {}
 
 const Challenges: React.FC<ChallengesProps> = () => {
-  const { choices } = React.useContext(AppContext);
-
-  const [challengesArray, setChallengesArray] = React.useState<any>([]);
-  const [loading, setLoading] = React.useState(false);
+  const { choices } = useAppContext();
+  const [{ records: challengesArray, loading }] = useAllRecords('Challenges and Obstacles');
   const [showMore, setShowMore] = React.useState(false);
-
-  React.useEffect(() => {
-    base('Challenges and Obstacles')
-      .select({ view: 'Grid view' })
-      .eachPage((records, fetchNextPage) => {
-        setChallengesArray(records);
-        fetchNextPage();
-        setLoading(false);
-      });
-  }, []);
 
   const handleMore = () => setShowMore(!showMore);
 
@@ -40,7 +28,7 @@ const Challenges: React.FC<ChallengesProps> = () => {
     <div className="mb-4">
       <Row>
         <Col>
-          <p className="font-weight-bold">POTENTIAL CHALLENGES &amp; OBSTACLES</p>
+          <h3 className="h5">Potential Challenges &amp; Obstacles</h3>
           <ListWrapper
             data={getResults({
               data: challengesArray,
@@ -61,7 +49,7 @@ const Challenges: React.FC<ChallengesProps> = () => {
           )}
         </Col>
         <Col>
-          <p className="font-weight-bold">SO CONSIDER...</p>
+          <h3 className="h5">So Consider...</h3>
           <ListWrapper
             data={getResults({
               data: challengesArray,
@@ -90,11 +78,11 @@ const Challenges: React.FC<ChallengesProps> = () => {
         <Row className="justify-content-center">
           {!showMore ? (
             <Button variant="info" onClick={() => handleMore()}>
-              VIEW MORE <FaChevronDown />
+              View More <FaChevronDown />
             </Button>
           ) : (
             <Button variant="info" onClick={() => handleMore()}>
-              VIEW LESS <FaChevronDown />
+              View Less <FaChevronDown />
             </Button>
           )}
         </Row>

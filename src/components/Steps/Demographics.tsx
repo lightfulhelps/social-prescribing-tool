@@ -1,9 +1,9 @@
 import React from 'react';
 import { Col, Row, Spinner, OverlayTrigger, Tooltip, Form } from 'react-bootstrap';
-import base from '../../api/base';
+import { useAllRecords } from '../../api/base';
 import CardWrapper from '../CardWrapper';
 import placeholderImg from '../../assets/image1.png';
-import { AppContext } from '../../App';
+import { useAppContext } from '../../App';
 import DropdownWrapper from '../DropdownWrapper';
 import { FaInfoCircle } from 'react-icons/fa';
 
@@ -22,34 +22,10 @@ export type Demographic = {
 export interface DemographicsProps {}
 
 const Demographics: React.FC<DemographicsProps> = () => {
-  const { choices, setChoices } = React.useContext(AppContext);
-  const [demographicsArray, setDemographicsArray] = React.useState<any>([]);
-  const [genderArray, setGenderArray] = React.useState<any>([]);
-  const [ageArray, setAgeArray] = React.useState<any>([]);
-  const [loading, setLoading] = React.useState(false);
-
-  React.useEffect(() => {
-    setLoading(true);
-    base('Other')
-      .select({ view: 'Grid view' })
-      .eachPage((records, fetchNextPage) => {
-        setDemographicsArray(records);
-        fetchNextPage();
-      });
-    base('Gender')
-      .select({ view: 'Grid view' })
-      .eachPage((records, fetchNextPage) => {
-        setGenderArray(records);
-        fetchNextPage();
-      });
-    base('Age Range')
-      .select({ view: 'Grid view' })
-      .eachPage((records, fetchNextPage) => {
-        setAgeArray(records);
-        fetchNextPage();
-      });
-    setLoading(false);
-  }, []);
+  const { choices, setChoices } = useAppContext();
+  const [{ records: demographicsArray, loading: loadingDemographics }] = useAllRecords('Other');
+  const [{ records: genderArray, loading: loadingGenders }] = useAllRecords('Gender');
+  const [{ records: ageArray, loading: loadingAges }] = useAllRecords('Age Range');
 
   const renderTooltip = (props: any) => (
     <Tooltip id="button-tooltip" {...props}>
@@ -58,7 +34,7 @@ const Demographics: React.FC<DemographicsProps> = () => {
     </Tooltip>
   );
 
-  if (loading)
+  if (loadingDemographics || loadingGenders || loadingAges)
     return (
       <Spinner animation="border" role="status">
         <span className="sr-only">Loading...</span>
@@ -85,7 +61,9 @@ const Demographics: React.FC<DemographicsProps> = () => {
       </Row>
       <Row className="mb-4">
         <Col lg={4}>
-          <Form.Label className="font-weight-bold">GENDER IDENTIFICATION:</Form.Label>
+          <Form.Label className="font-weight-bold text-uppercase">
+            Gender identification:
+          </Form.Label>
           <DropdownWrapper
             title="Please select..."
             options={genderArray
@@ -99,7 +77,7 @@ const Demographics: React.FC<DemographicsProps> = () => {
           />
         </Col>
         <Col lg={4}>
-          <Form.Label className="font-weight-bold">AGE RANGE:</Form.Label>
+          <Form.Label className="font-weight-bold text-uppercase">Age range:</Form.Label>
           <DropdownWrapper
             title="Please select..."
             options={ageArray

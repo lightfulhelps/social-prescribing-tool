@@ -1,7 +1,7 @@
 import React from 'react';
 import { Col, Figure, Row, Spinner } from 'react-bootstrap';
-import { AppContext } from '../../../App';
-import base from '../../../api/base';
+import { useAppContext } from '../../../App';
+import { useAllRecords } from '../../../api/base';
 import PersonaDetail from './PersonaDetail';
 import default_1 from '../../../assets/66-80_1.png';
 import default_2 from '../../../assets/66-80_2.png';
@@ -32,43 +32,13 @@ export const imageTypes: { [key: string]: any } = {
 };
 
 const PersonaDetails: React.FC<PersonaDetailsProps> = () => {
-  const { choices } = React.useContext(AppContext);
-  const [genderArray, setGenderArray] = React.useState<any>([]);
-  const [ageArray, setAgeArray] = React.useState<any>([]);
-  const [demographicsArray, setDemographicsArray] = React.useState<any>([]);
-  const [issuesArray, setIssuesArray] = React.useState<any>([]);
-  const [loading, setLoading] = React.useState(false);
+  const { choices } = useAppContext();
+  const [{ records: issuesArray, loading: loadingIssues }] = useAllRecords('Issues');
+  const [{ records: demographicsArray, loading: loadingDemographics }] = useAllRecords('Other');
+  const [{ records: genderArray, loading: loadingGenders }] = useAllRecords('Gender');
+  const [{ records: ageArray, loading: loadingAges }] = useAllRecords('Age Range');
 
-  React.useEffect(() => {
-    setLoading(true);
-    base('Gender')
-      .select({ view: 'Grid view' })
-      .eachPage((records, fetchNextPage) => {
-        setGenderArray(records);
-        fetchNextPage();
-      });
-    base('Age Range')
-      .select({ view: 'Grid view' })
-      .eachPage((records, fetchNextPage) => {
-        setAgeArray(records);
-        fetchNextPage();
-      });
-    base('Issues')
-      .select({ view: 'Grid view' })
-      .eachPage((records, fetchNextPage) => {
-        setIssuesArray(records);
-        fetchNextPage();
-      });
-    base('Other')
-      .select({ view: 'Grid view' })
-      .eachPage((records, fetchNextPage) => {
-        setDemographicsArray(records);
-        fetchNextPage();
-      });
-    setLoading(false);
-  }, []);
-
-  if (loading)
+  if (loadingIssues || loadingDemographics || loadingGenders || loadingAges)
     return (
       <Spinner animation="border" role="status">
         <span className="sr-only">Loading...</span>

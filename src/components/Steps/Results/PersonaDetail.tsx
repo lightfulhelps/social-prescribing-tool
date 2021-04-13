@@ -66,7 +66,7 @@ const PersonaDetail: React.FC<PersonaDetailProps> = ({ type, data, title, ...pro
               className="d-flex align-items-center text-info font-weight-bold mt-2 text-underline"
               onClick={() => handleAdd(type)}
             >
-              <FaPlusCircle className="mr-2" /> <u>ADD</u>
+              <FaPlusCircle className="mr-2" /> <u>Add</u>
             </div>
           )}
         </Col>

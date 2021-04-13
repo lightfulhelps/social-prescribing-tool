@@ -1,28 +1,16 @@
 import React from 'react';
 import { FaChevronDown, FaExternalLinkAlt } from 'react-icons/fa';
 import { Card, CardColumns, Col, Row, Spinner, Button } from 'react-bootstrap';
-import base from '../../../api/base';
-import { AppContext } from '../../../App';
-import { getResults } from './Results';
+import { useAllRecords } from '../../../api/base';
+import { useAppContext } from '../../../App';
+import { getResults } from '../Results';
 
 export interface OnlineResourcesProps {}
 
 const OnlineResources: React.FC<OnlineResourcesProps> = () => {
-  const { choices } = React.useContext(AppContext);
-
-  const [resourcesArray, setResourcesArray] = React.useState<any>([]);
-  const [loading, setLoading] = React.useState(false);
+  const { choices } = useAppContext();
+  const [{ records: resourcesArray, loading }] = useAllRecords('Online Resources');
   const [showMore, setShowMore] = React.useState(false);
-
-  React.useEffect(() => {
-    base('Online Resources')
-      .select({ view: 'Grid view' })
-      .eachPage((records, fetchNextPage) => {
-        setResourcesArray(records);
-        fetchNextPage();
-        setLoading(false);
-      });
-  }, []);
 
   const handleMore = () => setShowMore(!showMore);
 
@@ -38,7 +26,7 @@ const OnlineResources: React.FC<OnlineResourcesProps> = () => {
     <div className="mb-4">
       <Row>
         <Col>
-          <p className="font-weight-bold">SUGGESTED ONLINE RESOURCES</p>
+          <h3 className="h5">Suggested Online Resources</h3>
           <CardColumns>
             {getResults({ data: resourcesArray, type: 'Name', choices })
               .slice(0, 6)
@@ -60,11 +48,11 @@ const OnlineResources: React.FC<OnlineResourcesProps> = () => {
         <Row className="justify-content-center">
           {!showMore ? (
             <Button variant="info" onClick={() => handleMore()}>
-              VIEW MORE <FaChevronDown />
+              View More <FaChevronDown />
             </Button>
           ) : (
             <Button variant="info" onClick={() => handleMore()}>
-              VIEW LESS <FaChevronDown />
+              View Less <FaChevronDown />
             </Button>
           )}
         </Row>

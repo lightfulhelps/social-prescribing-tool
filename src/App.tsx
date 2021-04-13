@@ -5,7 +5,7 @@ import Hero from './components/Hero';
 import Demographics from './components/Steps/Demographics';
 import Intro from './components/Steps/Intro';
 import Issues from './components/Steps/Issues';
-import Results from './components/Steps/Results/Results';
+import Results from './components/Steps/Results';
 import Progress from './components/Progress';
 
 export type Choices = {
@@ -59,7 +59,7 @@ const App: React.FunctionComponent = () => {
       }}
     >
       <Hero />
-      <Container>
+      <Container style={{ paddingBottom: '100px' }}>
         {currentStep !== 4 && (
           <Row>
             <Progress />

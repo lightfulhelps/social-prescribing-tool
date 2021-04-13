@@ -1,10 +1,10 @@
 import React from 'react';
-import { Choices } from '../../../App';
-import Challenges from './Challenges';
-import ServiceRecs from './ServiceTips';
-import OnlineResources from './OnlineResources';
-import CaseStudies from './CaseStudies';
-import PersonaDetails from './PersonaDetails';
+import { Choices } from '../../App';
+import Challenges from './Results/Challenges';
+import ServiceRecs from './Results/ServiceTips';
+import OnlineResources from './Results/OnlineResources';
+import CaseStudies from './Results/CaseStudies';
+import PersonaDetails from './Results/PersonaDetails';
 
 export interface ResultsProps {}
 

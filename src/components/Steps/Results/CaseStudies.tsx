@@ -1,27 +1,34 @@
 import React from 'react';
 import { Card, Col, Row, Spinner, Button } from 'react-bootstrap';
 import { FaChevronDown, FaPlus } from 'react-icons/fa';
-import { getResults } from './Results';
-import { AppContext } from '../../../App';
-import base from '../../../api/base';
+import { getResults } from '../Results';
+import { useAppContext } from '../../../App';
+import { getAllRecords } from '../../../api/base';
 
 export interface CaseStudiesProps {}
 
 const CaseStudies: React.FC<CaseStudiesProps> = () => {
-  const { choices } = React.useContext(AppContext);
-
+  const { choices } = useAppContext();
   const [caseStudiesArray, setCaseStudiesArray] = React.useState<any>([]);
   const [loading, setLoading] = React.useState(false);
   const [showMore, setShowMore] = React.useState(false);
 
   React.useEffect(() => {
-    base('Case Studies')
-      .select({ view: 'Grid view' })
-      .eachPage((records, fetchNextPage) => {
+    const fetchData = async () => {
+      setLoading(true);
+
+      try {
+        const records = await getAllRecords('Case Studies');
+
         setCaseStudiesArray(records);
-        fetchNextPage();
         setLoading(false);
-      });
+      } catch (e) {
+        console.log(e);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
 
   const handleMore = () => setShowMore(!showMore);
@@ -39,18 +46,18 @@ const CaseStudies: React.FC<CaseStudiesProps> = () => {
     <div className="mb-4">
       <Row>
         <Col>
-          <p className="font-weight-bold">CASE STUDIES</p>
+          <h3 className="h5">Case Studies</h3>
           <p>
             These case studies are what’s worked or hasn’t worked for people matching this profile.
           </p>
         </Col>
         <Col className="d-flex justify-content-end">
           <Button
-            className="border-info text-info d-block"
+            className="border-info text-info d-block text-uppercase"
             variant="white"
             onClick={() => window.open('https://forms.gle/6FnfyjR8E1my6taeA')}
           >
-            <FaPlus /> ADD NEW CASE STUDY
+            <FaPlus /> Add New Case Study
           </Button>
         </Col>
       </Row>
@@ -106,12 +113,12 @@ const CaseStudies: React.FC<CaseStudiesProps> = () => {
       {getResults({ data: caseStudiesArray, type: 'Name', choices }).length > 3 && (
         <Row className="justify-content-center">
           {!showMore ? (
-            <Button variant="info" onClick={() => handleMore()}>
-              VIEW MORE <FaChevronDown />
+            <Button className="text-uppercase" variant="info" onClick={() => handleMore()}>
+              View More <FaChevronDown />
             </Button>
           ) : (
-            <Button variant="info" onClick={() => handleMore()}>
-              VIEW LESS <FaChevronDown />
+            <Button className="text-uppercase" variant="info" onClick={() => handleMore()}>
+              View Less <FaChevronDown />
             </Button>
           )}
         </Row>

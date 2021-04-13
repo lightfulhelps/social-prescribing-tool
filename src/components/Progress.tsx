@@ -37,12 +37,12 @@ const Progress: React.FC = () => {
               />
               <Button
                 variant="link"
-                className={`text-left text-dark font-weight-bold ${
+                className={`text-left text-dark font-weight-bold text-uppercase ${
                   currentStep === i + 1 ? '' : 'text-muted'
                 }`}
                 style={{ opacity: currentStep === i + 1 ? 1 : 0.5 }}
               >
-                {step.toUpperCase()}
+                {step}
               </Button>
             </li>
             {i !== 3 && <Divider active={currentStep === i + 1} />}

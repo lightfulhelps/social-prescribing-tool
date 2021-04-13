@@ -3,7 +3,7 @@ import { Col, Row, Spinner } from 'react-bootstrap';
 import CardWrapper from '../CardWrapper';
 import placeholderImg from '../../assets/image1.png';
 import { AppContext } from '../../App';
-import base from '../../api/base';
+import { useAllRecords } from '../../api/base';
 
 export type Issue = {
   id: 'string';
@@ -21,19 +21,7 @@ export interface IssuesProps {}
 
 const Issues: React.FC<IssuesProps> = () => {
   const { choices, setChoices } = React.useContext(AppContext);
-  const [issuesArray, setIssuesArray] = React.useState<any>([]);
-  const [loading, setLoading] = React.useState(false);
-
-  React.useEffect(() => {
-    setLoading(true);
-    base('Issues')
-      .select({ view: 'Grid view' })
-      .eachPage((records, fetchNextPage) => {
-        setIssuesArray(records);
-        fetchNextPage();
-        setLoading(false);
-      });
-  }, []);
+  const [{ records: issuesArray, loading }] = useAllRecords('Issues');
 
   if (loading)
     return (
