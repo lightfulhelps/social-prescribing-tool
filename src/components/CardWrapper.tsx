@@ -12,13 +12,7 @@ export interface CardWrapperProps {
   type: string;
 }
 
-const CardWrapper: React.FunctionComponent<CardWrapperProps> = ({
-  imageUrl,
-  item,
-  choices,
-  setChoices,
-  type,
-}) => {
+const CardWrapper: React.FC<CardWrapperProps> = ({ imageUrl, item, choices, setChoices, type }) => {
   const [active, setActive] = React.useState<boolean>(false);
 
   const handleClick = () => {

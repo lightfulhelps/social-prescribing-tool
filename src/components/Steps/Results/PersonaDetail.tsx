@@ -11,12 +11,7 @@ export interface PersonaDetailProps {
   title: string;
 }
 
-const PersonaDetail: React.FunctionComponent<PersonaDetailProps> = ({
-  type,
-  data,
-  title,
-  ...props
-}) => {
+const PersonaDetail: React.FC<PersonaDetailProps> = ({ type, data, title, ...props }) => {
   const { choices, setChoices } = React.useContext(AppContext);
 
   if (!choices) return <p>Error, no choices found.</p>;

@@ -3,7 +3,7 @@ import { Col, Row, Nav } from 'react-bootstrap';
 
 export interface HeaderProps {}
 
-const Header: React.FunctionComponent<HeaderProps> = () => {
+const Header: React.FC<HeaderProps> = () => {
   return (
     <Row className="bg-warning align-items-center">
       <Col>

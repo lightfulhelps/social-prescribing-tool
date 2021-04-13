@@ -8,7 +8,7 @@ import base from '../../../api/base';
 
 export interface ChallengesProps {}
 
-const Challenges: React.FunctionComponent<ChallengesProps> = () => {
+const Challenges: React.FC<ChallengesProps> = () => {
   const { choices } = React.useContext(AppContext);
 
   const [challengesArray, setChallengesArray] = React.useState<any>([]);

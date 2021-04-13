@@ -6,7 +6,7 @@ export interface ListWrapperProps {
   type: string;
 }
 
-const ListWrapper: React.FunctionComponent<ListWrapperProps> = ({ data, type }) => {
+const ListWrapper: React.FC<ListWrapperProps> = ({ data, type }) => {
   return (
     <ListGroup>
       {data.map((item: any) => (

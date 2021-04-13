@@ -130,7 +130,7 @@ export const getResults = ({
   return results;
 };
 
-const Results: React.FunctionComponent<ResultsProps> = () => {
+const Results: React.FC<ResultsProps> = () => {
   return (
     <>
       <PersonaDetails />

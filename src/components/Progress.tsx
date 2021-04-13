@@ -1,10 +1,6 @@
 import React from 'react';
 import { Button, Col } from 'react-bootstrap';
-
-export interface ProgressProps {
-  steps: string[];
-  currentStep: number;
-}
+import { useAppContext } from '../App';
 
 const Divider: React.FC<{ active: boolean }> = ({ active }) => (
   <span
@@ -20,7 +16,10 @@ const Divider: React.FC<{ active: boolean }> = ({ active }) => (
   />
 );
 
-const Progress: React.FC<ProgressProps> = ({ steps, currentStep }) => {
+const Progress: React.FC = () => {
+  const { currentStep } = useAppContext();
+  const steps = ['Introduction', 'Issues', 'Demographics', 'Results'];
+
   return (
     <Col sm={3} className="flex-column">
       <ul className="pl-0">

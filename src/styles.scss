@@ -1,0 +1,26 @@
+$font-family-sans-serif: 'Inter', sans-serif;
+$font-size-lg: 1.125rem;
+$font-weight-bold: 600;
+
+$spacer: 1rem;
+$spacers: (
+  0: 0,
+  1: $spacer * 0.5,
+  2: $spacer,
+  3: $spacer * 1.5,
+  4: $spacer * 2,
+  5: $spacer * 2.5,
+  6: $spacer * 3,
+  7: $spacer * 3.5,
+  8: $spacer * 4,
+);
+
+@import '~bootstrap/scss/bootstrap';
+
+.text-sm {
+  font-size: $font-size-sm;
+}
+
+.text-lg {
+  font-size: $font-size-lg;
+}

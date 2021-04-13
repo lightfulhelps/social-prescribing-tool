@@ -1,16 +1,13 @@
 import React, { ReactNode } from 'react';
 import { Col, Row } from 'react-bootstrap';
-
-export interface HeroProps {
-  currentStep: number;
-}
+import { useAppContext } from '../App';
 
 const textOptions: { [key: number]: ReactNode } = {
   1: (
     <Row>
       <Col>
-        <p className="font-weight-bold">Are you a link worker or service provider?</p>
-        <p className="font-weight-bold">
+        <p className="text-lg font-weight-bold">Are you a link worker or service provider?</p>
+        <p className="text-lg font-weight-bold mb-0">
           Or are you someone who is looking for community support, but you aren’t sure where to
           start?
         </p>
@@ -20,15 +17,15 @@ const textOptions: { [key: number]: ReactNode } = {
   2: (
     <Row>
       <Col lg={3}>
-        <p className="font-weight-bold">Are you a link worker or service provider?</p>
+        <p className="text-lg font-weight-bold">Are you a link worker or service provider?</p>
       </Col>
       <Col>
-        <p className="small">
+        <p>
           Our social prescribing support tool may be useful in helping you to understand the needs,
           goals, and service suggestions of people in need. It also provides resources and case
           studies that may be of use to you.
         </p>
-        <p className="small">
+        <p className="mb-0">
           Just enter the characteristics of the person you are trying to help below.
         </p>
       </Col>
@@ -37,15 +34,15 @@ const textOptions: { [key: number]: ReactNode } = {
   3: (
     <Row>
       <Col lg={3}>
-        <p className="font-weight-bold">Are you a link worker or service provider?</p>
+        <p className="text-lg font-weight-bold">Are you a link worker or service provider?</p>
       </Col>
       <Col>
-        <p className="small">
+        <p>
           Our social prescribing support tool may be useful in helping you to understand the needs,
           goals, and service suggestions of people in need. It also provides resources and case
           studies that may be of use to you.
         </p>
-        <p className="small">
+        <p className="mb-0">
           Just enter the characteristics of the person you are trying to help below.
         </p>
       </Col>
@@ -54,10 +51,10 @@ const textOptions: { [key: number]: ReactNode } = {
   4: (
     <Row>
       <Col>
-        <p className="font-weight-bold">
+        <p className="text-lg font-weight-bold">
           Below is a representation of someone who may be similar to the person in need.
         </p>
-        <p className="small">
+        <p className="mb-0">
           Use this profile information to help you explore what challenges someone may have, as well
           as what services may be useful for them. Relevant online resources and case studies of
           people with similar profiles are also included.
@@ -67,18 +64,19 @@ const textOptions: { [key: number]: ReactNode } = {
   ),
 };
 
-const Hero: React.FunctionComponent<HeroProps> = ({ currentStep }) => {
+const Hero: React.FC = () => {
+  const { currentStep } = useAppContext();
+
   return (
     <section
-      className="d-flex flex-column justify-content-center mb-5 w-100 bg-white"
+      className="d-flex flex-column justify-content-center mb-5 w-100 text-white bg-secondary py-5"
       style={{
-        backgroundImage: 'linear-gradient(315deg, #8e2082 0%, #420b57 100%)',
-        height: '208px',
+        backgroundImage: 'linear-gradient(315deg, #8E2082 0%, #420B57 100%)',
       }}
     >
       <div className="container">
-        <h1 className="h4 font-weight-bold mb-2">Welcome to the Social Prescribing Support Tool</h1>
-        {textOptions[currentStep]}
+        <h1 className="h3 font-weight-bold mb-4">Welcome to the Social Prescribing Support Tool</h1>
+        {currentStep && textOptions[currentStep]}
       </div>
     </section>
   );

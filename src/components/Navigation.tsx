@@ -1,22 +1,16 @@
 import React from 'react';
 import { Nav, Button } from 'react-bootstrap';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
-import { AppContext } from '../App';
+import { useAppContext } from '../App';
 
 export interface NavigationProps {
-  currentStep: number;
   handleNext: Function;
   handleBack: Function;
   handleReset: Function;
 }
 
-const Navigation: React.FC<NavigationProps> = ({
-  currentStep,
-  handleNext,
-  handleBack,
-  handleReset,
-}) => {
-  const { choices } = React.useContext(AppContext);
+const Navigation: React.FC<NavigationProps> = ({ handleNext, handleBack, handleReset }) => {
+  const { choices, currentStep } = useAppContext();
 
   if (!choices) return <p>Error, no choices found.</p>;
 

@@ -7,7 +7,7 @@ import { getResults } from './Results';
 
 export interface ServiceTipsProps {}
 
-const ServiceTips: React.FunctionComponent<ServiceTipsProps> = () => {
+const ServiceTips: React.FC<ServiceTipsProps> = () => {
   const { choices } = React.useContext(AppContext);
 
   const [serviceArray, setServiceArray] = React.useState<any>([]);

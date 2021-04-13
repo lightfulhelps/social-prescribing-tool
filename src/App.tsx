@@ -8,8 +8,6 @@ import Issues from './components/Steps/Issues';
 import Results from './components/Steps/Results/Results';
 import Progress from './components/Progress';
 
-const steps = ['Introduction', 'Issues', 'Demographics', 'Results'];
-
 export type Choices = {
   issues: string[];
   demographics: string[];
@@ -20,9 +18,12 @@ export type Choices = {
 type ContextProps = {
   choices: Choices;
   setChoices: (values: Choices) => void;
+  currentStep: number;
 };
 
 export const AppContext = React.createContext<Partial<ContextProps>>({});
+
+export const useAppContext = () => React.useContext(AppContext);
 
 const App: React.FunctionComponent = () => {
   const [currentStep, setCurrentStep] = React.useState<number>(1);
@@ -54,13 +55,14 @@ const App: React.FunctionComponent = () => {
       value={{
         choices,
         setChoices,
+        currentStep,
       }}
     >
-      <Hero currentStep={currentStep} />
+      <Hero />
       <Container>
         {currentStep !== 4 && (
           <Row>
-            <Progress steps={steps} currentStep={currentStep} />
+            <Progress />
             <Col>
               {currentStep === 1 && <Intro />}
               {currentStep === 2 && <Issues />}
@@ -70,12 +72,7 @@ const App: React.FunctionComponent = () => {
         )}
         {currentStep === 4 && <Results />}
       </Container>
-      <Navigation
-        currentStep={currentStep}
-        handleNext={handleNext}
-        handleBack={handleBack}
-        handleReset={handleReset}
-      />
+      <Navigation handleNext={handleNext} handleBack={handleBack} handleReset={handleReset} />
     </AppContext.Provider>
   );
 };

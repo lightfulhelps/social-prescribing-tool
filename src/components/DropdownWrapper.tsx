@@ -11,7 +11,7 @@ export interface DropdownWrapperProps {
   type: string;
 }
 
-const DropdownWrapper: React.FunctionComponent<DropdownWrapperProps> = ({
+const DropdownWrapper: React.FC<DropdownWrapperProps> = ({
   title,
   options,
   hasMargin,

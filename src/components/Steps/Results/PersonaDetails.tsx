@@ -31,7 +31,7 @@ export const imageTypes: { [key: string]: any } = {
   },
 };
 
-const PersonaDetails: React.FunctionComponent<PersonaDetailsProps> = () => {
+const PersonaDetails: React.FC<PersonaDetailsProps> = () => {
   const { choices } = React.useContext(AppContext);
   const [genderArray, setGenderArray] = React.useState<any>([]);
   const [ageArray, setAgeArray] = React.useState<any>([]);

@@ -7,7 +7,7 @@ import { getResults } from './Results';
 
 export interface OnlineResourcesProps {}
 
-const OnlineResources: React.FunctionComponent<OnlineResourcesProps> = () => {
+const OnlineResources: React.FC<OnlineResourcesProps> = () => {
   const { choices } = React.useContext(AppContext);
 
   const [resourcesArray, setResourcesArray] = React.useState<any>([]);

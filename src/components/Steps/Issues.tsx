@@ -19,7 +19,7 @@ export type Issue = {
 
 export interface IssuesProps {}
 
-const Issues: React.FunctionComponent<IssuesProps> = () => {
+const Issues: React.FC<IssuesProps> = () => {
   const { choices, setChoices } = React.useContext(AppContext);
   const [issuesArray, setIssuesArray] = React.useState<any>([]);
   const [loading, setLoading] = React.useState(false);

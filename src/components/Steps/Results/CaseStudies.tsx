@@ -7,7 +7,7 @@ import base from '../../../api/base';
 
 export interface CaseStudiesProps {}
 
-const CaseStudies: React.FunctionComponent<CaseStudiesProps> = () => {
+const CaseStudies: React.FC<CaseStudiesProps> = () => {
   const { choices } = React.useContext(AppContext);
 
   const [caseStudiesArray, setCaseStudiesArray] = React.useState<any>([]);

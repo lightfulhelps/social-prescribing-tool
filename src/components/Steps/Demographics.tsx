@@ -21,7 +21,7 @@ export type Demographic = {
 
 export interface DemographicsProps {}
 
-const Demographics: React.FunctionComponent<DemographicsProps> = () => {
+const Demographics: React.FC<DemographicsProps> = () => {
   const { choices, setChoices } = React.useContext(AppContext);
   const [demographicsArray, setDemographicsArray] = React.useState<any>([]);
   const [genderArray, setGenderArray] = React.useState<any>([]);
