@@ -25,7 +25,7 @@ const CardWrapper: React.FC<Props> = ({ filterKey, item }) => {
       }}
     >
       <div
-        className="d-flex justify-content-center align-items-center position-relative p-3"
+        className="d-flex justify-content-center align-items-center position-relative p-3 rounded-top"
         style={{ backgroundColor: '#F9F4F9' }}
       >
         {active && (

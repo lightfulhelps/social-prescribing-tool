@@ -37,7 +37,7 @@ const PersonaDetails: React.FC = () => {
 
   return (
     <Container>
-      <Row className="mb-4">
+      <Row className="py-4">
         <Col>
           <div className="mb-3">
             <h3 className="h5 text-uppercase">Gender Identifiction:</h3>
