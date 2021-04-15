@@ -1,92 +1,74 @@
 import React from 'react';
-import { Col, Row, Spinner, Button } from 'react-bootstrap';
-import { FaChevronDown } from 'react-icons/fa';
-import ListWrapper from './ListWrapper';
-import { getResults } from '../Results';
+import { Col, Row, Button, Container } from 'react-bootstrap';
+import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import { getFilteredRecords } from '../Results';
 import { useAppContext } from '../../../App';
-import { useAllRecords } from '../../../api/base';
+import { useAllRecords } from '../../../lib/base';
+import Loader from '../../Loader';
 
-export interface ChallengesProps {}
-
-const Challenges: React.FC<ChallengesProps> = () => {
-  const { choices } = useAppContext();
+const Challenges: React.FC = () => {
+  const { filters } = useAppContext();
   const [{ records: challengesArray, loading }] = useAllRecords('Challenges and Obstacles');
+  const initialCount = 3;
   const [showMore, setShowMore] = React.useState(false);
 
   const handleMore = () => setShowMore(!showMore);
 
-  if (loading)
-    return (
-      <Spinner animation="border" role="status">
-        <span className="sr-only">Loading...</span>
-      </Spinner>
-    );
-
-  if (!choices) return <p>Error, no choices found.</p>;
+  const filteredRecords = getFilteredRecords(challengesArray, filters);
 
   return (
-    <div className="mb-4">
-      <Row>
-        <Col>
-          <h3 className="h5">Potential Challenges &amp; Obstacles</h3>
-          <ListWrapper
-            data={getResults({
-              data: challengesArray,
-              type: 'Challenge',
-              choices,
-            }).slice(0, 3)}
-            type="Challenge"
-          />
-          {showMore && (
-            <ListWrapper
-              data={getResults({
-                data: challengesArray,
-                type: 'Challenge',
-                choices,
-              }).slice(3)}
-              type="Challenge"
-            />
-          )}
-        </Col>
-        <Col>
-          <h3 className="h5">So Consider...</h3>
-          <ListWrapper
-            data={getResults({
-              data: challengesArray,
-              type: 'Suggestion',
-              choices,
-            }).slice(0, 3)}
-            type="Suggestion"
-          />
-          {showMore && (
-            <ListWrapper
-              data={getResults({
-                data: challengesArray,
-                type: 'Suggestion',
-                choices,
-              }).slice(3)}
-              type="Suggestion"
-            />
-          )}
-        </Col>
-      </Row>
-      {getResults({
-        data: challengesArray,
-        type: 'Suggestion',
-        choices,
-      }).length > 3 && (
-        <Row className="justify-content-center">
-          {!showMore ? (
-            <Button variant="info" onClick={() => handleMore()}>
-              View More <FaChevronDown />
-            </Button>
-          ) : (
-            <Button variant="info" onClick={() => handleMore()}>
-              View Less <FaChevronDown />
-            </Button>
-          )}
+    <div className="py-4" style={{ backgroundColor: '#F9F4F9' }}>
+      <Container>
+        <Row>
+          <Col>
+            <h3 className="h4 mb-4 text-uppercase">Potential Challenges &amp; Obstacles</h3>
+          </Col>
+          <Col>
+            <h3 className="h4 mb-4 text-uppercase">So Consider...</h3>
+          </Col>
         </Row>
-      )}
+        {loading ? (
+          <Loader />
+        ) : (
+          <>
+            {filteredRecords.slice(0, showMore ? undefined : initialCount).map((record, i) => (
+              <Row key={record.id}>
+                <Col className="mb-4">
+                  <div
+                    className={`d-flex align-items-center border-0 text-white rounded p-3 font-weight-bold h-100 ${
+                      i % 2 === 0 ? 'bg-secondary' : 'bg-success'
+                    }`}
+                  >
+                    {record.fields['Challenge']}
+                  </div>
+                </Col>
+                <Col className="mb-4">
+                  <div
+                    className={`d-flex align-items-center border-0 text-white rounded p-3 font-weight-bold h-100 ${
+                      i % 2 === 0 ? 'bg-secondary' : 'bg-success'
+                    }`}
+                  >
+                    {record.fields['Suggestion']}
+                  </div>
+                </Col>
+              </Row>
+            ))}
+            {filteredRecords.length > initialCount && (
+              <Row className="justify-content-center">
+                <Button
+                  className="d-flex align-items-center text-uppercase"
+                  variant="info"
+                  size="lg"
+                  onClick={() => handleMore()}
+                >
+                  View {showMore ? 'less' : 'more'}{' '}
+                  {showMore ? <FaChevronUp className="ml-1" /> : <FaChevronDown className="ml-1" />}
+                </Button>
+              </Row>
+            )}
+          </>
+        )}
+      </Container>
     </div>
   );
 };

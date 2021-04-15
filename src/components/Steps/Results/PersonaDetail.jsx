@@ -1,47 +1,17 @@
 import React from 'react';
 import { Col, Form, Row } from 'react-bootstrap';
 import { FaPlusCircle, FaTrashAlt } from 'react-icons/fa';
-import { AppContext } from '../../../App';
+import { useAppContext } from '../../../App';
 import DropdownWrapper from '../../DropdownWrapper';
 
-export interface PersonaDetailProps {
-  type: 'gender' | 'age' | 'issues' | 'demographics';
-  data: any;
-  multiple?: boolean | false;
-  title: string;
-}
+type Props = {
+  filterKey: string,
+  data: any,
+  title: string,
+};
 
-const PersonaDetail: React.FC<PersonaDetailProps> = ({ type, data, title, ...props }) => {
-  const { choices, setChoices } = React.useContext(AppContext);
-
-  if (!choices) return <p>Error, no choices found.</p>;
-
-  const handleAdd = (type: PersonaDetailProps['type']) => {
-    if (!setChoices) return;
-    if (type === 'issues' || type === 'demographics') {
-      setChoices({
-        ...choices,
-        [type]: [...choices[type], ''],
-      });
-    }
-  };
-
-  const handleClear = ({ type, item }: { type: PersonaDetailProps['type']; item?: string }) => {
-    if (!setChoices) return;
-
-    if (type === 'issues' || type === 'demographics') {
-      setChoices({
-        ...choices,
-        [type]: choices[type].filter((each: any) => each !== item),
-      });
-      return;
-    }
-
-    setChoices({
-      ...choices,
-      [type]: '',
-    });
-  };
+const PersonaDetail: React.FC<Props> = ({ type, data, title }) => {
+  const { filters, handleFilter } = useAppContext();
 
   if (type === 'issues' || type === 'demographics')
     return (

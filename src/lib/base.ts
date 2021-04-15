@@ -11,7 +11,7 @@ export const getAllRecords = (table: string): Promise<any[]> => {
       .select({ view: 'Grid view' })
       .eachPage(
         (records, fetchNextPage) => {
-          all = [...all, ...records];
+          all = [...all, ...records.map((record) => record._rawJson)];
           fetchNextPage();
         },
         (error) => {

@@ -1,128 +1,137 @@
 import React from 'react';
-import { Card, Col, Row, Spinner, Button } from 'react-bootstrap';
-import { FaChevronDown, FaPlus } from 'react-icons/fa';
-import { getResults } from '../Results';
+import { Card, Col, Row, Button, Container } from 'react-bootstrap';
+import { FaChevronDown, FaChevronUp, FaPlus } from 'react-icons/fa';
+import { getFilteredRecords } from '../Results';
 import { useAppContext } from '../../../App';
-import { getAllRecords } from '../../../api/base';
+import { useAllRecords } from '../../../lib/base';
+import Loader from '../../Loader';
 
-export interface CaseStudiesProps {}
-
-const CaseStudies: React.FC<CaseStudiesProps> = () => {
-  const { choices } = useAppContext();
-  const [caseStudiesArray, setCaseStudiesArray] = React.useState<any>([]);
-  const [loading, setLoading] = React.useState(false);
+const CaseStudies: React.FC = () => {
+  const { filters } = useAppContext();
+  const [{ records: caseStudiesArray, loading }] = useAllRecords('Case Studies');
+  const initialCount = 1;
   const [showMore, setShowMore] = React.useState(false);
-
-  React.useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-
-      try {
-        const records = await getAllRecords('Case Studies');
-
-        setCaseStudiesArray(records);
-        setLoading(false);
-      } catch (e) {
-        console.log(e);
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   const handleMore = () => setShowMore(!showMore);
 
-  if (loading)
-    return (
-      <Spinner animation="border" role="status">
-        <span className="sr-only">Loading...</span>
-      </Spinner>
-    );
-
-  if (!choices) return <p>Error, no choices found.</p>;
+  const filteredRecords = getFilteredRecords(caseStudiesArray, filters);
 
   return (
-    <div className="mb-4">
-      <Row>
-        <Col>
-          <h3 className="h5">Case Studies</h3>
-          <p>
-            These case studies are what’s worked or hasn’t worked for people matching this profile.
-          </p>
-        </Col>
-        <Col className="d-flex justify-content-end">
-          <Button
-            className="border-info text-info d-block text-uppercase"
-            variant="white"
-            onClick={() => window.open('https://forms.gle/6FnfyjR8E1my6taeA')}
-          >
-            <FaPlus /> Add New Case Study
-          </Button>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          {getResults({ data: caseStudiesArray, type: 'Name', choices })
-            .slice(0, 1)
-            .map((item: any) => (
-              <Card key={item.id} className="my-4">
-                <Card.Header as="h5">{item.fields['Name']}</Card.Header>
+    <div className="py-4 bg-secondary">
+      <Container>
+        <Row className="mb-3">
+          <Col lg={8}>
+            <h3 className="h4 text-white text-uppercase">Case Studies</h3>
+            <p className="text-white">
+              These case studies are what’s worked or hasn’t worked for people matching this
+              profile.
+            </p>
+          </Col>
+          <Col lg={4} className="d-flex justify-content-end align-items-start">
+            <Button
+              className="d-flex align-items-center text-uppercase bg-white"
+              variant="white"
+              size="lg"
+              onClick={() => window.open('https://forms.gle/6FnfyjR8E1my6taeA')}
+            >
+              Add New Case Study <FaPlus className="ml-1" />
+            </Button>
+          </Col>
+        </Row>
+        {loading ? (
+          <Loader variant="white" />
+        ) : (
+          <>
+            {filteredRecords.slice(0, showMore ? undefined : initialCount).map((item: any) => (
+              <Card key={item.id} className="border-0 mb-3">
+                <Card.Header
+                  className="border-0 text-white h5 mb-0"
+                  style={{ backgroundColor: '#420B57' }}
+                >
+                  {item.fields['Name']}
+                </Card.Header>
                 <Card.Body>
-                  <Row className="mb-4">
-                    <Col>
-                      <Card>
-                        <Card.Header as="h5">Beneficiary Profile</Card.Header>
-                        <Card.Body>
-                          <Card.Text>{item.fields['Beneficiary profile']}</Card.Text>
-                        </Card.Body>
-                      </Card>
-                    </Col>
-                    <Col>
-                      <Card>
-                        <Card.Header as="h5">Agreed Action Plan</Card.Header>
-                        <Card.Body>
-                          <Card.Text>{item.fields['Agreed action plan']}</Card.Text>
-                        </Card.Body>
-                      </Card>
-                    </Col>
-                  </Row>
-                  <Row className="mb-4">
-                    <Col>
-                      <Card>
-                        <Card.Header as="h5">What's Helped Them</Card.Header>
-                        <Card.Body>
-                          <Card.Text>{item.fields[`What's helped`]}</Card.Text>
-                        </Card.Body>
-                      </Card>
-                    </Col>
-                    <Col>
-                      <Card>
-                        <Card.Header as="h5">What Didn't Help Them</Card.Header>
-                        <Card.Body>
-                          <Card.Text>{item.fields[`What didn't help`]}</Card.Text>
-                        </Card.Body>
-                      </Card>
-                    </Col>
+                  <Row>
+                    {item.fields['Beneficiary profile'] && (
+                      <Col lg={6} className="mb-3">
+                        <Card className="border-0 h-100" style={{ backgroundColor: '#F9F4F9' }}>
+                          <Card.Header
+                            className="border-0 text-white h5 mb-0"
+                            style={{ backgroundColor: '#420B57' }}
+                          >
+                            Beneficiary Profile
+                          </Card.Header>
+                          <Card.Body>
+                            <Card.Text>{item.fields['Beneficiary profile']}</Card.Text>
+                          </Card.Body>
+                        </Card>
+                      </Col>
+                    )}
+                    {item.fields['Agreed action plan'] && (
+                      <Col lg={6} className="mb-3">
+                        <Card className="border-0 h-100" style={{ backgroundColor: '#F9F4F9' }}>
+                          <Card.Header
+                            className="border-0 text-white h5 mb-0"
+                            style={{ backgroundColor: '#420B57' }}
+                          >
+                            Agreed Action Plan
+                          </Card.Header>
+                          <Card.Body>
+                            <Card.Text>{item.fields['Agreed action plan']}</Card.Text>
+                          </Card.Body>
+                        </Card>
+                      </Col>
+                    )}
+                    {item.fields[`What's helped`] && (
+                      <Col lg={6} className="mb-3">
+                        <Card className="border-0 h-100" style={{ backgroundColor: '#F9F4F9' }}>
+                          <Card.Header
+                            className="border-0 text-white h5 mb-0"
+                            style={{ backgroundColor: '#420B57' }}
+                          >
+                            What's Helped Them
+                          </Card.Header>
+                          <Card.Body>
+                            <Card.Text>{item.fields[`What's helped`]}</Card.Text>
+                          </Card.Body>
+                        </Card>
+                      </Col>
+                    )}
+                    {item.fields[`What didn't help`] && (
+                      <Col lg={6} className="mb-3">
+                        <Card className="border-0 h-100" style={{ backgroundColor: '#F9F4F9' }}>
+                          <Card.Header
+                            className="border-0 text-white h5 mb-0"
+                            style={{ backgroundColor: '#420B57' }}
+                          >
+                            What Didn't Help Them
+                          </Card.Header>
+                          <Card.Body>
+                            <Card.Text>{item.fields[`What didn't help`]}</Card.Text>
+                          </Card.Body>
+                        </Card>
+                      </Col>
+                    )}
                   </Row>
                 </Card.Body>
               </Card>
             ))}
-        </Col>
-      </Row>
-      {getResults({ data: caseStudiesArray, type: 'Name', choices }).length > 3 && (
-        <Row className="justify-content-center">
-          {!showMore ? (
-            <Button className="text-uppercase" variant="info" onClick={() => handleMore()}>
-              View More <FaChevronDown />
-            </Button>
-          ) : (
-            <Button className="text-uppercase" variant="info" onClick={() => handleMore()}>
-              View Less <FaChevronDown />
-            </Button>
-          )}
-        </Row>
-      )}
+            {filteredRecords.length > initialCount && (
+              <Row className="justify-content-center">
+                <Button
+                  className="d-flex align-items-center text-uppercase bg-white"
+                  variant="white"
+                  size="lg"
+                  onClick={() => handleMore()}
+                >
+                  View {showMore ? 'less' : 'more'}{' '}
+                  {showMore ? <FaChevronUp className="ml-1" /> : <FaChevronDown className="ml-1" />}
+                </Button>
+              </Row>
+            )}
+          </>
+        )}
+      </Container>
     </div>
   );
 };

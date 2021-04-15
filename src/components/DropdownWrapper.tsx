@@ -1,69 +1,41 @@
 import React from 'react';
 import { Dropdown } from 'react-bootstrap';
+import { useAppContext } from '../App';
 
-export interface DropdownWrapperProps {
+type Props = {
+  filterKey: string;
   title: string;
-  options: Array<string>;
-  hasMargin?: boolean;
+  options: any[];
   className?: string;
-  choices: any;
-  handleChoice: any;
-  type: string;
-}
+};
 
-const DropdownWrapper: React.FC<DropdownWrapperProps> = ({
-  title,
-  options,
-  hasMargin,
-  choices,
-  handleChoice,
-  type,
-  ...props
-}) => {
-  const [active, setActive] = React.useState<string>();
-  const handleSelect = (e: any) => {
-    setActive(e);
+const DropdownWrapper: React.FC<Props> = ({ filterKey, title, options, className }) => {
+  const { filters, handleFilter } = useAppContext();
+  const currentFilter = filters?.find((f) => f.key === filterKey);
+  const currentOption = options.find((o) => o.id === currentFilter?.value);
 
-    if (type === 'issues' || type === 'demographics') {
-      if (choices[type].length === 1) {
-        handleChoice({
-          ...choices,
-          [type]: [e],
-        });
-        return;
-      }
-      if (choices[type].length > 1) {
-        handleChoice({
-          ...choices,
-          [type]: [...choices[type], e],
-        });
-      }
-    } else {
-      handleChoice({
-        ...choices,
-        [type]: e,
-      });
-    }
-  };
   return (
-    <Dropdown className={`w-100 ${hasMargin ? 'mr-3' : ''}`}>
+    <Dropdown>
       <Dropdown.Toggle
         id="dropdown-basic"
         variant="white"
-        className={`dropdown-toggle font-weight-bold text-info border-info w-100 ${props.className}`}
-        style={{ width: 270 }}
+        className={`dropdown-toggle font-weight-bold text-info border-info w-100 ${className}`}
       >
-        {active === undefined ? title : active}
+        {currentOption ? currentOption.fields.Name : title}
       </Dropdown.Toggle>
       <Dropdown.Menu className="w-100">
-        {options.map((option, i) => (
+        {options.map((option) => (
           <Dropdown.Item
-            eventKey={option}
-            key={`${option}${i}`}
-            onSelect={(e: any) => handleSelect(e)}
-            active={active === option}
+            eventKey={option.id}
+            key={option.id}
+            active={filters?.some((f) => f.value === option.id) || false}
+            onSelect={(id) => {
+              if (id && handleFilter) {
+                handleFilter(filterKey, id);
+              }
+            }}
           >
-            {option}
+            {option.fields.Name}
           </Dropdown.Item>
         ))}
       </Dropdown.Menu>

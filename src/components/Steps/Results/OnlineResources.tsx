@@ -1,62 +1,58 @@
 import React from 'react';
-import { FaChevronDown, FaExternalLinkAlt } from 'react-icons/fa';
-import { Card, CardColumns, Col, Row, Spinner, Button } from 'react-bootstrap';
-import { useAllRecords } from '../../../api/base';
+import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import { Col, Row, Button, Container } from 'react-bootstrap';
+import { useAllRecords } from '../../../lib/base';
 import { useAppContext } from '../../../App';
-import { getResults } from '../Results';
+import { getFilteredRecords } from '../Results';
+import Loader from '../../Loader';
+import ResultCard from './ResultCard';
 
-export interface OnlineResourcesProps {}
-
-const OnlineResources: React.FC<OnlineResourcesProps> = () => {
-  const { choices } = useAppContext();
+const OnlineResources: React.FC = () => {
+  const { filters } = useAppContext();
   const [{ records: resourcesArray, loading }] = useAllRecords('Online Resources');
+  const initialCount = 6;
   const [showMore, setShowMore] = React.useState(false);
 
   const handleMore = () => setShowMore(!showMore);
 
-  if (loading)
-    return (
-      <Spinner animation="border" role="status">
-        <span className="sr-only">Loading...</span>
-      </Spinner>
-    );
+  const filteredRecords = getFilteredRecords(resourcesArray, filters);
 
-  if (!choices) return <p>Error, no choices found.</p>;
   return (
-    <div className="mb-4">
-      <Row>
-        <Col>
-          <h3 className="h5">Suggested Online Resources</h3>
-          <CardColumns>
-            {getResults({ data: resourcesArray, type: 'Name', choices })
-              .slice(0, 6)
-              .map((item: any) => (
-                <Card key={item.id} style={{ height: '220px' }}>
-                  <Card.Body>
-                    <Card.Title>{item.fields['Name']}</Card.Title>
-                    <Card.Text>{item.fields['Description']}</Card.Text>
-                    <Card.Link href={item.fields['Link']} target="_blank">
-                      OPEN LINK <FaExternalLinkAlt />
-                    </Card.Link>
-                  </Card.Body>
-                </Card>
+    <div className="py-4" style={{ backgroundColor: '#F9F4F9' }}>
+      <Container>
+        <h3 className="h4 mb-4 text-uppercase">Suggested Online Resources</h3>
+        {loading ? (
+          <Loader />
+        ) : (
+          <>
+            <Row>
+              {filteredRecords.slice(0, showMore ? undefined : initialCount).map((item: any) => (
+                <Col lg={4} className="mb-4" key={item.id}>
+                  <ResultCard
+                    title={item.fields['Name']}
+                    body={item.fields['Description']}
+                    ctaText="Open link"
+                    link={item.fields['Link']}
+                  />
+                </Col>
               ))}
-          </CardColumns>
-        </Col>
-      </Row>
-      {getResults({ data: resourcesArray, type: 'Name', choices }).length > 3 && (
-        <Row className="justify-content-center">
-          {!showMore ? (
-            <Button variant="info" onClick={() => handleMore()}>
-              View More <FaChevronDown />
-            </Button>
-          ) : (
-            <Button variant="info" onClick={() => handleMore()}>
-              View Less <FaChevronDown />
-            </Button>
-          )}
-        </Row>
-      )}
+            </Row>
+            {filteredRecords.length > initialCount && (
+              <Row className="justify-content-center">
+                <Button
+                  className="d-flex align-items-center text-uppercase"
+                  variant="info"
+                  size="lg"
+                  onClick={() => handleMore()}
+                >
+                  View {showMore ? 'less' : 'more'}{' '}
+                  {showMore ? <FaChevronUp className="ml-1" /> : <FaChevronDown className="ml-1" />}
+                </Button>
+              </Row>
+            )}
+          </>
+        )}
+      </Container>
     </div>
   );
 };

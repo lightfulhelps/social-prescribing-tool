@@ -3,63 +3,53 @@ import Card from 'react-bootstrap/Card';
 import { Issue } from './Steps/Issues';
 import { Demographic } from './Steps/Demographics';
 import { FaCheck } from 'react-icons/fa';
+import { useAppContext } from '../App';
 
-export interface CardWrapperProps {
-  imageUrl: string;
+type Props = {
+  filterKey: string;
   item: Issue | Demographic;
-  choices: any;
-  setChoices: any;
-  type: string;
-}
+};
 
-const CardWrapper: React.FC<CardWrapperProps> = ({ imageUrl, item, choices, setChoices, type }) => {
-  const [active, setActive] = React.useState<boolean>(false);
-
-  const handleClick = () => {
-    if (type === 'issues' && choices.issues.length === 3) {
-      return;
-    }
-    if (!active) {
-      setChoices({
-        ...choices,
-        [type]: [...choices[type], item.fields.Name],
-      });
-      setActive(!active);
-      return;
-    }
-
-    setChoices({
-      ...choices,
-      [type]: choices[type].filter((each: any) => each !== item.fields.Name),
-    });
-    setActive(!active);
-  };
+const CardWrapper: React.FC<Props> = ({ filterKey, item }) => {
+  const { filters, handleFilter } = useAppContext();
+  const active = filters?.some((f) => f.value === item.id) || false;
 
   return (
-    <Card onClick={() => handleClick()}>
-      {active ? (
-        <div className="bg-dark d-flex justify-content-around align-items-center">
-          <div
-            className="position-absolute d-flex align-items-center justify-content-around rounded-circle"
-            style={{
-              zIndex: 999,
-              height: '60px',
-              width: '60px',
-              backgroundColor: '#ffc200',
-            }}
-          >
-            <FaCheck size={30} />
+    <Card
+      className="border-0 h-100"
+      bg={active ? 'warning' : 'secondary'}
+      onClick={() => {
+        if (handleFilter) {
+          handleFilter(filterKey, item.id);
+        }
+      }}
+    >
+      <div
+        className="d-flex justify-content-center align-items-center position-relative p-3"
+        style={{ backgroundColor: '#F9F4F9' }}
+      >
+        {active && (
+          <div className="position-absolute d-flex justify-content-center align-items-center w-100 h-100 rounded">
+            <div
+              className="d-flex align-items-center justify-content-center rounded-circle"
+              style={{
+                zIndex: 999,
+                height: '60px',
+                width: '60px',
+                backgroundColor: '#ffc200',
+              }}
+            >
+              <FaCheck size={30} />
+            </div>
           </div>
-          <Card.Img variant="top" src={imageUrl} style={{ opacity: active ? 0.5 : 1 }} />
-        </div>
-      ) : (
-        <Card.Img variant="top" src={imageUrl} style={{ opacity: active ? 0.5 : 1 }} />
-      )}
-      <Card bg={active ? 'warning' : 'primary'} className="border-0 rounded-0">
-        <Card.Header className={`text-center font-weight-bold ${active ? '' : 'text-white'}`}>
-          {item.fields.Name}
-        </Card.Header>
-      </Card>
+        )}
+        {Array.isArray(item.fields.Image) && (
+          <img src={item.fields.Image[0].url} style={{ height: '100px' }} alt="" />
+        )}
+      </div>
+      <Card.Body className={`px-1 py-2 text-center font-weight-bold ${active ? '' : 'text-white'}`}>
+        {item.fields.Name}
+      </Card.Body>
     </Card>
   );
 };

@@ -1,11 +1,10 @@
 import React from 'react';
-import { Col, Row, Spinner, OverlayTrigger, Tooltip, Form } from 'react-bootstrap';
-import { useAllRecords } from '../../api/base';
+import { Col, Row, OverlayTrigger, Tooltip, Form } from 'react-bootstrap';
+import { useAllRecords } from '../../lib/base';
 import CardWrapper from '../CardWrapper';
-import placeholderImg from '../../assets/image1.png';
-import { useAppContext } from '../../App';
 import DropdownWrapper from '../DropdownWrapper';
 import { FaInfoCircle } from 'react-icons/fa';
+import Loader from '../Loader';
 
 export type Demographic = {
   id: 'string';
@@ -16,13 +15,13 @@ export type Demographic = {
     'Case ': Array<string>;
     Resources: Array<string>;
     'Service Recommendations': Array<string>;
+    Image: {
+      url: string;
+    }[];
   };
 };
 
-export interface DemographicsProps {}
-
-const Demographics: React.FC<DemographicsProps> = () => {
-  const { choices, setChoices } = useAppContext();
+const Demographics: React.FC = () => {
   const [{ records: demographicsArray, loading: loadingDemographics }] = useAllRecords('Other');
   const [{ records: genderArray, loading: loadingGenders }] = useAllRecords('Gender');
   const [{ records: ageArray, loading: loadingAges }] = useAllRecords('Age Range');
@@ -34,17 +33,12 @@ const Demographics: React.FC<DemographicsProps> = () => {
     </Tooltip>
   );
 
-  if (loadingDemographics || loadingGenders || loadingAges)
-    return (
-      <Spinner animation="border" role="status">
-        <span className="sr-only">Loading...</span>
-      </Spinner>
-    );
+  if (loadingDemographics || loadingGenders || loadingAges) return <Loader />;
 
   return (
     <>
       <Row>
-        <Col>
+        <Col className="mb-3">
           <p>
             <strong>Optionally</strong> add any demographic information about the person in need to
             potentially see more specific support information, then click next.{' '}
@@ -56,50 +50,25 @@ const Demographics: React.FC<DemographicsProps> = () => {
               <FaInfoCircle />
             </OverlayTrigger>
           </p>
-          <p>If you don’t want to or nothing applies, just click next.</p>
+          <p className="mb-0">If you don’t want to or nothing applies, just click next.</p>
         </Col>
       </Row>
-      <Row className="mb-4">
+      <Row className="mb-5">
         <Col lg={4}>
           <Form.Label className="font-weight-bold text-uppercase">
             Gender identification:
           </Form.Label>
-          <DropdownWrapper
-            title="Please select..."
-            options={genderArray
-              .filter((item: any) => item.fields.Name !== 'Any / All')
-              .map((item: any) => item.fields.Name)}
-            hasMargin
-            className="d-flex justify-content-between align-items-center"
-            type="gender"
-            choices={choices}
-            handleChoice={setChoices}
-          />
+          <DropdownWrapper title="Please select..." options={genderArray} filterKey="Gender" />
         </Col>
         <Col lg={4}>
           <Form.Label className="font-weight-bold text-uppercase">Age range:</Form.Label>
-          <DropdownWrapper
-            title="Please select..."
-            options={ageArray
-              .filter((item: any) => item.fields.Name !== 'Any / All')
-              .map((item: any) => item.fields.Name)}
-            className="d-flex justify-content-between align-items-center"
-            type="age"
-            choices={choices}
-            handleChoice={setChoices}
-          />
+          <DropdownWrapper title="Please select..." options={ageArray} filterKey="Age Range" />
         </Col>
       </Row>
       <Row>
-        {demographicsArray.map((demographic: any) => (
-          <Col lg={4} className="mb-4" key={demographic.fields.Name}>
-            <CardWrapper
-              imageUrl={placeholderImg}
-              item={demographic}
-              choices={choices}
-              setChoices={setChoices}
-              type="demographics"
-            />
+        {demographicsArray.map((demographic) => (
+          <Col lg={4} className="mb-4" key={demographic.id}>
+            <CardWrapper filterKey="Other" item={demographic} />
           </Col>
         ))}
       </Row>

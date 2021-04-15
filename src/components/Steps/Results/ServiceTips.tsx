@@ -1,82 +1,58 @@
 import React from 'react';
-import { Card, CardColumns, Col, Row, Spinner, Button } from 'react-bootstrap';
-import { FaChevronDown, FaExternalLinkAlt } from 'react-icons/fa';
+import { Col, Row, Button, Container } from 'react-bootstrap';
+import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { useAppContext } from '../../../App';
-import { useAllRecords } from '../../../api/base';
-import { getResults } from '../Results';
+import { useAllRecords } from '../../../lib/base';
+import Loader from '../../Loader';
+import { getFilteredRecords } from '../Results';
+import ResultCard from './ResultCard';
 
-export interface ServiceTipsProps {}
-
-const ServiceTips: React.FC<ServiceTipsProps> = () => {
-  const { choices } = useAppContext();
-  const [{ records: serviceArray, loading }] = useAllRecords('Service Recommendations');
+const ServiceTips: React.FC = () => {
+  const { filters } = useAppContext();
+  const [{ records: servicesArray, loading }] = useAllRecords('Service Recommendations');
+  const initialCount = 6;
   const [showMore, setShowMore] = React.useState(false);
 
   const handleMore = () => setShowMore(!showMore);
 
-  if (loading)
-    return (
-      <Spinner animation="border" role="status">
-        <span className="sr-only">Loading...</span>
-      </Spinner>
-    );
-
-  if (!choices) return <p>Error, no choices found.</p>;
+  const filteredRecords = getFilteredRecords(servicesArray, filters);
 
   return (
-    <div className="mb-4">
-      <Row>
-        <Col>
-          <h3 className="h5">Service Tips</h3>
-          <CardColumns>
-            {getResults({ data: serviceArray, type: 'Description', choices })
-              .slice(0, 6)
-              .map((item: any) => (
-                <Card key={item.id} style={{ height: '220px' }}>
-                  <Card.Body>
-                    <Card.Title>{item.fields['Select']}</Card.Title>
-                    <Card.Text>{item.fields['Description']}</Card.Text>
-                    {item.fields['Link'] && (
-                      <Card.Link href={item.fields['Link']} target="_blank">
-                        Read More <FaExternalLinkAlt />
-                      </Card.Link>
-                    )}
-                  </Card.Body>
-                </Card>
+    <div className="py-4 bg-secondary">
+      <Container>
+        <h3 className="h4 text-white mb-4 text-uppercase">Service Tips</h3>
+        {loading ? (
+          <Loader variant="white" />
+        ) : (
+          <>
+            <Row>
+              {filteredRecords.slice(0, showMore ? undefined : initialCount).map((item: any) => (
+                <Col lg={4} className="mb-4" key={item.id}>
+                  <ResultCard
+                    title={item.fields['Select']}
+                    body={item.fields['Description']}
+                    ctaText="Read more"
+                    link={item.fields['Link']}
+                  />
+                </Col>
               ))}
-            {showMore &&
-              getResults({ data: serviceArray, type: 'Description', choices })
-                .slice(6)
-                .map(
-                  (item: any) =>
-                    item.fields['Link'] && (
-                      <Card style={{ height: '220px' }}>
-                        <Card.Body>
-                          <Card.Title>{item.fields['Select']}</Card.Title>
-                          <Card.Text>{item.fields['Description']}</Card.Text>
-                          <Card.Link href={item.fields['Link']} target="_blank">
-                            Read More <FaExternalLinkAlt />
-                          </Card.Link>
-                        </Card.Body>
-                      </Card>
-                    )
-                )}
-          </CardColumns>
-        </Col>
-      </Row>
-      {getResults({ data: serviceArray, type: 'Description', choices }).length > 3 && (
-        <Row className="justify-content-center">
-          {!showMore ? (
-            <Button variant="info" onClick={() => handleMore()}>
-              View More <FaChevronDown />
-            </Button>
-          ) : (
-            <Button variant="info" onClick={() => handleMore()}>
-              View Less <FaChevronDown />
-            </Button>
-          )}
-        </Row>
-      )}
+            </Row>
+            {filteredRecords.length > initialCount && (
+              <Row className="justify-content-center">
+                <Button
+                  className="d-flex align-items-center text-uppercase bg-white"
+                  variant="white"
+                  size="lg"
+                  onClick={() => handleMore()}
+                >
+                  View {showMore ? 'less' : 'more'}{' '}
+                  {showMore ? <FaChevronUp className="ml-1" /> : <FaChevronDown className="ml-1" />}
+                </Button>
+              </Row>
+            )}
+          </>
+        )}
+      </Container>
     </div>
   );
 };

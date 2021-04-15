@@ -1,17 +1,17 @@
 import React from 'react';
-import { Button, Col } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
 import { useAppContext } from '../App';
 
 const Divider: React.FC<{ active: boolean }> = ({ active }) => (
   <span
     style={{
+      display: 'block',
+      height: '40px',
       zIndex: -1,
       left: '12px',
-      height: 'inherit',
-      borderLeft: `4px dotted ${active ? '#ffc200' : '#8E2082'}`,
+      borderLeft: `3px dashed ${active ? '#ffc200' : '#8E2082'}`,
       opacity: active ? 1 : 0.5,
       position: 'relative',
-      width: '50px',
     }}
   />
 );
@@ -27,23 +27,23 @@ const Progress: React.FC = () => {
           <div key={i}>
             <li className="list-unstyled d-flex align-items-center">
               <div
-                className="rounded-circle d-inline-block"
+                className={`rounded-circle d-inline-block ${
+                  currentStep === i + 1 ? 'bg-warning' : 'bg-secondary'
+                }`}
                 style={{
                   width: '25px',
                   height: '25px',
-                  backgroundColor: currentStep === i + 1 ? '#ffc200' : '#8e2082',
                   opacity: currentStep === i + 1 ? 1 : 0.5,
                 }}
               />
-              <Button
-                variant="link"
-                className={`text-left text-dark font-weight-bold text-uppercase ${
+              <div
+                className={`py-1 pl-2 text-dark font-weight-bold text-uppercase text-decoration-none ${
                   currentStep === i + 1 ? '' : 'text-muted'
                 }`}
-                style={{ opacity: currentStep === i + 1 ? 1 : 0.5 }}
+                style={{ opacity: currentStep === i + 1 ? 1 : 0.5, lineHeight: 1 }}
               >
                 {step}
-              </Button>
+              </div>
             </li>
             {i !== 3 && <Divider active={currentStep === i + 1} />}
           </div>

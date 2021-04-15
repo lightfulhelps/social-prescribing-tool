@@ -8,31 +8,46 @@ import Issues from './components/Steps/Issues';
 import Results from './components/Steps/Results';
 import Progress from './components/Progress';
 
-export type Choices = {
-  issues: string[];
-  demographics: string[];
-  gender: string;
-  age: string;
+export type Filter = {
+  [key: string]: string;
 };
 
-type ContextProps = {
-  choices: Choices;
-  setChoices: (values: Choices) => void;
-  currentStep: number;
-};
-
-export const AppContext = React.createContext<Partial<ContextProps>>({});
+export const AppContext = React.createContext<
+  Partial<{
+    currentStep: number;
+    filters: Filter[];
+    handleFilter: (key: string, value: string) => void;
+  }>
+>({});
 
 export const useAppContext = () => React.useContext(AppContext);
 
-const App: React.FunctionComponent = () => {
+const App: React.FC = () => {
   const [currentStep, setCurrentStep] = React.useState<number>(1);
-  const [choices, setChoices] = React.useState<Choices>({
-    issues: [],
-    demographics: [],
-    gender: '',
-    age: '',
-  });
+  const [filters, setFilters] = React.useState<Filter[]>([]);
+
+  const handleFilter = (key: string, value: string) => {
+    const newFilters = [...filters];
+
+    if (['Gender', 'Age Range'].includes(key)) {
+      const index = newFilters.findIndex((f) => f.key === key);
+
+      if (index > -1) {
+        newFilters[index] = { key, value };
+      } else {
+        newFilters.push({ key, value });
+      }
+    } else {
+      if (newFilters.some((f) => f.key === key && f.value === value)) {
+        const index = newFilters.findIndex((f) => f.key === key && f.value === value);
+        newFilters.splice(index, 1);
+      } else {
+        newFilters.push({ key, value });
+      }
+    }
+
+    setFilters(newFilters);
+  };
 
   const handleNext = () => {
     if (currentStep === 4) return;
@@ -45,21 +60,24 @@ const App: React.FunctionComponent = () => {
   };
 
   const handleReset = () => {
-    setChoices({ issues: [], demographics: [], gender: '', age: '' });
     setCurrentStep(1);
+    setFilters([]);
   };
 
-  console.log(choices);
   return (
     <AppContext.Provider
       value={{
-        choices,
-        setChoices,
         currentStep,
+        filters,
+        handleFilter,
       }}
     >
       <Hero />
-      <Container style={{ paddingBottom: '100px' }}>
+      <Container
+        className={`${currentStep === 4 ? 'px-0' : ''}`}
+        fluid={currentStep === 4}
+        style={{ paddingBottom: '160px' }}
+      >
         {currentStep !== 4 && (
           <Row>
             <Progress />
