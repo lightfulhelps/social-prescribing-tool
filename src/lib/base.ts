@@ -26,8 +26,8 @@ export const getAllRecords = (table: string): Promise<any[]> => {
   });
 };
 
-export const useAllRecords = (table: string) => {
-  const [records, setRecords] = useState<any[]>([]);
+export const useAllRecords = <T>(table: string) => {
+  const [records, setRecords] = useState<T[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 

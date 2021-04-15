@@ -9,13 +9,13 @@ import ResultCard from './ResultCard';
 
 const OnlineResources: React.FC = () => {
   const { filters } = useAppContext();
-  const [{ records: resourcesArray, loading }] = useAllRecords('Online Resources');
+  const [{ records: resourcesArray, loading }] = useAllRecords<OnlineResource>('Online Resources');
   const initialCount = 6;
   const [showMore, setShowMore] = React.useState(false);
 
   const handleMore = () => setShowMore(!showMore);
 
-  const filteredRecords = getFilteredRecords(resourcesArray, filters);
+  const filteredRecords: OnlineResource[] = getFilteredRecords(resourcesArray, filters);
 
   return (
     <div className="py-4" style={{ backgroundColor: '#F9F4F9' }}>

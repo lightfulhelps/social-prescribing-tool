@@ -9,13 +9,15 @@ import ResultCard from './ResultCard';
 
 const ServiceTips: React.FC = () => {
   const { filters } = useAppContext();
-  const [{ records: servicesArray, loading }] = useAllRecords('Service Recommendations');
+  const [{ records: servicesArray, loading }] = useAllRecords<ServiceRecommendation>(
+    'Service Recommendations'
+  );
   const initialCount = 6;
   const [showMore, setShowMore] = React.useState(false);
 
   const handleMore = () => setShowMore(!showMore);
 
-  const filteredRecords = getFilteredRecords(servicesArray, filters);
+  const filteredRecords: ServiceRecommendation[] = getFilteredRecords(servicesArray, filters);
 
   return (
     <div className="py-4 bg-secondary">

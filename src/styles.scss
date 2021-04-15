@@ -1,15 +1,3 @@
-$font-family-sans-serif: 'Inter', sans-serif;
-$font-size-lg: 1.125rem;
-$font-weight-bold: 600;
-$headings-font-weight: $font-weight-bold;
-$body-color: #3c3c3c;
-$info: #088380;
-$secondary: #8e2082;
-$warning: #ffc200;
-$success: #ab43a0;
-$btn-font-weight: $font-weight-bold;
-$btn-border-width: 2px;
-
 $spacer: 1rem;
 $spacers: (
   0: 0,
@@ -22,6 +10,18 @@ $spacers: (
   7: $spacer * 3.5,
   8: $spacer * 4,
 );
+$font-family-sans-serif: 'Inter', sans-serif;
+$font-size-lg: 1.125rem;
+$font-weight-bold: 600;
+$headings-font-weight: $font-weight-bold;
+$body-color: #3c3c3c;
+$info: #088380;
+$secondary: #8e2082;
+$warning: #ffc200;
+$success: #ab43a0;
+$btn-font-weight: $font-weight-bold;
+$btn-border-width: 2px;
+$dropdown-link-active-bg: $secondary;
 
 @import '~bootstrap/scss/bootstrap';
 

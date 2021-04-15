@@ -8,13 +8,13 @@ import Loader from '../../Loader';
 
 const CaseStudies: React.FC = () => {
   const { filters } = useAppContext();
-  const [{ records: caseStudiesArray, loading }] = useAllRecords('Case Studies');
+  const [{ records: caseStudiesArray, loading }] = useAllRecords<CaseStudy>('Case Studies');
   const initialCount = 1;
   const [showMore, setShowMore] = React.useState(false);
 
   const handleMore = () => setShowMore(!showMore);
 
-  const filteredRecords = getFilteredRecords(caseStudiesArray, filters);
+  const filteredRecords: CaseStudy[] = getFilteredRecords(caseStudiesArray, filters);
 
   return (
     <div className="py-4 bg-secondary">

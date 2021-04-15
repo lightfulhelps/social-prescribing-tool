@@ -17,6 +17,7 @@ export const AppContext = React.createContext<
     currentStep: number;
     filters: Filter[];
     handleFilter: (key: string, value: string) => void;
+    clearFiltersByKey: (key: string) => void;
   }>
 >({});
 
@@ -49,6 +50,12 @@ const App: React.FC = () => {
     setFilters(newFilters);
   };
 
+  const clearFiltersByKey = (key: string) => {
+    const newFilters = filters.filter((f) => f.key !== key);
+
+    setFilters(newFilters);
+  };
+
   const handleNext = () => {
     if (currentStep === 4) return;
     setCurrentStep(currentStep + 1);
@@ -70,6 +77,7 @@ const App: React.FC = () => {
         currentStep,
         filters,
         handleFilter,
+        clearFiltersByKey,
       }}
     >
       <Hero />

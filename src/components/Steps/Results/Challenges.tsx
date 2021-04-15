@@ -8,13 +8,15 @@ import Loader from '../../Loader';
 
 const Challenges: React.FC = () => {
   const { filters } = useAppContext();
-  const [{ records: challengesArray, loading }] = useAllRecords('Challenges and Obstacles');
+  const [{ records: challengesArray, loading }] = useAllRecords<ChallengeAndObstacle>(
+    'Challenges and Obstacles'
+  );
   const initialCount = 3;
   const [showMore, setShowMore] = React.useState(false);
 
   const handleMore = () => setShowMore(!showMore);
 
-  const filteredRecords = getFilteredRecords(challengesArray, filters);
+  const filteredRecords: ChallengeAndObstacle[] = getFilteredRecords(challengesArray, filters);
 
   return (
     <div className="py-4" style={{ backgroundColor: '#F9F4F9' }}>

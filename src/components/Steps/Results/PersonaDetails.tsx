@@ -1,5 +1,6 @@
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
+import { FaTrash } from 'react-icons/fa';
 import { useAllRecords } from '../../../lib/base';
 // import PersonaDetail from './PersonaDetail';
 import female_6680_1 from '../../../assets/66-80_1.png';
@@ -7,6 +8,7 @@ import female_6680_2 from '../../../assets/66-80_2.png';
 import female_6680_3 from '../../../assets/66-80_3.png';
 import Loader from '../../Loader';
 import DropdownWrapper from '../../DropdownWrapper';
+import { useAppContext } from '../../../App';
 
 export const imageTypes: { [key: string]: any } = {
   Female: {
@@ -28,12 +30,18 @@ export const imageTypes: { [key: string]: any } = {
 };
 
 const PersonaDetails: React.FC = () => {
-  const [{ records: issuesArray, loading: loadingIssues }] = useAllRecords('Issues');
-  const [{ records: otherArray, loading: loadingOther }] = useAllRecords('Other');
-  const [{ records: genderArray, loading: loadingGenders }] = useAllRecords('Gender');
-  const [{ records: ageArray, loading: loadingAges }] = useAllRecords('Age Range');
+  const { clearFiltersByKey } = useAppContext();
+  const [{ records: issuesArray, loading: loadingIssues }] = useAllRecords<Issue>('Issues');
+  const [{ records: otherArray, loading: loadingOther }] = useAllRecords<Other>('Other');
+  const [{ records: genderArray, loading: loadingGenders }] = useAllRecords<Gender>('Gender');
+  const [{ records: ageArray, loading: loadingAges }] = useAllRecords<AgeRange>('Age Range');
 
-  if (loadingIssues || loadingOther || loadingGenders || loadingAges) return <Loader />;
+  if (loadingIssues || loadingOther || loadingGenders || loadingAges)
+    return (
+      <div className="py-4">
+        <Loader />
+      </div>
+    );
 
   return (
     <Container>
@@ -41,15 +49,48 @@ const PersonaDetails: React.FC = () => {
         <Col>
           <div className="mb-3">
             <h3 className="h5 text-uppercase">Gender Identifiction:</h3>
-            <DropdownWrapper title="Gender" options={genderArray} filterKey="Gender" />
+            <div className="d-flex align-items-center">
+              <DropdownWrapper
+                className="flex-fill"
+                title="Gender"
+                options={genderArray}
+                filterKey="Gender"
+              />
+              <FaTrash
+                className="ml-1"
+                onClick={() => clearFiltersByKey && clearFiltersByKey('Gender')}
+              />
+            </div>
           </div>
           <div className="mb-3">
             <h3 className="h5 text-uppercase">Age Range:</h3>
-            <DropdownWrapper title="Age Range" options={ageArray} filterKey="Age Range" />
+            <div className="d-flex align-items-center">
+              <DropdownWrapper
+                className="flex-fill"
+                title="Age Range"
+                options={ageArray}
+                filterKey="Age Range"
+              />
+              <FaTrash
+                className="ml-1"
+                onClick={() => clearFiltersByKey && clearFiltersByKey('Age Range')}
+              />
+            </div>
           </div>
           <div className="mb-3">
             <h3 className="h5 text-uppercase">Issues:</h3>
-            <DropdownWrapper title="Issues" options={issuesArray} filterKey="Issues" />
+            <div className="d-flex align-items-center">
+              <DropdownWrapper
+                className="flex-fill"
+                title="Issues"
+                options={issuesArray}
+                filterKey="Issues"
+              />
+              <FaTrash
+                className="ml-1"
+                onClick={() => clearFiltersByKey && clearFiltersByKey('Issues')}
+              />
+            </div>
           </div>
         </Col>
         <Col>
@@ -72,7 +113,18 @@ const PersonaDetails: React.FC = () => {
             <Col>
               <div className="mb-3">
                 <h3 className="h5 text-uppercase">Other characteristics:</h3>
-                <DropdownWrapper title="Other" options={otherArray} filterKey="Other" />
+                <div className="d-flex align-items-center">
+                  <DropdownWrapper
+                    className="flex-fill"
+                    title="Other"
+                    options={otherArray}
+                    filterKey="Other"
+                  />
+                  <FaTrash
+                    className="ml-1"
+                    onClick={() => clearFiltersByKey && clearFiltersByKey('Other')}
+                  />
+                </div>
               </div>
             </Col>
           </Row>

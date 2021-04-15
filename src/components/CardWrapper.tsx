@@ -1,13 +1,11 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
-import { Issue } from './Steps/Issues';
-import { Demographic } from './Steps/Demographics';
 import { FaCheck } from 'react-icons/fa';
 import { useAppContext } from '../App';
 
 type Props = {
   filterKey: string;
-  item: Issue | Demographic;
+  item: Issue | Other;
 };
 
 const CardWrapper: React.FC<Props> = ({ filterKey, item }) => {

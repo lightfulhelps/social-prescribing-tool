@@ -6,25 +6,12 @@ import DropdownWrapper from '../DropdownWrapper';
 import { FaInfoCircle } from 'react-icons/fa';
 import Loader from '../Loader';
 
-export type Demographic = {
-  id: 'string';
-  fields: {
-    Name: string;
-    'Case Studies': Array<string>;
-    'Challenges and Obstacles': Array<string>;
-    'Case ': Array<string>;
-    Resources: Array<string>;
-    'Service Recommendations': Array<string>;
-    Image: {
-      url: string;
-    }[];
-  };
-};
-
 const Demographics: React.FC = () => {
-  const [{ records: demographicsArray, loading: loadingDemographics }] = useAllRecords('Other');
-  const [{ records: genderArray, loading: loadingGenders }] = useAllRecords('Gender');
-  const [{ records: ageArray, loading: loadingAges }] = useAllRecords('Age Range');
+  const [{ records: demographicsArray, loading: loadingDemographics }] = useAllRecords<Other>(
+    'Other'
+  );
+  const [{ records: genderArray, loading: loadingGenders }] = useAllRecords<Gender>('Gender');
+  const [{ records: ageArray, loading: loadingAges }] = useAllRecords<AgeRange>('Age Range');
 
   const renderTooltip = (props: any) => (
     <Tooltip id="button-tooltip" {...props}>
