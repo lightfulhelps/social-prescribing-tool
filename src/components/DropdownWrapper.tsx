@@ -12,7 +12,7 @@ type Props = {
 const DropdownWrapper: React.FC<Props> = ({ filterKey, title, options, className }) => {
   const { filters, handleFilter } = useAppContext();
   const currentFilter = filters?.find((f) => f.key === filterKey);
-  const currentOption = options.find((o) => o.id === currentFilter?.value);
+  const currentOption = options.find((o) => o.id === currentFilter?.id);
 
   return (
     <Dropdown className={className}>
@@ -28,10 +28,10 @@ const DropdownWrapper: React.FC<Props> = ({ filterKey, title, options, className
           <Dropdown.Item
             eventKey={option.id}
             key={option.id}
-            active={filters?.some((f) => f.value === option.id) || false}
+            active={filters?.some((f) => f.id === option.id) || false}
             onSelect={(id) => {
               if (id && handleFilter) {
-                handleFilter(filterKey, id);
+                handleFilter({ key: filterKey, id, name: option.fields.Name });
               }
             }}
           >

@@ -22,14 +22,10 @@ export function addOrReplaceFilter(filters: Filter[], newFilter: Filter): Filter
 
 export function addOrRemoveFilter(filters: Filter[], newFilter: Filter): Filter[] {
   const filtersCopy = [...filters];
-  const filterInFilters = filtersCopy.some(
-    (f) => f.key === newFilter.key && f.value === newFilter.value
-  );
+  const filterInFilters = filtersCopy.some((f) => f.key === newFilter.key && f.id === newFilter.id);
 
   if (filterInFilters) {
-    const index = filtersCopy.findIndex(
-      (f) => f.key === newFilter.key && f.value === newFilter.value
-    );
+    const index = filtersCopy.findIndex((f) => f.key === newFilter.key && f.id === newFilter.id);
     filtersCopy.splice(index, 1);
   } else {
     const issueLimit = 3;

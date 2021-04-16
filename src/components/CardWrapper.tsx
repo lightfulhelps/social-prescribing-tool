@@ -10,7 +10,7 @@ type Props = {
 
 const CardWrapper: React.FC<Props> = ({ filterKey, item }) => {
   const { filters, handleFilter } = useAppContext();
-  const active = filters?.some((f) => f.value === item.id) || false;
+  const active = filters?.some((f) => f.id === item.id) || false;
 
   return (
     <Card
@@ -18,7 +18,7 @@ const CardWrapper: React.FC<Props> = ({ filterKey, item }) => {
       bg={active ? 'warning' : 'secondary'}
       onClick={() => {
         if (handleFilter) {
-          handleFilter(filterKey, item.id);
+          handleFilter({ key: filterKey, id: item.id, name: item.fields.Name });
         }
       }}
     >

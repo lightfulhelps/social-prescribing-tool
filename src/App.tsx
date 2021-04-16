@@ -13,11 +13,17 @@ export type Filter = {
   [key: string]: string;
 };
 
+type HandleFilterArgs = {
+  key: string;
+  id: string;
+  name: string;
+};
+
 export const AppContext = React.createContext<
   Partial<{
     currentStep: number;
     filters: Filter[];
-    handleFilter: (key: string, value: string) => void;
+    handleFilter: (args: HandleFilterArgs) => void;
     clearFiltersByKey: (key: string) => void;
   }>
 >({});
@@ -28,13 +34,13 @@ const App: React.FC = () => {
   const [currentStep, setCurrentStep] = React.useState<number>(1);
   const [filters, setFilters] = React.useState<Filter[]>([]);
 
-  const handleFilter = (key: string, value: string) => {
+  const handleFilter = ({ key, id, name }: HandleFilterArgs) => {
     let newFilters;
 
     if ([FILTER_KEYS.GENDER, FILTER_KEYS.AGE].includes(key)) {
-      newFilters = addOrReplaceFilter(filters, { key, value });
+      newFilters = addOrReplaceFilter(filters, { key, id, name });
     } else {
-      newFilters = addOrRemoveFilter(filters, { key, value });
+      newFilters = addOrRemoveFilter(filters, { key, id, name });
     }
 
     setFilters(newFilters);

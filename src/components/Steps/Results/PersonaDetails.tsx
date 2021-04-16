@@ -2,47 +2,26 @@ import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { FaTrash } from 'react-icons/fa';
 import { useAllRecords } from '../../../lib/base';
-// import PersonaDetail from './PersonaDetail';
-import female_6680_1 from '../../../assets/66-80_1.png';
-import female_6680_2 from '../../../assets/66-80_2.png';
-import female_6680_3 from '../../../assets/66-80_3.png';
 import Loader from '../../Loader';
 import DropdownWrapper from '../../DropdownWrapper';
 import { useAppContext } from '../../../App';
 import { FILTER_KEYS } from '../../../lib/filtering';
-
-export const imageTypes: { [key: string]: any } = {
-  Female: {
-    '18-25': ['', ''],
-    '66-80': [female_6680_1, female_6680_2, female_6680_3],
-  },
-  Male: {
-    '18-25': ['', ''],
-  },
-  Transgender: {
-    '18-25': ['', ''],
-  },
-  Intersex: {
-    '18-25': ['', ''],
-  },
-  'Non-binary': {
-    '18-25': ['', ''],
-  },
-};
+import PersonaImages from './PersonaImages';
 
 const PersonaDetails: React.FC = () => {
   const { clearFiltersByKey } = useAppContext();
-  const [{ records: issuesArray, loading: loadingIssues }] = useAllRecords<Issue>('Issues');
-  const [{ records: otherArray, loading: loadingOther }] = useAllRecords<Other>('Other');
-  const [{ records: genderArray, loading: loadingGenders }] = useAllRecords<Gender>('Gender');
-  const [{ records: ageArray, loading: loadingAges }] = useAllRecords<AgeRange>('Age Range');
+  const [{ records: issues, loading: loadingIssues }] = useAllRecords<Issue>(FILTER_KEYS.ISSUE);
+  const [{ records: genders, loading: loadingGenders }] = useAllRecords<Gender>(FILTER_KEYS.GENDER);
+  const [{ records: ages, loading: loadingAges }] = useAllRecords<AgeRange>(FILTER_KEYS.AGE);
+  const [{ records: others, loading: loadingOther }] = useAllRecords<Other>(FILTER_KEYS.OTHER);
 
-  if (loadingIssues || loadingOther || loadingGenders || loadingAges)
+  if (loadingIssues || loadingOther || loadingGenders || loadingAges) {
     return (
       <div className="py-4">
         <Loader />
       </div>
     );
+  }
 
   return (
     <Container>
@@ -54,7 +33,7 @@ const PersonaDetails: React.FC = () => {
               <DropdownWrapper
                 className="flex-fill"
                 title="Gender"
-                options={genderArray}
+                options={genders}
                 filterKey="Gender"
               />
               <FaTrash
@@ -69,7 +48,7 @@ const PersonaDetails: React.FC = () => {
               <DropdownWrapper
                 className="flex-fill"
                 title="Age Range"
-                options={ageArray}
+                options={ages}
                 filterKey="Age Range"
               />
               <FaTrash
@@ -84,7 +63,7 @@ const PersonaDetails: React.FC = () => {
               <DropdownWrapper
                 className="flex-fill"
                 title="Issues"
-                options={issuesArray}
+                options={issues}
                 filterKey="Issues"
               />
               <FaTrash
@@ -97,17 +76,7 @@ const PersonaDetails: React.FC = () => {
         <Col>
           <Row>
             <Col className="d-flex">
-              {/* {choices.gender && choices.age ? (
-              imageTypes[choices.gender][choices.age].map((item: any) => (
-                <Figure.Image width={188} height={186} alt="171x180" src={item} />
-              ))
-            ) : (
-              <>
-                <Figure.Image width={188} height={186} alt="171x180" src={default_1} />
-                <Figure.Image width={188} height={186} alt="171x180" src={default_2} />
-                <Figure.Image width={188} height={186} alt="171x180" src={default_3} />
-              </>
-            )} */}
+              <PersonaImages />
             </Col>
           </Row>
           <Row>
@@ -118,7 +87,7 @@ const PersonaDetails: React.FC = () => {
                   <DropdownWrapper
                     className="flex-fill"
                     title="Other"
-                    options={otherArray}
+                    options={others}
                     filterKey="Other"
                   />
                   <FaTrash
