@@ -9,6 +9,7 @@ import female_6680_3 from '../../../assets/66-80_3.png';
 import Loader from '../../Loader';
 import DropdownWrapper from '../../DropdownWrapper';
 import { useAppContext } from '../../../App';
+import { FILTER_KEYS } from '../../../lib/filtering';
 
 export const imageTypes: { [key: string]: any } = {
   Female: {
@@ -58,7 +59,7 @@ const PersonaDetails: React.FC = () => {
               />
               <FaTrash
                 className="ml-1"
-                onClick={() => clearFiltersByKey && clearFiltersByKey('Gender')}
+                onClick={() => clearFiltersByKey && clearFiltersByKey(FILTER_KEYS.GENDER)}
               />
             </div>
           </div>
@@ -73,7 +74,7 @@ const PersonaDetails: React.FC = () => {
               />
               <FaTrash
                 className="ml-1"
-                onClick={() => clearFiltersByKey && clearFiltersByKey('Age Range')}
+                onClick={() => clearFiltersByKey && clearFiltersByKey(FILTER_KEYS.AGE)}
               />
             </div>
           </div>
@@ -88,7 +89,7 @@ const PersonaDetails: React.FC = () => {
               />
               <FaTrash
                 className="ml-1"
-                onClick={() => clearFiltersByKey && clearFiltersByKey('Issues')}
+                onClick={() => clearFiltersByKey && clearFiltersByKey(FILTER_KEYS.ISSUE)}
               />
             </div>
           </div>
@@ -122,7 +123,7 @@ const PersonaDetails: React.FC = () => {
                   />
                   <FaTrash
                     className="ml-1"
-                    onClick={() => clearFiltersByKey && clearFiltersByKey('Other')}
+                    onClick={() => clearFiltersByKey && clearFiltersByKey(FILTER_KEYS.OTHER)}
                   />
                 </div>
               </div>

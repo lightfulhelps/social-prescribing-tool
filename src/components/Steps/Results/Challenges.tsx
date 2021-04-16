@@ -1,7 +1,7 @@
 import React from 'react';
 import { Col, Row, Button, Container } from 'react-bootstrap';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
-import { getFilteredRecords } from '../Results';
+import { getFilteredRecords } from '../../../lib/filtering';
 import { useAppContext } from '../../../App';
 import { useAllRecords } from '../../../lib/base';
 import Loader from '../../Loader';

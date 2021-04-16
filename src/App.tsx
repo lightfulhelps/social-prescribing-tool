@@ -7,6 +7,7 @@ import Intro from './components/Steps/Intro';
 import Issues from './components/Steps/Issues';
 import Results from './components/Steps/Results';
 import Progress from './components/Progress';
+import { addOrRemoveFilter, addOrReplaceFilter, FILTER_KEYS } from './lib/filtering';
 
 export type Filter = {
   [key: string]: string;
@@ -28,23 +29,12 @@ const App: React.FC = () => {
   const [filters, setFilters] = React.useState<Filter[]>([]);
 
   const handleFilter = (key: string, value: string) => {
-    const newFilters = [...filters];
+    let newFilters;
 
-    if (['Gender', 'Age Range'].includes(key)) {
-      const index = newFilters.findIndex((f) => f.key === key);
-
-      if (index > -1) {
-        newFilters[index] = { key, value };
-      } else {
-        newFilters.push({ key, value });
-      }
+    if ([FILTER_KEYS.GENDER, FILTER_KEYS.AGE].includes(key)) {
+      newFilters = addOrReplaceFilter(filters, { key, value });
     } else {
-      if (newFilters.some((f) => f.key === key && f.value === value)) {
-        const index = newFilters.findIndex((f) => f.key === key && f.value === value);
-        newFilters.splice(index, 1);
-      } else {
-        newFilters.push({ key, value });
-      }
+      newFilters = addOrRemoveFilter(filters, { key, value });
     }
 
     setFilters(newFilters);

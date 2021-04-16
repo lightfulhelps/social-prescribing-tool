@@ -4,7 +4,7 @@ import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { useAppContext } from '../../../App';
 import { useAllRecords } from '../../../lib/base';
 import Loader from '../../Loader';
-import { getFilteredRecords } from '../Results';
+import { getFilteredRecords } from '../../../lib/filtering';
 import ResultCard from './ResultCard';
 
 const ServiceTips: React.FC = () => {

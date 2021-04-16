@@ -3,7 +3,7 @@ import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { Col, Row, Button, Container } from 'react-bootstrap';
 import { useAllRecords } from '../../../lib/base';
 import { useAppContext } from '../../../App';
-import { getFilteredRecords } from '../Results';
+import { getFilteredRecords } from '../../../lib/filtering';
 import Loader from '../../Loader';
 import ResultCard from './ResultCard';
 
