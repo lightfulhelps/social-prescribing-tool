@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import { Card, Col, Row, Button, Container } from 'react-bootstrap';
-import { FaChevronDown, FaChevronUp, FaPlus } from 'react-icons/fa';
+import { FaChevronDown, FaPlus } from 'react-icons/fa';
 import { getFilteredRecords, getSortedRecords } from '../../../lib/filtering';
 import { useAppContext } from '../../../App';
 import { getRecords, TABLES } from '../../../lib/base';
@@ -12,11 +12,8 @@ const CaseStudies: React.FC = () => {
   const { isLoading, data: caseStudies } = useQuery<CaseStudy[]>(TABLES.CASE_STUDIES, () =>
     getRecords(TABLES.CASE_STUDIES)
   );
-  const initialCount = 1;
-  const [showMore, setShowMore] = useState(false);
-
-  const handleMore = () => setShowMore(!showMore);
-
+  const perPage = 1;
+  const [displayCount, setDisplayCount] = useState(1);
   const filteredRecords: CaseStudy[] = getFilteredRecords(caseStudies, filters);
   const sortedRecords: CaseStudy[] = getSortedRecords(filteredRecords, filters);
 
@@ -46,7 +43,7 @@ const CaseStudies: React.FC = () => {
           <Loader variant="white" />
         ) : (
           <>
-            {sortedRecords.slice(0, showMore ? undefined : initialCount).map((item: any) => (
+            {sortedRecords.slice(0, displayCount).map((item: any) => (
               <Card key={item.id} className="border-0 mb-3">
                 <Card.Header
                   className="border-0 text-white h5 mb-0"
@@ -120,16 +117,17 @@ const CaseStudies: React.FC = () => {
                 </Card.Body>
               </Card>
             ))}
-            {filteredRecords.length > initialCount && (
+            {filteredRecords.length > displayCount && (
               <Row className="justify-content-center">
                 <Button
                   className="d-flex align-items-center text-uppercase bg-white"
                   variant="white"
                   size="lg"
-                  onClick={() => handleMore()}
+                  onClick={() => {
+                    setDisplayCount(displayCount + perPage);
+                  }}
                 >
-                  View {showMore ? 'less' : 'more'}{' '}
-                  {showMore ? <FaChevronUp className="ml-1" /> : <FaChevronDown className="ml-1" />}
+                  View more <FaChevronDown className="ml-1" />
                 </Button>
               </Row>
             )}

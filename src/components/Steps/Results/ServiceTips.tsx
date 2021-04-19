@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Col, Row, Button, Container } from 'react-bootstrap';
-import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import { FaChevronDown } from 'react-icons/fa';
 import { useQuery } from 'react-query';
 import { useAppContext } from '../../../App';
 import { getRecords, TABLES } from '../../../lib/base';
@@ -14,11 +14,8 @@ const ServiceTips: React.FC = () => {
     TABLES.SERVICE_RECOMMENDATIONS,
     () => getRecords(TABLES.SERVICE_RECOMMENDATIONS)
   );
-  const initialCount = 6;
-  const [showMore, setShowMore] = useState(false);
-
-  const handleMore = () => setShowMore(!showMore);
-
+  const perPage = 6;
+  const [displayCount, setDisplayCount] = useState(6);
   const filteredRecords: ServiceRecommendation[] = getFilteredRecords(
     serviceRecommendations,
     filters
@@ -34,7 +31,7 @@ const ServiceTips: React.FC = () => {
         ) : (
           <>
             <Row>
-              {sortedRecords.slice(0, showMore ? undefined : initialCount).map((item: any) => (
+              {sortedRecords.slice(0, displayCount).map((item: any) => (
                 <Col lg={4} className="mb-4" key={item.id}>
                   <ResultCard
                     title={item.fields['Select']}
@@ -45,16 +42,17 @@ const ServiceTips: React.FC = () => {
                 </Col>
               ))}
             </Row>
-            {filteredRecords.length > initialCount && (
+            {filteredRecords.length > displayCount && (
               <Row className="justify-content-center">
                 <Button
-                  className="d-flex align-items-center text-uppercase bg-white"
-                  variant="white"
+                  className="d-flex align-items-center text-uppercase"
+                  variant="info"
                   size="lg"
-                  onClick={() => handleMore()}
+                  onClick={() => {
+                    setDisplayCount(displayCount + perPage);
+                  }}
                 >
-                  View {showMore ? 'less' : 'more'}{' '}
-                  {showMore ? <FaChevronUp className="ml-1" /> : <FaChevronDown className="ml-1" />}
+                  View more <FaChevronDown className="ml-1" />
                 </Button>
               </Row>
             )}

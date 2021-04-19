@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Col, Row, Button, Container } from 'react-bootstrap';
-import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import { FaChevronDown } from 'react-icons/fa';
 import { useQuery } from 'react-query';
 import { getFilteredRecords, getSortedRecords } from '../../../lib/filtering';
 import { useAppContext } from '../../../App';
@@ -13,11 +13,8 @@ const Challenges: React.FC = () => {
     TABLES.CHALLENGES_OBSTACLES,
     () => getRecords(TABLES.CHALLENGES_OBSTACLES)
   );
-  const initialCount = 3;
-  const [showMore, setShowMore] = useState(false);
-
-  const handleMore = () => setShowMore(!showMore);
-
+  const perPage = 3;
+  const [displayCount, setDisplayCount] = useState(3);
   const filteredRecords: ChallengeAndObstacle[] = getFilteredRecords(challenges, filters);
   const sortedRecords: ChallengeAndObstacle[] = getSortedRecords(filteredRecords, filters);
 
@@ -36,7 +33,7 @@ const Challenges: React.FC = () => {
           <Loader />
         ) : (
           <>
-            {sortedRecords.slice(0, showMore ? undefined : initialCount).map((record, i) => (
+            {sortedRecords.slice(0, displayCount).map((record, i) => (
               <Row key={record.id}>
                 <Col className="mb-4">
                   <div
@@ -58,16 +55,17 @@ const Challenges: React.FC = () => {
                 </Col>
               </Row>
             ))}
-            {filteredRecords.length > initialCount && (
+            {filteredRecords.length > displayCount && (
               <Row className="justify-content-center">
                 <Button
                   className="d-flex align-items-center text-uppercase"
                   variant="info"
                   size="lg"
-                  onClick={() => handleMore()}
+                  onClick={() => {
+                    setDisplayCount(displayCount + perPage);
+                  }}
                 >
-                  View {showMore ? 'less' : 'more'}{' '}
-                  {showMore ? <FaChevronUp className="ml-1" /> : <FaChevronDown className="ml-1" />}
+                  View more <FaChevronDown className="ml-1" />
                 </Button>
               </Row>
             )}
