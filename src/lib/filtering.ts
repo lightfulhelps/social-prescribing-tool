@@ -1,11 +1,5 @@
 import { Filter } from '../App';
-
-export const FILTER_KEYS = {
-  ISSUE: 'Issues',
-  GENDER: 'Gender',
-  AGE: 'Age Range',
-  OTHER: 'Other',
-};
+import { TABLES } from './base';
 
 export function addOrReplaceFilter(filters: Filter[], newFilter: Filter): Filter[] {
   const filtersCopy = [...filters];
@@ -32,8 +26,8 @@ export function addOrRemoveFilter(filters: Filter[], newFilter: Filter): Filter[
   } else {
     const issueLimit = 3;
     const exceedingIssueLimit =
-      newFilter.key === FILTER_KEYS.ISSUE &&
-      filtersCopy.filter((f) => f.key === FILTER_KEYS.ISSUE).length >= issueLimit;
+      newFilter.key === TABLES.ISSUES &&
+      filtersCopy.filter((f) => f.key === TABLES.ISSUES).length >= issueLimit;
 
     if (!exceedingIssueLimit) {
       filtersCopy.push({ ...newFilter });
@@ -51,11 +45,11 @@ export function getFilteredRecords(records: any[] = [], filters: Filter[] = []) 
     return filters.some((f) => {
       if (!record.fields[f.key]) return false;
 
-      if (f.key === FILTER_KEYS.GENDER && record.fields.Gender.includes(ANY_GENDER_ID)) {
+      if (f.key === TABLES.GENDER && record.fields.Gender.includes(ANY_GENDER_ID)) {
         return true;
       }
 
-      if (f.key === FILTER_KEYS.AGE && record.fields[FILTER_KEYS.AGE].includes(ANY_AGE_ID)) {
+      if (f.key === TABLES.AGE_RANGE && record.fields[TABLES.AGE_RANGE].includes(ANY_AGE_ID)) {
         return true;
       }
 

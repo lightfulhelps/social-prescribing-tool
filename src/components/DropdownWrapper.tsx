@@ -5,14 +5,14 @@ import { useAppContext } from '../App';
 type Props = {
   filterKey: string;
   title: string;
-  options: Issue[] | Gender[] | Other[] | AgeRange[];
+  options?: Issue[] | Gender[] | Other[] | AgeRange[];
   className?: string;
 };
 
 const DropdownWrapper: React.FC<Props> = ({ filterKey, title, options, className }) => {
   const { filters, handleFilter } = useAppContext();
   const currentFilter = filters?.find((f) => f.key === filterKey);
-  const currentOption = options.find((o) => o.id === currentFilter?.id);
+  const currentOption = options?.find((o) => o.id === currentFilter?.id);
 
   return (
     <Dropdown className={className}>
@@ -24,7 +24,7 @@ const DropdownWrapper: React.FC<Props> = ({ filterKey, title, options, className
         {currentOption ? currentOption.fields.Name : title}
       </Dropdown.Toggle>
       <Dropdown.Menu className="w-100">
-        {options.map((option: Issue | Gender | Other | AgeRange) => (
+        {options?.map((option: Issue | Gender | Other | AgeRange) => (
           <Dropdown.Item
             eventKey={option.id}
             key={option.id}

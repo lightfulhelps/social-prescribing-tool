@@ -1,30 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Col, Row, Button, Container } from 'react-bootstrap';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import { useQuery } from 'react-query';
 import { useAppContext } from '../../../App';
-import { useAllRecords } from '../../../lib/base';
+import { getRecords, TABLES } from '../../../lib/base';
 import Loader from '../../Loader';
 import { getFilteredRecords, getSortedRecords } from '../../../lib/filtering';
 import ResultCard from './ResultCard';
 
 const ServiceTips: React.FC = () => {
   const { filters } = useAppContext();
-  const [{ records: servicesArray, loading }] = useAllRecords<ServiceRecommendation>(
-    'Service Recommendations'
+  const { isLoading, data: serviceRecommendations } = useQuery<ServiceRecommendation[]>(
+    TABLES.SERVICE_RECOMMENDATIONS,
+    () => getRecords(TABLES.SERVICE_RECOMMENDATIONS)
   );
   const initialCount = 6;
-  const [showMore, setShowMore] = React.useState(false);
+  const [showMore, setShowMore] = useState(false);
 
   const handleMore = () => setShowMore(!showMore);
 
-  const filteredRecords: ServiceRecommendation[] = getFilteredRecords(servicesArray, filters);
+  const filteredRecords: ServiceRecommendation[] = getFilteredRecords(
+    serviceRecommendations,
+    filters
+  );
   const sortedRecords: ServiceRecommendation[] = getSortedRecords(filteredRecords, filters);
 
   return (
     <div className="py-4 bg-secondary">
       <Container>
         <h3 className="h4 text-white mb-4 text-uppercase">Service Tips</h3>
-        {loading ? (
+        {isLoading ? (
           <Loader variant="white" />
         ) : (
           <>

@@ -1,14 +1,24 @@
 import Airtable from 'airtable';
-import { useEffect, useState } from 'react';
+
+export const TABLES = {
+  CHALLENGES_OBSTACLES: 'Challenges and Obstacles',
+  SERVICE_RECOMMENDATIONS: 'Service Recommendations',
+  ONLINE_RESOURCES: 'Online Resources',
+  CASE_STUDIES: 'Case Studies',
+  GENDER: 'Gender',
+  AGE_RANGE: 'Age Range',
+  ISSUES: 'Issues',
+  OTHER: 'Other',
+};
 
 const base = new Airtable({ apiKey: 'key2sUvzA3EGk3CmW' }).base('applU9raIsearnjBM');
 
-export const getAllRecords = (table: string): Promise<any[]> => {
+export const getRecords = (table: string, view: string = 'Grid view'): Promise<any[]> => {
   let all: any[] = [];
 
   return new Promise((resolve, reject) => {
     base(table)
-      .select({ view: 'Grid view' })
+      .select({ view })
       .eachPage(
         (records, fetchNextPage) => {
           all = [...all, ...records.map((record) => record._rawJson)];
@@ -24,32 +34,6 @@ export const getAllRecords = (table: string): Promise<any[]> => {
         }
       );
   });
-};
-
-export const useAllRecords = <T>(table: string) => {
-  const [records, setRecords] = useState<T[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setError(false);
-      setLoading(true);
-
-      try {
-        const response = await getAllRecords(table);
-        setRecords(response);
-        setLoading(false);
-      } catch (error) {
-        setError(error);
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [table]);
-
-  return [{ records, loading, error }];
 };
 
 export default base;

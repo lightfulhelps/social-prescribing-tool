@@ -1,13 +1,16 @@
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
+import { useQuery } from 'react-query';
 import CardWrapper from '../CardWrapper';
-import { useAllRecords } from '../../lib/base';
+import { getRecords, TABLES } from '../../lib/base';
 import Loader from '../Loader';
 
 const Issues: React.FC = () => {
-  const [{ records: issuesArray, loading }] = useAllRecords<Issue>('Issues');
+  const { isLoading, data: issues } = useQuery<Issue[]>(TABLES.ISSUES, () =>
+    getRecords(TABLES.ISSUES)
+  );
 
-  if (loading) return <Loader />;
+  if (isLoading) return <Loader />;
 
   return (
     <>
@@ -16,7 +19,7 @@ const Issues: React.FC = () => {
         need.
       </p>
       <Row>
-        {issuesArray.map((issue) => (
+        {issues?.map((issue) => (
           <Col lg={4} className="mb-4" key={issue.fields.Name}>
             <CardWrapper filterKey="Issues" item={issue} />
           </Col>

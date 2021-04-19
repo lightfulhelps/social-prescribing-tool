@@ -1,22 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Col, Row, Button, Container } from 'react-bootstrap';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import { useQuery } from 'react-query';
 import { getFilteredRecords, getSortedRecords } from '../../../lib/filtering';
 import { useAppContext } from '../../../App';
-import { useAllRecords } from '../../../lib/base';
+import { getRecords, TABLES } from '../../../lib/base';
 import Loader from '../../Loader';
 
 const Challenges: React.FC = () => {
   const { filters } = useAppContext();
-  const [{ records: challengesArray, loading }] = useAllRecords<ChallengeAndObstacle>(
-    'Challenges and Obstacles'
+  const { isLoading, data: challenges } = useQuery<ChallengeAndObstacle[]>(
+    TABLES.CHALLENGES_OBSTACLES,
+    () => getRecords(TABLES.CHALLENGES_OBSTACLES)
   );
   const initialCount = 3;
-  const [showMore, setShowMore] = React.useState(false);
+  const [showMore, setShowMore] = useState(false);
 
   const handleMore = () => setShowMore(!showMore);
 
-  const filteredRecords: ChallengeAndObstacle[] = getFilteredRecords(challengesArray, filters);
+  const filteredRecords: ChallengeAndObstacle[] = getFilteredRecords(challenges, filters);
   const sortedRecords: ChallengeAndObstacle[] = getSortedRecords(filteredRecords, filters);
 
   return (
@@ -30,7 +32,7 @@ const Challenges: React.FC = () => {
             <h3 className="h4 mb-4 text-uppercase">So Consider...</h3>
           </Col>
         </Row>
-        {loading ? (
+        {isLoading ? (
           <Loader />
         ) : (
           <>

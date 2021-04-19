@@ -1,20 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useQuery } from 'react-query';
 import { Card, Col, Row, Button, Container } from 'react-bootstrap';
 import { FaChevronDown, FaChevronUp, FaPlus } from 'react-icons/fa';
 import { getFilteredRecords, getSortedRecords } from '../../../lib/filtering';
 import { useAppContext } from '../../../App';
-import { useAllRecords } from '../../../lib/base';
+import { getRecords, TABLES } from '../../../lib/base';
 import Loader from '../../Loader';
 
 const CaseStudies: React.FC = () => {
   const { filters } = useAppContext();
-  const [{ records: caseStudiesArray, loading }] = useAllRecords<CaseStudy>('Case Studies');
+  const { isLoading, data: caseStudies } = useQuery<CaseStudy[]>(TABLES.CASE_STUDIES, () =>
+    getRecords(TABLES.CASE_STUDIES)
+  );
   const initialCount = 1;
-  const [showMore, setShowMore] = React.useState(false);
+  const [showMore, setShowMore] = useState(false);
 
   const handleMore = () => setShowMore(!showMore);
 
-  const filteredRecords: CaseStudy[] = getFilteredRecords(caseStudiesArray, filters);
+  const filteredRecords: CaseStudy[] = getFilteredRecords(caseStudies, filters);
   const sortedRecords: CaseStudy[] = getSortedRecords(filteredRecords, filters);
 
   return (
@@ -39,7 +42,7 @@ const CaseStudies: React.FC = () => {
             </Button>
           </Col>
         </Row>
-        {loading ? (
+        {isLoading ? (
           <Loader variant="white" />
         ) : (
           <>

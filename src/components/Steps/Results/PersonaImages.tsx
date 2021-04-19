@@ -1,12 +1,12 @@
 import sample from 'lodash/sample';
 import random from 'lodash/random';
 import { useAppContext } from '../../../App';
-import { FILTER_KEYS } from '../../../lib/filtering';
+import { TABLES } from '../../../lib/base';
 
 const PersonaImages = () => {
   const { filters } = useAppContext();
-  const genderFilter = filters?.find((f) => f.key === FILTER_KEYS.GENDER);
-  const ageFilter = filters?.find((f) => f.key === FILTER_KEYS.AGE);
+  const genderFilter = filters?.find((f) => f.key === TABLES.GENDER);
+  const ageFilter = filters?.find((f) => f.key === TABLES.AGE_RANGE);
   const ageGroups = ['18-25', '26-40', '41-65', '66-80', '81+'];
 
   let img1;

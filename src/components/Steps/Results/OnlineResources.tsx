@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { Col, Row, Button, Container } from 'react-bootstrap';
-import { useAllRecords } from '../../../lib/base';
+import { useQuery } from 'react-query';
+import { getRecords, TABLES } from '../../../lib/base';
 import { useAppContext } from '../../../App';
 import { getFilteredRecords, getSortedRecords } from '../../../lib/filtering';
 import Loader from '../../Loader';
@@ -9,20 +10,23 @@ import ResultCard from './ResultCard';
 
 const OnlineResources: React.FC = () => {
   const { filters } = useAppContext();
-  const [{ records: resourcesArray, loading }] = useAllRecords<OnlineResource>('Online Resources');
+  const { isLoading, data: onlineResources } = useQuery<OnlineResource[]>(
+    TABLES.ONLINE_RESOURCES,
+    () => getRecords(TABLES.ONLINE_RESOURCES)
+  );
   const initialCount = 6;
-  const [showMore, setShowMore] = React.useState(false);
+  const [showMore, setShowMore] = useState(false);
 
   const handleMore = () => setShowMore(!showMore);
 
-  const filteredRecords: OnlineResource[] = getFilteredRecords(resourcesArray, filters);
+  const filteredRecords: OnlineResource[] = getFilteredRecords(onlineResources, filters);
   const sortedRecords: OnlineResource[] = getSortedRecords(filteredRecords, filters);
 
   return (
     <div className="py-4" style={{ backgroundColor: '#F9F4F9' }}>
       <Container>
         <h3 className="h4 mb-4 text-uppercase">Suggested Online Resources</h3>
-        {loading ? (
+        {isLoading ? (
           <Loader />
         ) : (
           <>

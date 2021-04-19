@@ -1,21 +1,29 @@
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { FaTrash } from 'react-icons/fa';
-import { useAllRecords } from '../../../lib/base';
+import { useQuery } from 'react-query';
+import { getRecords, TABLES } from '../../../lib/base';
 import Loader from '../../Loader';
 import DropdownWrapper from '../../DropdownWrapper';
 import { useAppContext } from '../../../App';
-import { FILTER_KEYS } from '../../../lib/filtering';
 import PersonaImages from './PersonaImages';
 
 const PersonaDetails: React.FC = () => {
   const { clearFiltersByKey } = useAppContext();
-  const [{ records: issues, loading: loadingIssues }] = useAllRecords<Issue>(FILTER_KEYS.ISSUE);
-  const [{ records: genders, loading: loadingGenders }] = useAllRecords<Gender>(FILTER_KEYS.GENDER);
-  const [{ records: ages, loading: loadingAges }] = useAllRecords<AgeRange>(FILTER_KEYS.AGE);
-  const [{ records: others, loading: loadingOther }] = useAllRecords<Other>(FILTER_KEYS.OTHER);
+  const { isLoading: isLoadingIssues, data: issues } = useQuery<Issue[]>(TABLES.ISSUES, () =>
+    getRecords(TABLES.ISSUES)
+  );
+  const { isLoading: isLoadingGenders, data: genders } = useQuery<Gender[]>(TABLES.GENDER, () =>
+    getRecords(TABLES.GENDER)
+  );
+  const { isLoading: isLoadingAges, data: ages } = useQuery<AgeRange[]>(TABLES.AGE_RANGE, () =>
+    getRecords(TABLES.AGE_RANGE)
+  );
+  const { isLoading: isLoadingOthers, data: others } = useQuery<Other[]>(TABLES.OTHER, () =>
+    getRecords(TABLES.OTHER)
+  );
 
-  if (loadingIssues || loadingOther || loadingGenders || loadingAges) {
+  if (isLoadingIssues || isLoadingGenders || isLoadingAges || isLoadingOthers) {
     return (
       <div className="py-4">
         <Loader />
@@ -38,7 +46,7 @@ const PersonaDetails: React.FC = () => {
               />
               <FaTrash
                 className="ml-1"
-                onClick={() => clearFiltersByKey && clearFiltersByKey(FILTER_KEYS.GENDER)}
+                onClick={() => clearFiltersByKey && clearFiltersByKey(TABLES.GENDER)}
               />
             </div>
           </div>
@@ -53,7 +61,7 @@ const PersonaDetails: React.FC = () => {
               />
               <FaTrash
                 className="ml-1"
-                onClick={() => clearFiltersByKey && clearFiltersByKey(FILTER_KEYS.AGE)}
+                onClick={() => clearFiltersByKey && clearFiltersByKey(TABLES.AGE_RANGE)}
               />
             </div>
           </div>
@@ -68,7 +76,7 @@ const PersonaDetails: React.FC = () => {
               />
               <FaTrash
                 className="ml-1"
-                onClick={() => clearFiltersByKey && clearFiltersByKey(FILTER_KEYS.ISSUE)}
+                onClick={() => clearFiltersByKey && clearFiltersByKey(TABLES.ISSUES)}
               />
             </div>
           </div>
@@ -92,7 +100,7 @@ const PersonaDetails: React.FC = () => {
                   />
                   <FaTrash
                     className="ml-1"
-                    onClick={() => clearFiltersByKey && clearFiltersByKey(FILTER_KEYS.OTHER)}
+                    onClick={() => clearFiltersByKey && clearFiltersByKey(TABLES.OTHER)}
                   />
                 </div>
               </div>

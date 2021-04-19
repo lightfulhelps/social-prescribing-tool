@@ -2,7 +2,7 @@ import React from 'react';
 import { Nav, Button, Container } from 'react-bootstrap';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { useAppContext } from '../App';
-import { FILTER_KEYS } from '../lib/filtering';
+import { TABLES } from '../lib/base';
 
 type Props = {
   handleNext: Function;
@@ -12,7 +12,7 @@ type Props = {
 
 const Navigation: React.FC<Props> = ({ handleNext, handleBack, handleReset }) => {
   const { currentStep, filters } = useAppContext();
-  const issuesFilterCount = filters?.filter((f) => f.key === FILTER_KEYS.ISSUE).length || 0;
+  const issuesFilterCount = filters?.filter((f) => f.key === TABLES.ISSUES).length || 0;
 
   return (
     <section className="fixed-bottom py-2" style={{ backgroundColor: '#ECF7F6' }}>

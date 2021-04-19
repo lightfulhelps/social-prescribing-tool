@@ -1,17 +1,23 @@
 import React from 'react';
 import { Col, Row, OverlayTrigger, Tooltip, Form } from 'react-bootstrap';
-import { useAllRecords } from '../../lib/base';
+import { useQuery } from 'react-query';
+import { FaInfoCircle } from 'react-icons/fa';
+import { getRecords, TABLES } from '../../lib/base';
 import CardWrapper from '../CardWrapper';
 import DropdownWrapper from '../DropdownWrapper';
-import { FaInfoCircle } from 'react-icons/fa';
 import Loader from '../Loader';
 
 const Demographics: React.FC = () => {
-  const [{ records: demographicsArray, loading: loadingDemographics }] = useAllRecords<Other>(
-    'Other'
+  const { isLoading: isLoadingGenders, data: genders } = useQuery<Gender[]>(TABLES.GENDER, () =>
+    getRecords(TABLES.GENDER)
   );
-  const [{ records: genderArray, loading: loadingGenders }] = useAllRecords<Gender>('Gender');
-  const [{ records: ageArray, loading: loadingAges }] = useAllRecords<AgeRange>('Age Range');
+  const { isLoading: isLoadingAgeRanges, data: ageRanges } = useQuery<AgeRange[]>(
+    TABLES.AGE_RANGE,
+    () => getRecords(TABLES.AGE_RANGE)
+  );
+  const { isLoading: isLoadingOthers, data: others } = useQuery<Other[]>(TABLES.OTHER, () =>
+    getRecords(TABLES.OTHER)
+  );
 
   const renderTooltip = (props: any) => (
     <Tooltip id="button-tooltip" {...props}>
@@ -20,7 +26,7 @@ const Demographics: React.FC = () => {
     </Tooltip>
   );
 
-  if (loadingDemographics || loadingGenders || loadingAges) return <Loader />;
+  if (isLoadingGenders || isLoadingAgeRanges || isLoadingOthers) return <Loader />;
 
   return (
     <>
@@ -45,17 +51,17 @@ const Demographics: React.FC = () => {
           <Form.Label className="font-weight-bold text-uppercase">
             Gender identification:
           </Form.Label>
-          <DropdownWrapper title="Please select..." options={genderArray} filterKey="Gender" />
+          <DropdownWrapper title="Please select..." options={genders} filterKey="Gender" />
         </Col>
         <Col lg={4}>
           <Form.Label className="font-weight-bold text-uppercase">Age range:</Form.Label>
-          <DropdownWrapper title="Please select..." options={ageArray} filterKey="Age Range" />
+          <DropdownWrapper title="Please select..." options={ageRanges} filterKey="Age Range" />
         </Col>
       </Row>
       <Row>
-        {demographicsArray.map((demographic) => (
-          <Col lg={4} className="mb-4" key={demographic.id}>
-            <CardWrapper filterKey="Other" item={demographic} />
+        {others?.map((other) => (
+          <Col lg={4} className="mb-4" key={other.id}>
+            <CardWrapper filterKey="Other" item={other} />
           </Col>
         ))}
       </Row>

@@ -7,7 +7,8 @@ import Intro from './components/Steps/Intro';
 import Issues from './components/Steps/Issues';
 import Results from './components/Steps/Results';
 import Progress from './components/Progress';
-import { addOrRemoveFilter, addOrReplaceFilter, FILTER_KEYS } from './lib/filtering';
+import { addOrRemoveFilter, addOrReplaceFilter } from './lib/filtering';
+import { TABLES } from './lib/base';
 
 export type Filter = {
   [key: string]: string;
@@ -37,7 +38,7 @@ const App: React.FC = () => {
   const handleFilter = ({ key, id, name }: HandleFilterArgs) => {
     let newFilters;
 
-    if ([FILTER_KEYS.GENDER, FILTER_KEYS.AGE].includes(key)) {
+    if ([TABLES.GENDER, TABLES.AGE_RANGE].includes(key)) {
       newFilters = addOrReplaceFilter(filters, { key, id, name });
     } else {
       newFilters = addOrRemoveFilter(filters, { key, id, name });
