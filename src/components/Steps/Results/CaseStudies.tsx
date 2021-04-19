@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Col, Row, Button, Container } from 'react-bootstrap';
 import { FaChevronDown, FaChevronUp, FaPlus } from 'react-icons/fa';
-import { getFilteredRecords } from '../../../lib/filtering';
+import { getFilteredRecords, getSortedRecords } from '../../../lib/filtering';
 import { useAppContext } from '../../../App';
 import { useAllRecords } from '../../../lib/base';
 import Loader from '../../Loader';
@@ -15,6 +15,7 @@ const CaseStudies: React.FC = () => {
   const handleMore = () => setShowMore(!showMore);
 
   const filteredRecords: CaseStudy[] = getFilteredRecords(caseStudiesArray, filters);
+  const sortedRecords: CaseStudy[] = getSortedRecords(caseStudiesArray, filters);
 
   return (
     <div className="py-4 bg-secondary">
@@ -42,7 +43,7 @@ const CaseStudies: React.FC = () => {
           <Loader variant="white" />
         ) : (
           <>
-            {filteredRecords.slice(0, showMore ? undefined : initialCount).map((item: any) => (
+            {sortedRecords.slice(0, showMore ? undefined : initialCount).map((item: any) => (
               <Card key={item.id} className="border-0 mb-3">
                 <Card.Header
                   className="border-0 text-white h5 mb-0"

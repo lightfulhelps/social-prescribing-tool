@@ -3,7 +3,7 @@ import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { Col, Row, Button, Container } from 'react-bootstrap';
 import { useAllRecords } from '../../../lib/base';
 import { useAppContext } from '../../../App';
-import { getFilteredRecords } from '../../../lib/filtering';
+import { getFilteredRecords, getSortedRecords } from '../../../lib/filtering';
 import Loader from '../../Loader';
 import ResultCard from './ResultCard';
 
@@ -16,6 +16,7 @@ const OnlineResources: React.FC = () => {
   const handleMore = () => setShowMore(!showMore);
 
   const filteredRecords: OnlineResource[] = getFilteredRecords(resourcesArray, filters);
+  const sortedRecords: OnlineResource[] = getSortedRecords(resourcesArray, filters);
 
   return (
     <div className="py-4" style={{ backgroundColor: '#F9F4F9' }}>
@@ -26,7 +27,7 @@ const OnlineResources: React.FC = () => {
         ) : (
           <>
             <Row>
-              {filteredRecords.slice(0, showMore ? undefined : initialCount).map((item: any) => (
+              {sortedRecords.slice(0, showMore ? undefined : initialCount).map((item: any) => (
                 <Col lg={4} className="mb-4" key={item.id}>
                   <ResultCard
                     title={item.fields['Name']}

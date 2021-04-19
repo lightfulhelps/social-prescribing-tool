@@ -1,7 +1,7 @@
 import React from 'react';
 import { Col, Row, Button, Container } from 'react-bootstrap';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
-import { getFilteredRecords } from '../../../lib/filtering';
+import { getFilteredRecords, getSortedRecords } from '../../../lib/filtering';
 import { useAppContext } from '../../../App';
 import { useAllRecords } from '../../../lib/base';
 import Loader from '../../Loader';
@@ -17,6 +17,7 @@ const Challenges: React.FC = () => {
   const handleMore = () => setShowMore(!showMore);
 
   const filteredRecords: ChallengeAndObstacle[] = getFilteredRecords(challengesArray, filters);
+  const sortedRecords: ChallengeAndObstacle[] = getSortedRecords(filteredRecords, filters);
 
   return (
     <div className="py-4" style={{ backgroundColor: '#F9F4F9' }}>
@@ -33,7 +34,7 @@ const Challenges: React.FC = () => {
           <Loader />
         ) : (
           <>
-            {filteredRecords.slice(0, showMore ? undefined : initialCount).map((record, i) => (
+            {sortedRecords.slice(0, showMore ? undefined : initialCount).map((record, i) => (
               <Row key={record.id}>
                 <Col className="mb-4">
                   <div

@@ -4,7 +4,7 @@ import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { useAppContext } from '../../../App';
 import { useAllRecords } from '../../../lib/base';
 import Loader from '../../Loader';
-import { getFilteredRecords } from '../../../lib/filtering';
+import { getFilteredRecords, getSortedRecords } from '../../../lib/filtering';
 import ResultCard from './ResultCard';
 
 const ServiceTips: React.FC = () => {
@@ -18,6 +18,7 @@ const ServiceTips: React.FC = () => {
   const handleMore = () => setShowMore(!showMore);
 
   const filteredRecords: ServiceRecommendation[] = getFilteredRecords(servicesArray, filters);
+  const sortedRecords: ServiceRecommendation[] = getSortedRecords(servicesArray, filters);
 
   return (
     <div className="py-4 bg-secondary">
@@ -28,7 +29,7 @@ const ServiceTips: React.FC = () => {
         ) : (
           <>
             <Row>
-              {filteredRecords.slice(0, showMore ? undefined : initialCount).map((item: any) => (
+              {sortedRecords.slice(0, showMore ? undefined : initialCount).map((item: any) => (
                 <Col lg={4} className="mb-4" key={item.id}>
                   <ResultCard
                     title={item.fields['Select']}
