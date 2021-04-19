@@ -18,7 +18,7 @@ const ServiceTips: React.FC = () => {
   const handleMore = () => setShowMore(!showMore);
 
   const filteredRecords: ServiceRecommendation[] = getFilteredRecords(servicesArray, filters);
-  const sortedRecords: ServiceRecommendation[] = getSortedRecords(servicesArray, filters);
+  const sortedRecords: ServiceRecommendation[] = getSortedRecords(filteredRecords, filters);
 
   return (
     <div className="py-4 bg-secondary">

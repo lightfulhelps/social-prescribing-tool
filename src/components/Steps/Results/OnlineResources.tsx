@@ -16,7 +16,7 @@ const OnlineResources: React.FC = () => {
   const handleMore = () => setShowMore(!showMore);
 
   const filteredRecords: OnlineResource[] = getFilteredRecords(resourcesArray, filters);
-  const sortedRecords: OnlineResource[] = getSortedRecords(resourcesArray, filters);
+  const sortedRecords: OnlineResource[] = getSortedRecords(filteredRecords, filters);
 
   return (
     <div className="py-4" style={{ backgroundColor: '#F9F4F9' }}>

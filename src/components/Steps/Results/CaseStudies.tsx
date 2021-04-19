@@ -15,7 +15,7 @@ const CaseStudies: React.FC = () => {
   const handleMore = () => setShowMore(!showMore);
 
   const filteredRecords: CaseStudy[] = getFilteredRecords(caseStudiesArray, filters);
-  const sortedRecords: CaseStudy[] = getSortedRecords(caseStudiesArray, filters);
+  const sortedRecords: CaseStudy[] = getSortedRecords(filteredRecords, filters);
 
   return (
     <div className="py-4 bg-secondary">
