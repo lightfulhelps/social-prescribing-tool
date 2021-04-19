@@ -2,27 +2,122 @@ import faker from 'faker';
 import { getFilteredRecords, getMatchingFilterCount, getSortedRecords } from './filtering';
 
 describe('getFilteredRecords', () => {
-  it('should return records that match one filter id', () => {
-    const femaleFilterId = faker.datatype.uuid();
-    const maleFilterId = faker.datatype.uuid();
+  it('should filter by Issues', () => {
+    const issue1Id = faker.datatype.uuid();
+    const issue2Id = faker.datatype.uuid();
     const filters = [
       {
-        key: 'Gender',
-        id: femaleFilterId,
-        name: 'Female',
+        key: 'Issues',
+        id: issue1Id,
+      },
+      {
+        key: 'Issues',
+        id: issue2Id,
       },
     ];
     const records = [
       {
         id: faker.datatype.uuid(),
         fields: {
-          Gender: [femaleFilterId, faker.datatype.uuid()],
+          Issues: [issue1Id, faker.datatype.uuid()],
         },
       },
       {
         id: faker.datatype.uuid(),
         fields: {
-          Gender: [faker.datatype.uuid(), maleFilterId],
+          Issues: [faker.datatype.uuid()],
+        },
+      },
+      {
+        id: faker.datatype.uuid(),
+        fields: {
+          Issues: [faker.datatype.uuid(), issue2Id],
+        },
+      },
+    ];
+
+    expect(getFilteredRecords(records, filters)).toEqual([records[0], records[2]]);
+  });
+
+  it('should filter by Issues and then Gender if specified', () => {
+    const issue1Id = faker.datatype.uuid();
+    const issue2Id = faker.datatype.uuid();
+    const genderId = faker.datatype.uuid();
+    const filters = [
+      {
+        key: 'Issues',
+        id: issue1Id,
+      },
+      {
+        key: 'Issues',
+        id: issue2Id,
+      },
+      {
+        key: 'Gender',
+        id: genderId,
+      },
+    ];
+    const records = [
+      {
+        id: faker.datatype.uuid(),
+        fields: {
+          Issues: [issue1Id, faker.datatype.uuid()],
+        },
+      },
+      {
+        id: faker.datatype.uuid(),
+        fields: {
+          Issues: [faker.datatype.uuid()],
+        },
+      },
+      {
+        id: faker.datatype.uuid(),
+        fields: {
+          Issues: [faker.datatype.uuid(), issue2Id],
+          Gender: [genderId],
+        },
+      },
+    ];
+
+    expect(getFilteredRecords(records, filters)).toEqual([records[2]]);
+  });
+
+  it('should filter by Issues and then Age Range if specified', () => {
+    const issue1Id = faker.datatype.uuid();
+    const issue2Id = faker.datatype.uuid();
+    const ageRangeId = faker.datatype.uuid();
+    const filters = [
+      {
+        key: 'Issues',
+        id: issue1Id,
+      },
+      {
+        key: 'Issues',
+        id: issue2Id,
+      },
+      {
+        key: 'Age Range',
+        id: ageRangeId,
+      },
+    ];
+    const records = [
+      {
+        id: faker.datatype.uuid(),
+        fields: {
+          Issues: [issue1Id, faker.datatype.uuid()],
+          'Age Range': [ageRangeId],
+        },
+      },
+      {
+        id: faker.datatype.uuid(),
+        fields: {
+          Issues: [faker.datatype.uuid()],
+        },
+      },
+      {
+        id: faker.datatype.uuid(),
+        fields: {
+          Issues: [faker.datatype.uuid(), issue2Id],
         },
       },
     ];
@@ -30,43 +125,86 @@ describe('getFilteredRecords', () => {
     expect(getFilteredRecords(records, filters)).toEqual([records[0]]);
   });
 
-  it('should return records that match any filter id', () => {
-    const issue1FilterId = faker.datatype.uuid();
-    const issue2FilterId = faker.datatype.uuid();
-    const issue3FilterId = faker.datatype.uuid();
+  it('should filter by Issues and then Other if specified', () => {
+    const issue1Id = faker.datatype.uuid();
+    const issue2Id = faker.datatype.uuid();
+    const otherId = faker.datatype.uuid();
     const filters = [
       {
         key: 'Issues',
-        id: issue1FilterId,
-        name: 'Money Issues',
+        id: issue1Id,
       },
       {
         key: 'Issues',
-        id: issue2FilterId,
-        name: 'Legal Issues',
+        id: issue2Id,
       },
       {
-        key: 'Issues',
-        id: issue3FilterId,
-        name: 'Computer Skills',
+        key: 'Other',
+        id: otherId,
       },
     ];
     const records = [
       {
         id: faker.datatype.uuid(),
         fields: {
-          Issues: [issue1FilterId, faker.datatype.uuid()],
+          Issues: [issue1Id, faker.datatype.uuid()],
         },
       },
       {
         id: faker.datatype.uuid(),
         fields: {
-          Issues: [faker.datatype.uuid(), issue2FilterId],
+          Issues: [faker.datatype.uuid(), issue2Id],
+          Other: [otherId],
+        },
+      },
+      {
+        id: faker.datatype.uuid(),
+        fields: {
+          Issues: [faker.datatype.uuid()],
         },
       },
     ];
 
-    expect(getFilteredRecords(records, filters)).toEqual([records[0], records[1]]);
+    expect(getFilteredRecords(records, filters)).toEqual([records[1]]);
+  });
+
+  it('should exclude records that have an Other attribute if no Other filter', () => {
+    const issue1Id = faker.datatype.uuid();
+    const issue2Id = faker.datatype.uuid();
+    const otherId = faker.datatype.uuid();
+    const filters = [
+      {
+        key: 'Issues',
+        id: issue1Id,
+      },
+      {
+        key: 'Issues',
+        id: issue2Id,
+      },
+    ];
+    const records = [
+      {
+        id: faker.datatype.uuid(),
+        fields: {
+          Issues: [issue1Id, faker.datatype.uuid()],
+        },
+      },
+      {
+        id: faker.datatype.uuid(),
+        fields: {
+          Issues: [faker.datatype.uuid(), issue2Id],
+          Other: [otherId],
+        },
+      },
+      {
+        id: faker.datatype.uuid(),
+        fields: {
+          Issues: [faker.datatype.uuid()],
+        },
+      },
+    ];
+
+    expect(getFilteredRecords(records, filters)).toEqual([records[0]]);
   });
 });
 

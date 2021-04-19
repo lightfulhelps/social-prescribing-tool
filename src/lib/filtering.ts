@@ -1,7 +1,7 @@
 import { Filter } from '../App';
 import { TABLES } from './base';
 
-export function addOrReplaceFilter(filters: Filter[], newFilter: Filter): Filter[] {
+export function addOrReplaceFilter(filters: Filter[], newFilter: Filter) {
   const filtersCopy = [...filters];
   const index = filtersCopy.findIndex((f) => f.key === newFilter.key);
 
@@ -17,7 +17,7 @@ export function addOrReplaceFilter(filters: Filter[], newFilter: Filter): Filter
 const filterInFilters = (filters: Filter[], newFilter: Filter) =>
   filters.some((f) => f.key === newFilter.key && f.id === newFilter.id);
 
-export function addOrRemoveFilter(filters: Filter[], newFilter: Filter): Filter[] {
+export function addOrRemoveFilter(filters: Filter[], newFilter: Filter) {
   const filtersCopy = [...filters];
 
   if (filterInFilters(filtersCopy, newFilter)) {
@@ -40,22 +40,53 @@ export function addOrRemoveFilter(filters: Filter[], newFilter: Filter): Filter[
 export const ANY_AGE_ID = 'recsC15Fm61bSwfTW';
 export const ANY_GENDER_ID = 'rec6P9Xfy1Qg1NVGi';
 
-export function getFilteredRecords(records: any[] = [], filters: Filter[] = []) {
+function filterRecords(records: any[], filters: Filter[], key: string) {
+  const filtersByKey = filters.filter((f) => f.key === key);
+
   return records.filter((record) => {
-    return filters.some((f) => {
-      if (!record.fields[f.key]) return false;
+    return filtersByKey.some((f) => {
+      if (!record.fields[key]) return false;
 
-      if (f.key === TABLES.GENDER && record.fields.Gender.includes(ANY_GENDER_ID)) {
+      if (key === TABLES.GENDER && record.fields[TABLES.GENDER].includes(ANY_GENDER_ID)) {
         return true;
       }
 
-      if (f.key === TABLES.AGE_RANGE && record.fields[TABLES.AGE_RANGE].includes(ANY_AGE_ID)) {
+      if (key === TABLES.AGE_RANGE && record.fields[TABLES.AGE_RANGE].includes(ANY_AGE_ID)) {
         return true;
       }
 
-      return record.fields[f.key].includes(f.id);
+      return record.fields[key].includes(f.id);
     });
   });
+}
+
+export function getFilteredRecords(records: any[] = [], filters: Filter[] = []) {
+  let filteredRecords = [...records];
+
+  // 1. Find records matching issue filters
+  filteredRecords = filterRecords(filteredRecords, filters, TABLES.ISSUES);
+
+  // 2. If a gender is selected, find records matching gender filters
+  if (filters.some((f) => f.key === TABLES.GENDER)) {
+    filteredRecords = filterRecords(filteredRecords, filters, TABLES.GENDER);
+  }
+
+  // 3. If an age range is selected, find records matching age range filters
+  if (filters.some((f) => f.key === TABLES.AGE_RANGE)) {
+    filteredRecords = filterRecords(filteredRecords, filters, TABLES.AGE_RANGE);
+  }
+
+  // 4. If an "other" filter is selected, find records matching other filters
+  if (filters.some((f) => f.key === TABLES.OTHER)) {
+    filteredRecords = filterRecords(filteredRecords, filters, TABLES.OTHER);
+  } else {
+    // Else no "other" filter is selected so remove records that have an "other" attribute
+    filteredRecords = filteredRecords.filter((record) => {
+      return !record.fields[TABLES.OTHER];
+    });
+  }
+
+  return filteredRecords;
 }
 
 export const getMatchingFilterCount = (record: any, filters: Filter[]) => {

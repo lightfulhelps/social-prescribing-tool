@@ -36,6 +36,21 @@ const PersonaDetails: React.FC = () => {
       <Row className="py-4">
         <Col>
           <div className="mb-3">
+            <h3 className="h5 text-uppercase">Issues:</h3>
+            <div className="d-flex align-items-center">
+              <DropdownWrapper
+                className="flex-fill"
+                title="Issues"
+                options={issues}
+                filterKey="Issues"
+              />
+              <FaTrash
+                className="ml-1"
+                onClick={() => clearFiltersByKey && clearFiltersByKey(TABLES.ISSUES)}
+              />
+            </div>
+          </div>
+          <div className="mb-3">
             <h3 className="h5 text-uppercase">Gender Identifiction:</h3>
             <div className="d-flex align-items-center">
               <DropdownWrapper
@@ -62,21 +77,6 @@ const PersonaDetails: React.FC = () => {
               <FaTrash
                 className="ml-1"
                 onClick={() => clearFiltersByKey && clearFiltersByKey(TABLES.AGE_RANGE)}
-              />
-            </div>
-          </div>
-          <div className="mb-3">
-            <h3 className="h5 text-uppercase">Issues:</h3>
-            <div className="d-flex align-items-center">
-              <DropdownWrapper
-                className="flex-fill"
-                title="Issues"
-                options={issues}
-                filterKey="Issues"
-              />
-              <FaTrash
-                className="ml-1"
-                onClick={() => clearFiltersByKey && clearFiltersByKey(TABLES.ISSUES)}
               />
             </div>
           </div>
