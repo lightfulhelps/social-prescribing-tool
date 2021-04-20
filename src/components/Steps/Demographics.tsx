@@ -51,11 +51,15 @@ const Demographics: React.FC = () => {
           <Form.Label className="font-weight-bold text-uppercase">
             Gender identification:
           </Form.Label>
-          <DropdownWrapper title="Please select..." options={genders} filterKey="Gender" />
+          <DropdownWrapper title="Please select..." options={genders} filterKey={TABLES.GENDER} />
         </Col>
         <Col lg={4}>
           <Form.Label className="font-weight-bold text-uppercase">Age range:</Form.Label>
-          <DropdownWrapper title="Please select..." options={ageRanges} filterKey="Age Range" />
+          <DropdownWrapper
+            title="Please select..."
+            options={ageRanges}
+            filterKey={TABLES.AGE_RANGE}
+          />
         </Col>
       </Row>
       <Row>

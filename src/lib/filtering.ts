@@ -24,12 +24,10 @@ export function addOrRemoveFilter(filters: Filter[], newFilter: Filter) {
     const index = filtersCopy.findIndex((f) => f.key === newFilter.key && f.id === newFilter.id);
     filtersCopy.splice(index, 1);
   } else {
-    const issueLimit = 3;
-    const exceedingIssueLimit =
-      newFilter.key === TABLES.ISSUES &&
-      filtersCopy.filter((f) => f.key === TABLES.ISSUES).length >= issueLimit;
+    const limit = 3;
+    const exceedingLimit = filtersCopy.filter((f) => f.key === newFilter.key).length >= limit;
 
-    if (!exceedingIssueLimit) {
+    if (!exceedingLimit) {
       filtersCopy.push({ ...newFilter });
     }
   }
@@ -47,7 +45,7 @@ function filterRecords(records: any[], filters: Filter[], key: string) {
       // If record's gender field has "Any/All" tag then always include it
       if (
         key === TABLES.GENDER &&
-        record.fields[TABLES.GENDER].includes(process.env.REACT_APP_ANY_GENDER_ID)
+        record.fields[TABLES.GENDER].includes(process.env.REACT_APP_AIRTABLE_ANY_GENDER_ID)
       ) {
         return true;
       }
@@ -55,7 +53,7 @@ function filterRecords(records: any[], filters: Filter[], key: string) {
       // If record's age field has "Any/All" tag then always include it
       if (
         key === TABLES.AGE_RANGE &&
-        record.fields[TABLES.AGE_RANGE].includes(process.env.REACT_APP_ANY_AGE_ID)
+        record.fields[TABLES.AGE_RANGE].includes(process.env.REACT_APP_AIRTABLE_ANY_AGE_ID)
       ) {
         return true;
       }

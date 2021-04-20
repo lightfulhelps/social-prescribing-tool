@@ -37,16 +37,13 @@ const PersonaDetails: React.FC = () => {
         <Col>
           <div className="mb-3">
             <h3 className="h5 text-uppercase">Issues:</h3>
-            <div className="d-flex align-items-center">
+            <div>
               <DropdownWrapper
-                className="flex-fill"
+                className="flex-fill mr-3"
                 title="Issues"
                 options={issues}
-                filterKey="Issues"
-              />
-              <FaTrash
-                className="ml-1"
-                onClick={() => clearFiltersByKey && clearFiltersByKey(TABLES.ISSUES)}
+                filterKey={TABLES.ISSUES}
+                multiSelect
               />
             </div>
           </div>
@@ -57,7 +54,7 @@ const PersonaDetails: React.FC = () => {
                 className="flex-fill"
                 title="Gender"
                 options={genders}
-                filterKey="Gender"
+                filterKey={TABLES.GENDER}
               />
               <FaTrash
                 className="ml-1"
@@ -72,7 +69,7 @@ const PersonaDetails: React.FC = () => {
                 className="flex-fill"
                 title="Age Range"
                 options={ages}
-                filterKey="Age Range"
+                filterKey={TABLES.AGE_RANGE}
               />
               <FaTrash
                 className="ml-1"
@@ -94,9 +91,10 @@ const PersonaDetails: React.FC = () => {
                 <div className="d-flex align-items-center">
                   <DropdownWrapper
                     className="flex-fill"
-                    title="Other"
+                    title="None"
                     options={others}
-                    filterKey="Other"
+                    filterKey={TABLES.OTHER}
+                    multiSelect
                   />
                   <FaTrash
                     className="ml-1"

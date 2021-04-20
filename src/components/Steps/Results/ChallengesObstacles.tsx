@@ -18,6 +18,8 @@ const Challenges: React.FC = () => {
   const filteredRecords: ChallengeAndObstacle[] = getFilteredRecords(challenges, filters);
   const sortedRecords: ChallengeAndObstacle[] = getSortedRecords(filteredRecords, filters);
 
+  if (!isLoading && filteredRecords.length === 0) return null;
+
   return (
     <div className="py-4" style={{ backgroundColor: '#F9F4F9' }}>
       <Container>

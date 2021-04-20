@@ -19,6 +19,8 @@ const OnlineResources: React.FC = () => {
   const filteredRecords: OnlineResource[] = getFilteredRecords(onlineResources, filters);
   const sortedRecords: OnlineResource[] = getSortedRecords(filteredRecords, filters);
 
+  if (!isLoading && filteredRecords.length === 0) return null;
+
   return (
     <div className="py-4" style={{ backgroundColor: '#F9F4F9' }}>
       <Container>

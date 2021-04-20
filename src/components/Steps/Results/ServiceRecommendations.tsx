@@ -22,6 +22,8 @@ const ServiceTips: React.FC = () => {
   );
   const sortedRecords: ServiceRecommendation[] = getSortedRecords(filteredRecords, filters);
 
+  if (!isLoading && filteredRecords.length === 0) return null;
+
   return (
     <div className="py-4 bg-secondary">
       <Container>
