@@ -1,5 +1,5 @@
 import { Filter } from '../App';
-import { TABLES } from './base';
+import { TABLES } from './airtable';
 
 export function addOrReplaceFilter(filters: Filter[], newFilter: Filter) {
   const filtersCopy = [...filters];
@@ -37,9 +37,6 @@ export function addOrRemoveFilter(filters: Filter[], newFilter: Filter) {
   return filtersCopy;
 }
 
-export const ANY_AGE_ID = 'recsC15Fm61bSwfTW';
-export const ANY_GENDER_ID = 'rec6P9Xfy1Qg1NVGi';
-
 function filterRecords(records: any[], filters: Filter[], key: string) {
   const filtersByKey = filters.filter((f) => f.key === key);
 
@@ -47,11 +44,19 @@ function filterRecords(records: any[], filters: Filter[], key: string) {
     return filtersByKey.some((f) => {
       if (!record.fields[key]) return false;
 
-      if (key === TABLES.GENDER && record.fields[TABLES.GENDER].includes(ANY_GENDER_ID)) {
+      // If record's gender field has "Any/All" tag then always include it
+      if (
+        key === TABLES.GENDER &&
+        record.fields[TABLES.GENDER].includes(process.env.REACT_APP_ANY_GENDER_ID)
+      ) {
         return true;
       }
 
-      if (key === TABLES.AGE_RANGE && record.fields[TABLES.AGE_RANGE].includes(ANY_AGE_ID)) {
+      // If record's age field has "Any/All" tag then always include it
+      if (
+        key === TABLES.AGE_RANGE &&
+        record.fields[TABLES.AGE_RANGE].includes(process.env.REACT_APP_ANY_AGE_ID)
+      ) {
         return true;
       }
 
@@ -60,6 +65,8 @@ function filterRecords(records: any[], filters: Filter[], key: string) {
   });
 }
 
+const selectedFilter = (filters: Filter[], key: string) => filters.some((f) => f.key === key);
+
 export function getFilteredRecords(records: any[] = [], filters: Filter[] = []) {
   let filteredRecords = [...records];
 
@@ -67,17 +74,17 @@ export function getFilteredRecords(records: any[] = [], filters: Filter[] = []) 
   filteredRecords = filterRecords(filteredRecords, filters, TABLES.ISSUES);
 
   // 2. If a gender is selected, find records matching gender filters
-  if (filters.some((f) => f.key === TABLES.GENDER)) {
+  if (selectedFilter(filters, TABLES.GENDER)) {
     filteredRecords = filterRecords(filteredRecords, filters, TABLES.GENDER);
   }
 
   // 3. If an age range is selected, find records matching age range filters
-  if (filters.some((f) => f.key === TABLES.AGE_RANGE)) {
+  if (selectedFilter(filters, TABLES.AGE_RANGE)) {
     filteredRecords = filterRecords(filteredRecords, filters, TABLES.AGE_RANGE);
   }
 
   // 4. If an "other" filter is selected, find records matching other filters
-  if (filters.some((f) => f.key === TABLES.OTHER)) {
+  if (selectedFilter(filters, TABLES.OTHER)) {
     filteredRecords = filterRecords(filteredRecords, filters, TABLES.OTHER);
   } else {
     // Else no "other" filter is selected so remove records that have an "other" attribute

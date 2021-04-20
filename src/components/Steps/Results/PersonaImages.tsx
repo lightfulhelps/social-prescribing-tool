@@ -1,7 +1,7 @@
 import sample from 'lodash/sample';
 import random from 'lodash/random';
 import { useAppContext } from '../../../App';
-import { TABLES } from '../../../lib/base';
+import { TABLES } from '../../../lib/airtable';
 
 const PersonaImages = () => {
   const { filters } = useAppContext();

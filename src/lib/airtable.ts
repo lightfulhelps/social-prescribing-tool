@@ -11,7 +11,10 @@ export const TABLES = {
   OTHER: 'Other',
 };
 
-const base = new Airtable({ apiKey: 'key2sUvzA3EGk3CmW' }).base('applU9raIsearnjBM');
+const base = new Airtable({ apiKey: process.env.REACT_APP_AIRTABLE_KEY }).base(
+  // @ts-ignore - todo fix
+  process.env.REACT_APP_AIRTABLE_BASE
+);
 
 export const getRecords = (table: string, view: string = 'Grid view'): Promise<any[]> => {
   let all: any[] = [];

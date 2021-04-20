@@ -4,7 +4,7 @@ import { FaChevronDown } from 'react-icons/fa';
 import { useQuery } from 'react-query';
 import { getFilteredRecords, getSortedRecords } from '../../../lib/filtering';
 import { useAppContext } from '../../../App';
-import { getRecords, TABLES } from '../../../lib/base';
+import { getRecords, TABLES } from '../../../lib/airtable';
 import Loader from '../../Loader';
 
 const Challenges: React.FC = () => {

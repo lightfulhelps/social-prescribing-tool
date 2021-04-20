@@ -2,7 +2,7 @@ import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { FaTrash } from 'react-icons/fa';
 import { useQuery } from 'react-query';
-import { getRecords, TABLES } from '../../../lib/base';
+import { getRecords, TABLES } from '../../../lib/airtable';
 import Loader from '../../Loader';
 import DropdownWrapper from '../../DropdownWrapper';
 import { useAppContext } from '../../../App';

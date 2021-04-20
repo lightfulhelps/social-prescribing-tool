@@ -2,7 +2,7 @@ import React from 'react';
 import { Nav, Button, Container } from 'react-bootstrap';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { useAppContext } from '../App';
-import { TABLES } from '../lib/base';
+import { TABLES } from '../lib/airtable';
 
 type Props = {
   handleNext: Function;

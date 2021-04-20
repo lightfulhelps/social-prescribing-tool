@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import { Card, Col, Row, Button, Container } from 'react-bootstrap';
-import { FaChevronDown, FaPlus } from 'react-icons/fa';
+import { FaChevronDown } from 'react-icons/fa';
 import { getFilteredRecords, getSortedRecords } from '../../../lib/filtering';
 import { useAppContext } from '../../../App';
-import { getRecords, TABLES } from '../../../lib/base';
+import { getRecords, TABLES } from '../../../lib/airtable';
 import Loader from '../../Loader';
 
 const CaseStudies: React.FC = () => {
@@ -29,14 +29,14 @@ const CaseStudies: React.FC = () => {
             </p>
           </Col>
           <Col lg={4} className="d-flex justify-content-end align-items-start">
-            <Button
+            {/* <Button
               className="d-flex align-items-center text-uppercase bg-white"
               variant="white"
               size="lg"
               onClick={() => window.open('https://forms.gle/6FnfyjR8E1my6taeA')}
             >
               Add New Case Study <FaPlus className="ml-1" />
-            </Button>
+            </Button> */}
           </Col>
         </Row>
         {isLoading ? (

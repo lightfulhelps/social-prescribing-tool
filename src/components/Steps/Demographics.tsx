@@ -2,7 +2,7 @@ import React from 'react';
 import { Col, Row, OverlayTrigger, Tooltip, Form } from 'react-bootstrap';
 import { useQuery } from 'react-query';
 import { FaInfoCircle } from 'react-icons/fa';
-import { getRecords, TABLES } from '../../lib/base';
+import { getRecords, TABLES } from '../../lib/airtable';
 import CardWrapper from '../CardWrapper';
 import DropdownWrapper from '../DropdownWrapper';
 import Loader from '../Loader';

@@ -3,7 +3,7 @@ import { Col, Row, Button, Container } from 'react-bootstrap';
 import { FaChevronDown } from 'react-icons/fa';
 import { useQuery } from 'react-query';
 import { useAppContext } from '../../../App';
-import { getRecords, TABLES } from '../../../lib/base';
+import { getRecords, TABLES } from '../../../lib/airtable';
 import Loader from '../../Loader';
 import { getFilteredRecords, getSortedRecords } from '../../../lib/filtering';
 import ResultCard from './ResultCard';

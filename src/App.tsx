@@ -8,7 +8,7 @@ import Issues from './components/Steps/Issues';
 import Results from './components/Steps/Results';
 import Progress from './components/Progress';
 import { addOrRemoveFilter, addOrReplaceFilter } from './lib/filtering';
-import { TABLES } from './lib/base';
+import { TABLES } from './lib/airtable';
 
 export type Filter = {
   [key: string]: string;

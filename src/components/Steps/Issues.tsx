@@ -2,7 +2,7 @@ import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useQuery } from 'react-query';
 import CardWrapper from '../CardWrapper';
-import { getRecords, TABLES } from '../../lib/base';
+import { getRecords, TABLES } from '../../lib/airtable';
 import Loader from '../Loader';
 
 const Issues: React.FC = () => {
