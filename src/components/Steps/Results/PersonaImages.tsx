@@ -1,33 +1,64 @@
 import sample from 'lodash/sample';
 import random from 'lodash/random';
-import { useAppContext } from '../../../App';
+import { Filter, useAppContext } from '../../../App';
 import { TABLES } from '../../../lib/airtable';
+
+const ageGroups = ['18-25', '26-40', '41-65', '66-80', '81'];
+
+const getPeopleImage = (version: number, genderFilter?: Filter, ageFilter?: Filter) => {
+  let part1;
+  let part2;
+
+  if (genderFilter) {
+    switch (genderFilter.name) {
+      case 'Male':
+        part1 = 'Male';
+        break;
+      case 'Female':
+        part1 = 'Female';
+        break;
+      default:
+        part1 = sample(['Male', 'Female']);
+    }
+  } else {
+    part1 = sample(['Male', 'Female']);
+  }
+
+  if (ageFilter) {
+    switch (ageFilter.name) {
+      case '18-25':
+        part2 = ageGroups[0];
+        break;
+      case '26-40':
+        part2 = ageGroups[1];
+        break;
+      case '41-65':
+        part2 = ageGroups[2];
+        break;
+      case '66-80':
+        part2 = ageGroups[3];
+        break;
+      case '81+':
+        part2 = ageGroups[4];
+        break;
+      default:
+        part2 = sample(ageGroups);
+    }
+  } else {
+    part2 = sample(ageGroups);
+  }
+
+  return `${part1}_${part2}_0${version}.jpg`;
+};
 
 const PersonaImages = () => {
   const { filters } = useAppContext();
   const genderFilter = filters?.find((f) => f.key === TABLES.GENDER);
   const ageFilter = filters?.find((f) => f.key === TABLES.AGE_RANGE);
-  const ageGroups = ['18-25', '26-40', '41-65', '66-80', '81+'];
 
-  let img1;
-  let img2;
-  let img3;
-
-  console.log(genderFilter, ageFilter);
-
-  if (genderFilter && ageFilter) {
-    img1 = `${genderFilter.name}_${ageFilter.name}_01.jpg`;
-    img2 = `${genderFilter.name}_${ageFilter.name}_02.jpg`;
-    img3 = `${genderFilter.name}_${ageFilter.name}_03.jpg`;
-  } else if (genderFilter) {
-    img1 = `${genderFilter.name}_${sample(ageGroups)}_01.jpg`;
-    img2 = `${genderFilter.name}_${sample(ageGroups)}_02.jpg`;
-    img3 = `${genderFilter.name}_${sample(ageGroups)}_03.jpg`;
-  } else {
-    img1 = `Female_${sample(ageGroups)}_0${random(1, 3)}.jpg`;
-    img2 = `Male_${sample(ageGroups)}_0${random(1, 3)}.jpg`;
-    img3 = `NonBinary_0${random(1, 6)}.jpg`;
-  }
+  const img1 = getPeopleImage(1, genderFilter, ageFilter);
+  const img2 = getPeopleImage(2, genderFilter, ageFilter);
+  const img3 = getPeopleImage(3, genderFilter, ageFilter);
 
   return (
     <div className="d-flex align-items-start bg-info rounded mb-3" style={{ padding: '1px' }}>
