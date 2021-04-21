@@ -34,13 +34,12 @@ const PersonaDetails: React.FC = () => {
   return (
     <Container>
       <Row className="py-4">
-        <Col>
+        <Col lg={6}>
           <div className="mb-3">
             <h3 className="h5 text-uppercase">Issues:</h3>
             <div>
               <DropdownWrapper
                 className="flex-fill mr-3"
-                title="Issues"
                 options={issues}
                 filterKey={TABLES.ISSUES}
                 multiSelect
@@ -50,14 +49,10 @@ const PersonaDetails: React.FC = () => {
           <div className="mb-3">
             <h3 className="h5 text-uppercase">Gender Identifiction:</h3>
             <div className="d-flex align-items-center">
-              <DropdownWrapper
-                className="flex-fill"
-                title="Gender"
-                options={genders}
-                filterKey={TABLES.GENDER}
-              />
+              <DropdownWrapper className="flex-fill" options={genders} filterKey={TABLES.GENDER} />
               <FaTrash
-                className="ml-1"
+                title="Clear"
+                className="ml-1 cursor-pointer"
                 onClick={() => clearFiltersByKey && clearFiltersByKey(TABLES.GENDER)}
               />
             </div>
@@ -65,20 +60,16 @@ const PersonaDetails: React.FC = () => {
           <div className="mb-3">
             <h3 className="h5 text-uppercase">Age Range:</h3>
             <div className="d-flex align-items-center">
-              <DropdownWrapper
-                className="flex-fill"
-                title="Age Range"
-                options={ages}
-                filterKey={TABLES.AGE_RANGE}
-              />
+              <DropdownWrapper className="flex-fill" options={ages} filterKey={TABLES.AGE_RANGE} />
               <FaTrash
-                className="ml-1"
+                title="Clear"
+                className="ml-1 cursor-pointer"
                 onClick={() => clearFiltersByKey && clearFiltersByKey(TABLES.AGE_RANGE)}
               />
             </div>
           </div>
         </Col>
-        <Col>
+        <Col lg={6}>
           <Row>
             <Col className="d-flex">
               <PersonaImages />
@@ -91,13 +82,13 @@ const PersonaDetails: React.FC = () => {
                 <div className="d-flex align-items-center">
                   <DropdownWrapper
                     className="flex-fill"
-                    title="None"
                     options={others}
                     filterKey={TABLES.OTHER}
                     multiSelect
                   />
                   <FaTrash
-                    className="ml-1"
+                    title="Clear"
+                    className="ml-1 cursor-pointer"
                     onClick={() => clearFiltersByKey && clearFiltersByKey(TABLES.OTHER)}
                   />
                 </div>

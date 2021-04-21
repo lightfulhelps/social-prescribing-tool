@@ -36,3 +36,11 @@ $dropdown-link-active-bg: $secondary;
 .text-decoration-underline {
   text-decoration: underline !important;
 }
+
+.dropdown-item {
+  border-bottom: 1px solid $white;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}

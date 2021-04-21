@@ -5,19 +5,12 @@ import { useAppContext } from '../App';
 
 type Props = {
   filterKey: string;
-  title: string;
   options?: Issue[] | Gender[] | Other[] | AgeRange[];
   className?: string;
   multiSelect?: boolean;
 };
 
-const DropdownWrapper: React.FC<Props> = ({
-  filterKey,
-  title,
-  options,
-  className,
-  multiSelect,
-}) => {
+const DropdownWrapper: React.FC<Props> = ({ filterKey, options, className, multiSelect }) => {
   const { filters, handleFilter } = useAppContext();
   const currentFilters = filters?.filter((f) => f.key === filterKey);
 
@@ -26,11 +19,13 @@ const DropdownWrapper: React.FC<Props> = ({
       <Dropdown.Toggle
         id="dropdown-basic"
         variant="white"
-        className="dropdown-toggle font-weight-bold text-info border-info w-100"
+        className="font-weight-bold text-info border-info w-100 d-flex align-items-center justify-content-between"
       >
-        {currentFilters && currentFilters.length > 0
-          ? currentFilters.map((f) => f.name).join(', ')
-          : title}
+        <span className="text-truncate">
+          {currentFilters && currentFilters.length > 0
+            ? currentFilters.map((f) => f.name).join(', ')
+            : 'None'}
+        </span>
       </Dropdown.Toggle>
       <Dropdown.Menu className="w-100">
         {options?.map((option: Issue | Gender | Other | AgeRange) => {

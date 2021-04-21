@@ -17,15 +17,23 @@ export function addOrReplaceFilter(filters: Filter[], newFilter: Filter) {
 const filterInFilters = (filters: Filter[], newFilter: Filter) =>
   filters.some((f) => f.key === newFilter.key && f.id === newFilter.id);
 
+const filterCountByKey = (filters: Filter[], key: string) =>
+  filters.filter((f) => f.key === key).length;
+
 export function addOrRemoveFilter(filters: Filter[], newFilter: Filter) {
   const filtersCopy = [...filters];
 
   if (filterInFilters(filtersCopy, newFilter)) {
+    // Don't allow user to remove all issue filters
+    if (newFilter.key === TABLES.ISSUES && filterCountByKey(filtersCopy, TABLES.ISSUES) <= 1) {
+      return filtersCopy;
+    }
+
     const index = filtersCopy.findIndex((f) => f.key === newFilter.key && f.id === newFilter.id);
     filtersCopy.splice(index, 1);
   } else {
     const limit = 3;
-    const exceedingLimit = filtersCopy.filter((f) => f.key === newFilter.key).length >= limit;
+    const exceedingLimit = filterCountByKey(filtersCopy, newFilter.key) >= limit;
 
     if (!exceedingLimit) {
       filtersCopy.push({ ...newFilter });
