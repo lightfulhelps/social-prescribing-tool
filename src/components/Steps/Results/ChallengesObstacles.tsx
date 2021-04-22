@@ -25,7 +25,7 @@ const Challenges: React.FC = () => {
       <Container>
         <Row>
           <Col>
-            <h3 className="h4 mb-4 text-uppercase">Potential Challenges &amp; Obstacles</h3>
+            <h3 className="h4 mb-4 text-uppercase">Potential Challenges</h3>
           </Col>
           <Col>
             <h3 className="h4 mb-4 text-uppercase">So Consider...</h3>
@@ -39,18 +39,20 @@ const Challenges: React.FC = () => {
               <Row key={record.id}>
                 <Col className="mb-4">
                   <div
-                    className={`d-flex align-items-center border-0 text-white rounded p-3 font-weight-bold h-100 ${
+                    className={`d-flex align-items-center border-0 text-white rounded p-3 pr-4 mr-n2 font-weight-bold h-100 ${
                       i % 2 === 0 ? 'bg-secondary' : 'bg-success'
                     }`}
+                    style={{ clipPath: 'polygon(0 0, 96% 0, 100% 50%, 96% 100%, 0 100%)' }}
                   >
                     {record.fields['Challenge']}
                   </div>
                 </Col>
                 <Col className="mb-4">
                   <div
-                    className={`d-flex align-items-center border-0 text-white rounded p-3 font-weight-bold h-100 ${
+                    className={`d-flex align-items-center border-0 text-white rounded p-3 pl-6 ml-n3 font-weight-bold h-100 ${
                       i % 2 === 0 ? 'bg-secondary' : 'bg-success'
                     }`}
+                    style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%, 4% 50%)' }}
                   >
                     {record.fields['Suggestion']}
                   </div>

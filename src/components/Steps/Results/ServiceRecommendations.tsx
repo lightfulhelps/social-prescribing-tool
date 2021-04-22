@@ -27,7 +27,7 @@ const ServiceTips: React.FC = () => {
   return (
     <div className="py-4 bg-secondary">
       <Container>
-        <h3 className="h4 text-white mb-4 text-uppercase">Service Tips</h3>
+        <h3 className="h4 text-white mb-4 text-uppercase">Service Recommendations</h3>
         {isLoading ? (
           <Loader variant="white" />
         ) : (
