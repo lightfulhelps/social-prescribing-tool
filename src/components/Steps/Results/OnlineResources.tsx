@@ -31,7 +31,7 @@ const OnlineResources: React.FC = () => {
           <>
             <Row>
               {sortedRecords.slice(0, displayCount).map((item: any) => (
-                <Col lg={4} className="mb-2 mb-lg-4" key={item.id}>
+                <Col md={6} lg={4} className="mb-2 mb-lg-4" key={item.id}>
                   <ResultCard
                     title={item.fields['Name']}
                     body={item.fields['Description']}

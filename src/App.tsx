@@ -56,16 +56,19 @@ const App: React.FC = () => {
   const handleNext = () => {
     if (currentStep === 4) return;
     setCurrentStep(currentStep + 1);
+    window.scrollTo(0, 0);
   };
 
   const handleBack = () => {
     if (currentStep === 0) return;
     setCurrentStep(currentStep - 1);
+    window.scrollTo(0, 0);
   };
 
   const handleReset = () => {
     setCurrentStep(1);
     setFilters([]);
+    window.scrollTo(0, 0);
   };
 
   return (

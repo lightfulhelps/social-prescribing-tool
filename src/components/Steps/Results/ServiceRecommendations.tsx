@@ -49,7 +49,7 @@ const ServiceTips: React.FC = () => {
           <>
             <Row className="mb-2">
               {sortedRecords.slice(0, displayCount).map((item: any) => (
-                <Col lg={4} className="mb-2 mb-lg-4" key={item.id}>
+                <Col md={6} lg={4} className="mb-2 mb-lg-4" key={item.id}>
                   <ResultCard
                     title={item.fields['Select']}
                     body={item.fields['Description']}

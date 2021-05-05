@@ -37,23 +37,23 @@ const Challenges: React.FC = () => {
           <>
             {sortedRecords.slice(0, displayCount).map((record, i) => (
               <Row className="mb-3 mb-lg-4" key={record.id}>
-                <Col xs={12} lg={6}>
+                <Col xs={12} md={6}>
                   <div
-                    className={`challenge-obstacle-left d-lg-flex align-items-center border-0 text-white mr-lg-n2 h-100 ${
+                    className={`challenge-obstacle-left d-md-flex align-items-center border-0 text-white mr-md-n2 h-100 ${
                       i % 2 === 0 ? 'bg-secondary' : 'bg-success'
                     }`}
                   >
-                    <h4 className="d-lg-none h6">Potential Challenges</h4>
+                    <h4 className="d-md-none h6">Potential Challenges</h4>
                     {record.fields['Challenge']}
                   </div>
                 </Col>
-                <Col xs={12} lg={6}>
+                <Col xs={12} md={6}>
                   <div
-                    className={`challenge-obstacle-right d-lg-flex align-items-center border-0 text-white mt-n1 mt-lg-0 ml-lg-n3 h-100 ${
+                    className={`challenge-obstacle-right d-md-flex align-items-center border-0 text-white ml-md-n2 h-100 ${
                       i % 2 === 0 ? 'bg-secondary' : 'bg-success'
                     }`}
                   >
-                    <h4 className="d-lg-none h6">So Consider...</h4>
+                    <h4 className="d-md-none h6">So Consider...</h4>
                     {record.fields['Suggestion']}
                   </div>
                 </Col>
