@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaChevronDown } from 'react-icons/fa';
 import { Col, Row, Button, Container } from 'react-bootstrap';
 import { useQuery } from 'react-query';
@@ -18,6 +18,10 @@ const OnlineResources: React.FC = () => {
   const [displayCount, setDisplayCount] = useState(6);
   const filteredRecords: OnlineResource[] = getFilteredRecords(onlineResources, filters);
   const sortedRecords: OnlineResource[] = getSortedRecords(filteredRecords, filters);
+
+  useEffect(() => {
+    setDisplayCount(perPage);
+  }, [filters]);
 
   if (!isLoading && filteredRecords.length === 0) return null;
 

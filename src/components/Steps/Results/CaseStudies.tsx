@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { Card, Col, Row, Button, Container } from 'react-bootstrap';
 import { FaChevronDown } from 'react-icons/fa';
@@ -16,6 +16,10 @@ const CaseStudies: React.FC = () => {
   const [displayCount, setDisplayCount] = useState(1);
   const filteredRecords: CaseStudy[] = getFilteredRecords(caseStudies, filters);
   const sortedRecords: CaseStudy[] = getSortedRecords(filteredRecords, filters);
+
+  useEffect(() => {
+    setDisplayCount(perPage);
+  }, [filters]);
 
   if (!isLoading && filteredRecords.length === 0) return null;
 

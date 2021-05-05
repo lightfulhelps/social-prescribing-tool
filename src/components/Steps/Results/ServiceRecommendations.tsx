@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Col, Row, Button, Container, Tooltip, OverlayTrigger } from 'react-bootstrap';
 import { FaChevronDown, FaInfoCircle } from 'react-icons/fa';
 import { useQuery } from 'react-query';
@@ -21,6 +21,10 @@ const ServiceTips: React.FC = () => {
     filters
   );
   const sortedRecords: ServiceRecommendation[] = getSortedRecords(filteredRecords, filters);
+
+  useEffect(() => {
+    setDisplayCount(perPage);
+  }, [filters]);
 
   if (!isLoading && filteredRecords.length === 0) return null;
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Row, Button, Container } from 'react-bootstrap';
 import { FaChevronDown } from 'react-icons/fa';
 import { useQuery } from 'react-query';
@@ -17,6 +17,10 @@ const Challenges: React.FC = () => {
   const [displayCount, setDisplayCount] = useState(3);
   const filteredRecords: ChallengeAndObstacle[] = getFilteredRecords(challenges, filters);
   const sortedRecords: ChallengeAndObstacle[] = getSortedRecords(filteredRecords, filters);
+
+  useEffect(() => {
+    setDisplayCount(perPage);
+  }, [filters]);
 
   if (!isLoading && filteredRecords.length === 0) return null;
 
