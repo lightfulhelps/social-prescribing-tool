@@ -23,7 +23,7 @@ const Challenges: React.FC = () => {
   return (
     <div className="py-4" style={{ backgroundColor: '#F9F4F9' }}>
       <Container>
-        <Row>
+        <Row className="d-none d-lg-flex">
           <Col>
             <h3 className="h4 mb-4 text-uppercase">Potential Challenges</h3>
           </Col>
@@ -36,33 +36,33 @@ const Challenges: React.FC = () => {
         ) : (
           <>
             {sortedRecords.slice(0, displayCount).map((record, i) => (
-              <Row key={record.id}>
-                <Col className="mb-4">
+              <Row className="mb-3 mb-lg-4" key={record.id}>
+                <Col xs={12} lg={6}>
                   <div
-                    className={`d-flex align-items-center border-0 text-white rounded p-3 pr-4 mr-n2 font-weight-bold h-100 ${
+                    className={`challenge-obstacle-left d-lg-flex align-items-center border-0 text-white mr-lg-n2 h-100 ${
                       i % 2 === 0 ? 'bg-secondary' : 'bg-success'
                     }`}
-                    style={{ clipPath: 'polygon(0 0, 96% 0, 100% 50%, 96% 100%, 0 100%)' }}
                   >
+                    <h4 className="d-lg-none h6">Potential Challenges</h4>
                     {record.fields['Challenge']}
                   </div>
                 </Col>
-                <Col className="mb-4">
+                <Col xs={12} lg={6}>
                   <div
-                    className={`d-flex align-items-center border-0 text-white rounded p-3 pl-6 ml-n3 font-weight-bold h-100 ${
+                    className={`challenge-obstacle-right d-lg-flex align-items-center border-0 text-white mt-n1 mt-lg-0 ml-lg-n3 h-100 ${
                       i % 2 === 0 ? 'bg-secondary' : 'bg-success'
                     }`}
-                    style={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%, 4% 50%)' }}
                   >
+                    <h4 className="d-lg-none h6">So Consider...</h4>
                     {record.fields['Suggestion']}
                   </div>
                 </Col>
               </Row>
             ))}
             {filteredRecords.length > displayCount && (
-              <Row className="justify-content-center">
+              <div className="d-flex justify-content-center">
                 <Button
-                  className="d-flex align-items-center text-uppercase"
+                  className="d-flex btn-block justify-content-center w-lg-auto align-items-center text-uppercase"
                   variant="info"
                   size="lg"
                   onClick={() => {
@@ -71,7 +71,7 @@ const Challenges: React.FC = () => {
                 >
                   View more <FaChevronDown className="ml-1" />
                 </Button>
-              </Row>
+              </div>
             )}
           </>
         )}

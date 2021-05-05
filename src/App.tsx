@@ -85,7 +85,9 @@ const App: React.FC = () => {
       >
         {currentStep !== 4 && (
           <Row>
-            <Progress />
+            <Col lg={3} className="mb-3">
+              <Progress />
+            </Col>
             <Col>
               {currentStep === 1 && <Intro />}
               {currentStep === 2 && <Issues />}

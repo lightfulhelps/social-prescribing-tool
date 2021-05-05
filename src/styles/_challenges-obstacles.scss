@@ -1,0 +1,43 @@
+.challenge-obstacle {
+  &-left {
+    clip-path: polygon(0 0, 100% 0, 100% 88%, 50% 100%, 0 88%);
+    padding: map-get($spacers, 2) map-get($spacers, 2) map-get($spacers, 3) map-get($spacers, 2);
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+
+    @include media-breakpoint-up('lg') {
+      clip-path: polygon(0 0, 96% 0, 100% 50%, 96% 100%, 0 100%);
+      padding: map-get($spacers, 3) map-get($spacers, 4) map-get($spacers, 3) map-get($spacers, 3);
+      border-top-left-radius: $border-radius;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: $border-radius;
+      font-weight: $font-weight-bold;
+    }
+  }
+
+  &-right {
+    clip-path: polygon(0 0, 50% 13%, 100% 0, 100% 100%, 0 100%);
+    padding: map-get($spacers, 3) map-get($spacers, 2) map-get($spacers, 2) map-get($spacers, 2);
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+
+    @include media-breakpoint-up('sm') {
+      clip-path: polygon(0 0, 50% 12%, 100% 0, 100% 100%, 0 100%);
+    }
+
+    @include media-breakpoint-up('md') {
+      clip-path: polygon(0 0, 50% 16%, 100% 0, 100% 100%, 0 100%);
+    }
+
+    @include media-breakpoint-up('lg') {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 4% 50%);
+      padding: map-get($spacers, 3) map-get($spacers, 3) map-get($spacers, 3) map-get($spacers, 4);
+      border-top-left-radius: 0;
+      border-top-right-radius: $border-radius;
+      border-bottom-right-radius: $border-radius;
+      border-bottom-left-radius: 0;
+      font-weight: $font-weight-bold;
+    }
+  }
+}

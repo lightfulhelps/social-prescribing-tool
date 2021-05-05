@@ -1,0 +1,8 @@
+.card-wrapper-image {
+  width: auto;
+  height: 46px;
+
+  @include media-breakpoint-up('lg') {
+    height: 100px;
+  }
+}

@@ -33,7 +33,10 @@ const PersonaDetails: React.FC = () => {
 
   return (
     <Container>
-      <Row className="py-4">
+      <div className="d-lg-none">
+        <PersonaImages />
+      </div>
+      <Row className="mb-3 mb-lg-4">
         <Col lg={6}>
           <div className="mb-3">
             <h3 className="h5 text-uppercase">Issues:</h3>
@@ -47,7 +50,7 @@ const PersonaDetails: React.FC = () => {
             </div>
           </div>
           <div className="mb-3">
-            <h3 className="h5 text-uppercase">Gender Identifiction:</h3>
+            <h3 className="h5 text-uppercase">Gender:</h3>
             <div className="d-flex align-items-center">
               <DropdownWrapper className="flex-fill" options={genders} filterKey={TABLES.GENDER} />
               <FaTrash
@@ -71,7 +74,7 @@ const PersonaDetails: React.FC = () => {
         </Col>
         <Col lg={6}>
           <Row>
-            <Col className="d-flex">
+            <Col className="d-none d-lg-flex">
               <PersonaImages />
             </Col>
           </Row>

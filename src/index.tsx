@@ -4,8 +4,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
-import './styles.scss';
+import './styles/index.scss';
 
 const queryClient = new QueryClient({
   defaultOptions: {

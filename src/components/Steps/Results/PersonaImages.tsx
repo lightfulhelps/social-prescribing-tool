@@ -22,21 +22,9 @@ const PersonaImages = () => {
 
   return (
     <div className="d-flex align-items-start bg-info rounded mb-3" style={{ padding: '1px' }}>
-      <img
-        style={{ width: '176px', height: '164px', objectFit: 'cover', margin: '1px' }}
-        src={`/images/people/${img1}`}
-        alt=""
-      />
-      <img
-        style={{ width: '176px', height: '164px', objectFit: 'cover', margin: '1px' }}
-        src={`/images/people/${img2}`}
-        alt=""
-      />
-      <img
-        style={{ width: '176px', height: '164px', objectFit: 'cover', margin: '1px' }}
-        src={`/images/people/${img3}`}
-        alt=""
-      />
+      <img className="persona-image" src={`/images/people/${img1}`} alt="" />
+      <img className="persona-image" src={`/images/people/${img2}`} alt="" />
+      <img className="persona-image" src={`/images/people/${img3}`} alt="" />
     </div>
   );
 };

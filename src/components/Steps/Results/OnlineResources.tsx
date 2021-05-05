@@ -31,7 +31,7 @@ const OnlineResources: React.FC = () => {
           <>
             <Row>
               {sortedRecords.slice(0, displayCount).map((item: any) => (
-                <Col lg={4} className="mb-4" key={item.id}>
+                <Col lg={4} className="mb-2 mb-lg-4" key={item.id}>
                   <ResultCard
                     title={item.fields['Name']}
                     body={item.fields['Description']}
@@ -42,9 +42,9 @@ const OnlineResources: React.FC = () => {
               ))}
             </Row>
             {filteredRecords.length > displayCount && (
-              <Row className="justify-content-center">
+              <div className="d-flex justify-content-center">
                 <Button
-                  className="d-flex align-items-center text-uppercase"
+                  className="d-flex btn-block justify-content-center w-lg-auto align-items-center text-uppercase"
                   variant="info"
                   size="lg"
                   onClick={() => {
@@ -53,7 +53,7 @@ const OnlineResources: React.FC = () => {
                 >
                   View more <FaChevronDown className="ml-1" />
                 </Button>
-              </Row>
+              </div>
             )}
           </>
         )}

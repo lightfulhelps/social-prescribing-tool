@@ -1,3 +1,5 @@
+$enable-responsive-font-sizes: true;
+
 $spacer: 1rem;
 $spacers: (
   0: 0,
@@ -19,28 +21,20 @@ $info: #088380;
 $secondary: #8e2082;
 $warning: #ffc200;
 $success: #ab43a0;
+$white: #fff;
 $btn-font-weight: $font-weight-bold;
 $btn-border-width: 2px;
-$dropdown-link-active-bg: $secondary;
+$dropdown-link-active-color: $body-color;
+$dropdown-link-active-bg: $warning;
+$tooltip-padding-y: $spacer;
+$tooltip-padding-x: $spacer;
+$tooltip-opacity: 1;
+$tooltip-color: $body-color;
+$tooltip-bg: $white;
 
 @import '~bootstrap/scss/bootstrap';
 
-.text-sm {
-  font-size: $font-size-sm;
-}
-
-.text-lg {
-  font-size: $font-size-lg;
-}
-
-.text-decoration-underline {
-  text-decoration: underline !important;
-}
-
-.dropdown-item {
-  border-bottom: 1px solid $white;
-}
-
-.cursor-pointer {
-  cursor: pointer;
-}
+@import 'card-wrapper';
+@import 'challenges-obstacles';
+@import 'persona-images';
+@import 'utils';

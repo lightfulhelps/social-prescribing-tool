@@ -17,10 +17,12 @@ const textOptions: { [key: number]: ReactNode } = {
   2: (
     <Row>
       <Col lg={3}>
-        <p className="text-lg font-weight-bold">Are you a link worker or service provider?</p>
+        <p className="d-none d-lg-block text-lg font-weight-bold">
+          Are you a link worker or service provider?
+        </p>
       </Col>
       <Col>
-        <p>
+        <p className="d-none d-lg-block">
           Our social prescribing support tool may be useful in helping you to understand the needs,
           goals, and service suggestions of people in need. It also provides resources and case
           studies that may be of use to you.
@@ -34,10 +36,12 @@ const textOptions: { [key: number]: ReactNode } = {
   3: (
     <Row>
       <Col lg={3}>
-        <p className="text-lg font-weight-bold">Are you a link worker or service provider?</p>
+        <p className="d-none d-lg-block text-lg font-weight-bold">
+          Are you a link worker or service provider?
+        </p>
       </Col>
       <Col>
-        <p>
+        <p className="d-none d-lg-block">
           Our social prescribing support tool may be useful in helping you to understand the needs,
           goals, and service suggestions of people in need. It also provides resources and case
           studies that may be of use to you.
@@ -69,13 +73,15 @@ const Hero: React.FC = () => {
 
   return (
     <section
-      className="d-flex flex-column justify-content-center mb-5 w-100 text-white bg-secondary py-5"
+      className="d-flex flex-column justify-content-center mb-3 mb-lg-5 w-100 text-white bg-secondary py-4 py-lg-5"
       style={{
         backgroundImage: 'linear-gradient(315deg, #8E2082 0%, #420B57 100%)',
       }}
     >
       <div className="container">
-        <h1 className="h3 font-weight-bold mb-4">Welcome to the Social Prescribing Support Tool</h1>
+        <h1 className="h3 font-weight-bold mb-3 mb-lg-4">
+          {currentStep === 1 ? 'Welcome to the ' : ''}Social Prescribing Support Tool
+        </h1>
         {currentStep && textOptions[currentStep]}
       </div>
     </section>

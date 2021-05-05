@@ -14,13 +14,13 @@ const Issues: React.FC = () => {
 
   return (
     <>
-      <p className="mb-3">
+      <p className="mb-4">
         Please select <strong>up to 3 issue areas</strong> that are most relevant for the person in
         need.
       </p>
       <Row>
         {issues?.map((issue) => (
-          <Col lg={4} className="mb-4" key={issue.fields.Name}>
+          <Col xs={6} lg={4} className="mb-4" key={issue.fields.Name}>
             <CardWrapper filterKey="Issues" item={issue} />
           </Col>
         ))}

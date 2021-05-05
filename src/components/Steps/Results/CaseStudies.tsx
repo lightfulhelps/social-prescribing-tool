@@ -48,68 +48,68 @@ const CaseStudies: React.FC = () => {
             {sortedRecords.slice(0, displayCount).map((item: any) => (
               <Card key={item.id} className="border-0 mb-3">
                 <Card.Header
-                  className="border-0 text-white h5 mb-0"
+                  className="border-0 text-white h5 mb-0 p-2 px-lg-3"
                   style={{ backgroundColor: '#420B57' }}
                 >
                   {item.fields['Name']}
                 </Card.Header>
-                <Card.Body>
+                <Card.Body className="p-2 p-lg-3">
                   <Row>
                     {item.fields['Beneficiary profile'] && (
-                      <Col lg={6} className="mb-3">
+                      <Col lg={6} className="mb-2 mb-lg-3">
                         <Card className="border-0 h-100" style={{ backgroundColor: '#F9F4F9' }}>
                           <Card.Header
-                            className="border-0 text-white h5 mb-0"
+                            className="border-0 text-white h5 mb-0 p-1 p-lg-2"
                             style={{ backgroundColor: '#420B57' }}
                           >
                             Beneficiary Profile
                           </Card.Header>
-                          <Card.Body>
+                          <Card.Body className="p-1 p-lg-2">
                             <Card.Text>{item.fields['Beneficiary profile']}</Card.Text>
                           </Card.Body>
                         </Card>
                       </Col>
                     )}
                     {item.fields['Agreed action plan'] && (
-                      <Col lg={6} className="mb-3">
+                      <Col lg={6} className="mb-2 mb-lg-3">
                         <Card className="border-0 h-100" style={{ backgroundColor: '#F9F4F9' }}>
                           <Card.Header
-                            className="border-0 text-white h5 mb-0"
+                            className="border-0 text-white h5 mb-0 p-1 p-lg-2"
                             style={{ backgroundColor: '#420B57' }}
                           >
                             Agreed Action Plan
                           </Card.Header>
-                          <Card.Body>
+                          <Card.Body className="p-1 p-lg-2">
                             <Card.Text>{item.fields['Agreed action plan']}</Card.Text>
                           </Card.Body>
                         </Card>
                       </Col>
                     )}
                     {item.fields[`What's helped`] && (
-                      <Col lg={6} className="mb-3">
+                      <Col lg={6} className="mb-2 mb-lg-3">
                         <Card className="border-0 h-100" style={{ backgroundColor: '#F9F4F9' }}>
                           <Card.Header
-                            className="border-0 text-white h5 mb-0"
+                            className="border-0 text-white h5 mb-0 p-1 p-lg-2"
                             style={{ backgroundColor: '#420B57' }}
                           >
                             What's Helped Them
                           </Card.Header>
-                          <Card.Body>
+                          <Card.Body className="p-1 p-lg-2">
                             <Card.Text>{item.fields[`What's helped`]}</Card.Text>
                           </Card.Body>
                         </Card>
                       </Col>
                     )}
                     {item.fields[`What didn't help`] && (
-                      <Col lg={6} className="mb-3">
+                      <Col lg={6} className="mb-2 mb-lg-3">
                         <Card className="border-0 h-100" style={{ backgroundColor: '#F9F4F9' }}>
                           <Card.Header
-                            className="border-0 text-white h5 mb-0"
+                            className="border-0 text-white h5 mb-0 p-1 p-lg-2"
                             style={{ backgroundColor: '#420B57' }}
                           >
                             What Didn't Help Them
                           </Card.Header>
-                          <Card.Body>
+                          <Card.Body className="p-1 p-lg-2">
                             <Card.Text>{item.fields[`What didn't help`]}</Card.Text>
                           </Card.Body>
                         </Card>
@@ -120,9 +120,9 @@ const CaseStudies: React.FC = () => {
               </Card>
             ))}
             {filteredRecords.length > displayCount && (
-              <Row className="justify-content-center">
+              <div className="d-flex justify-content-center">
                 <Button
-                  className="d-flex align-items-center text-uppercase bg-white"
+                  className="d-flex btn-block justify-content-center w-lg-auto align-items-center text-uppercase bg-white"
                   variant="white"
                   size="lg"
                   onClick={() => {
@@ -131,7 +131,7 @@ const CaseStudies: React.FC = () => {
                 >
                   View more <FaChevronDown className="ml-1" />
                 </Button>
-              </Row>
+              </div>
             )}
           </>
         )}

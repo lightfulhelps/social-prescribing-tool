@@ -42,7 +42,7 @@ const CardWrapper: React.FC<Props> = ({ filterKey, item }) => {
           </div>
         )}
         {Array.isArray(item.fields.Image) && (
-          <img src={item.fields.Image[0].url} style={{ height: '100px' }} alt="" />
+          <img className="card-wrapper-image" src={item.fields.Image[0].url} alt="" />
         )}
       </div>
       <Card.Body className={`px-1 py-2 text-center font-weight-bold ${active ? '' : 'text-white'}`}>

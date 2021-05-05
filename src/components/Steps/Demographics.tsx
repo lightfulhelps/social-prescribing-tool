@@ -47,10 +47,8 @@ const Demographics: React.FC = () => {
         </Col>
       </Row>
       <Row className="mb-5">
-        <Col lg={4}>
-          <Form.Label className="font-weight-bold text-uppercase">
-            Gender identification:
-          </Form.Label>
+        <Col lg={4} className="mb-3 mb-lg-0">
+          <Form.Label className="font-weight-bold text-uppercase">Gender:</Form.Label>
           <DropdownWrapper options={genders} filterKey={TABLES.GENDER} />
         </Col>
         <Col lg={4}>
@@ -60,7 +58,7 @@ const Demographics: React.FC = () => {
       </Row>
       <Row>
         {others?.map((other) => (
-          <Col lg={4} className="mb-4" key={other.id}>
+          <Col xs={6} lg={4} className="mb-4" key={other.id}>
             <CardWrapper filterKey="Other" item={other} />
           </Col>
         ))}

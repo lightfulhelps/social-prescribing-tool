@@ -11,10 +11,13 @@ type Props = {
 const ResultCard: React.FC<Props> = ({ title, body, ctaText, link }) => {
   return (
     <Card className="h-100 border-0">
-      <Card.Header className="border-0 text-white h5 mb-0" style={{ backgroundColor: '#420B57' }}>
+      <Card.Header
+        className="border-0 text-white h5 mb-0 p-2 px-lg-3"
+        style={{ backgroundColor: '#420B57' }}
+      >
         {title}
       </Card.Header>
-      <Card.Body>
+      <Card.Body className="p-2 px-lg-3">
         <Card.Text>{body}</Card.Text>
         {link && (
           <Card.Link
