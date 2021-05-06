@@ -10,15 +10,17 @@ A read-only version of the database can be viewed at: https://airtable.com/shrKb
 
 To run your own version of the Social Prescribing Tool you will need to make a copy of the Airtable database.
 
-This can be created by visiting the read-only version of the Social Prescribing database at [https://airtable.com/shrKb2bgj6fePLQhp](https://airtable.com/shrKb2bgj6fePLQhp) and clicking "Copy base" in the top-right corner. Airtable will then ask you to create an account if you don't already have one.
+This can be created by visiting the read-only version of the Social Prescribing database at [https://airtable.com/shrKb2bgj6fePLQhp](https://airtable.com/shrKb2bgj6fePLQhp) and clicking "Copy base" in the top-right corner.
+
+Airtable will then ask you to create an account if you don't already have one.
 
 Once you have a copy of the database, you will need two pieces of information to run the app locally - the base ID and an API key.
 
-The base ID can be found in the introduction section of the API documentation found at - https://airtable.com/api
+The base ID can be found in the introduction section of the API documentation at - https://airtable.com/api
 
 An API key can be generated from your account page at - https://airtable.com/account
 
-## App setup
+## Local setup
 
 You will need the following tools installed on your computer:
 
