@@ -29,7 +29,6 @@ const Demographics: React.FC = () => {
             <strong>Optionally</strong> add any demographic information about the person in need to
             potentially see more specific support information, then click next.{' '}
             <OverlayTrigger
-              placement="right"
               delay={{ show: 250, hide: 400 }}
               overlay={(props: any) => (
                 <Popover id="button-popover" {...props}>
