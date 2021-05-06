@@ -3,6 +3,7 @@
 The Social Prescribing Tool is a React app which fetches data from an Airtable database.
 
 A demo of the app can be found at: https://master.d3j63rx7ndymc0.amplifyapp.com/
+
 A read-only version of the database can be viewed at: https://airtable.com/shrKb2bgj6fePLQhp
 
 ## Airtable setup
@@ -36,6 +37,7 @@ Then...
 ## Development
 
 Further documentation about working with React can be found on the React website - https://reactjs.org/docs/getting-started.html
+
 This project also makes use of TypeScript which you can learn more about here - https://www.typescriptlang.org
 
 ## Deploying
