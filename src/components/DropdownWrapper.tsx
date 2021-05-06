@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dropdown } from 'react-bootstrap';
-import { FaTimes } from 'react-icons/fa';
+import { FaTimes, FaCaretDown } from 'react-icons/fa';
 import { useAppContext } from '../App';
 
 type Props = {
@@ -26,6 +26,7 @@ const DropdownWrapper: React.FC<Props> = ({ filterKey, options, className, multi
             ? currentFilters.map((f) => f.name).join(', ')
             : 'None'}
         </span>
+        <FaCaretDown />
       </Dropdown.Toggle>
       <Dropdown.Menu className="w-100">
         {options?.map((option: Issue | Gender | Other | AgeRange) => {
