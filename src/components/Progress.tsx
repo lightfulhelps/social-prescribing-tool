@@ -1,22 +1,29 @@
 import React from 'react';
+import { useWindowSize } from 'react-use';
 import { useAppContext } from '../App';
+import { breakpoints } from '../lib/cssVariables';
 
-const Divider: React.FC<{ active: boolean }> = ({ active }) => (
-  <span
-    className="py-1 py-lg-2 py-xl-3"
-    style={{
-      display: 'block',
-      zIndex: -1,
-      left: '12px',
-      borderLeft: `3px dashed ${active ? '#ffc200' : '#8E2082'}`,
-      opacity: active ? 1 : 0.5,
-      position: 'relative',
-    }}
-  />
-);
+const Divider: React.FC<{ active: boolean }> = ({ active }) => {
+  const { width } = useWindowSize();
+
+  return (
+    <span
+      className="py-1 py-lg-2 py-xl-3"
+      style={{
+        display: 'block',
+        zIndex: -1,
+        left: width > breakpoints.lg ? '12px' : '10px',
+        borderLeft: `3px dashed ${active ? '#ffc200' : '#8E2082'}`,
+        opacity: active ? 1 : 0.5,
+        position: 'relative',
+      }}
+    />
+  );
+};
 
 const Progress: React.FC = () => {
   const { currentStep } = useAppContext();
+  const { width } = useWindowSize();
   const steps = ['Introduction', 'Issues', 'Demographics', 'Results'];
 
   return (
@@ -29,8 +36,8 @@ const Progress: React.FC = () => {
                 currentStep === i + 1 ? 'bg-warning' : 'bg-secondary'
               }`}
               style={{
-                width: '25px',
-                height: '25px',
+                width: width > breakpoints.lg ? '25px' : '22px',
+                height: width > breakpoints.lg ? '25px' : '22px',
                 opacity: currentStep === i + 1 ? 1 : 0.5,
               }}
             />

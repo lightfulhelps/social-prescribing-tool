@@ -1,8 +1,10 @@
 import React from 'react';
 import { Nav, Button, Container } from 'react-bootstrap';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { useWindowSize } from 'react-use';
 import { useAppContext } from '../App';
 import { TABLES } from '../lib/airtable';
+import { breakpoints } from '../lib/cssVariables';
 
 type Props = {
   handleNext: Function;
@@ -12,10 +14,11 @@ type Props = {
 
 const Navigation: React.FC<Props> = ({ handleNext, handleBack, handleReset }) => {
   const { currentStep, filters } = useAppContext();
+  const { width: winWidth } = useWindowSize();
   const issuesFilterCount = filters?.filter((f) => f.key === TABLES.ISSUES).length || 0;
 
   return (
-    <section className="fixed-bottom py-2" style={{ backgroundColor: '#ECF7F6' }}>
+    <section className="fixed-bottom py-1 py-lg-2" style={{ backgroundColor: '#ECF7F6' }}>
       <Container>
         <Nav
           className={`d-flex ${currentStep === 4 ? 'justify-content-start' : ''} ${
@@ -27,7 +30,7 @@ const Navigation: React.FC<Props> = ({ handleNext, handleBack, handleReset }) =>
               <>
                 <Button
                   variant="white"
-                  size="lg"
+                  size={winWidth > breakpoints.md ? 'lg' : undefined}
                   className="text-info border-info mr-2 bg-white text-uppercase"
                   onClick={() => handleReset()}
                 >
@@ -38,7 +41,7 @@ const Navigation: React.FC<Props> = ({ handleNext, handleBack, handleReset }) =>
             {currentStep !== 1 && (
               <Button
                 variant="white"
-                size="lg"
+                size={winWidth > breakpoints.md ? 'lg' : undefined}
                 className="text-info border-info bg-white text-uppercase"
                 onClick={() => handleBack()}
               >
@@ -51,7 +54,7 @@ const Navigation: React.FC<Props> = ({ handleNext, handleBack, handleReset }) =>
               <Button
                 variant="info"
                 className="text-uppercase"
-                size="lg"
+                size={winWidth > breakpoints.md ? 'lg' : undefined}
                 onClick={() => handleNext()}
                 disabled={
                   currentStep === 2

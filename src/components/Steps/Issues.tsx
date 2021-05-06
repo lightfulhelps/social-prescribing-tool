@@ -20,7 +20,7 @@ const Issues: React.FC = () => {
       </p>
       <Row>
         {issues?.map((issue) => (
-          <Col xs={6} lg={4} className="mb-4" key={issue.fields.Name}>
+          <Col xs={6} md={4} className="mb-4" key={issue.fields.Name}>
             <CardWrapper filterKey="Issues" item={issue} />
           </Col>
         ))}

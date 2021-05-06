@@ -73,7 +73,7 @@ const Hero: React.FC = () => {
 
   return (
     <section
-      className="d-flex flex-column justify-content-center mb-3 mb-lg-5 w-100 text-white bg-secondary py-4 py-lg-5"
+      className="d-flex flex-column justify-content-center mb-3 mb-lg-5 w-100 text-white bg-secondary py-3 py-lg-5"
       style={{
         backgroundImage: 'linear-gradient(315deg, #8E2082 0%, #420B57 100%)',
       }}

@@ -58,7 +58,7 @@ const Demographics: React.FC = () => {
       </Row>
       <Row>
         {others?.map((other) => (
-          <Col xs={6} lg={4} className="mb-4" key={other.id}>
+          <Col xs={6} md={4} className="mb-4" key={other.id}>
             <CardWrapper filterKey="Other" item={other} />
           </Col>
         ))}
