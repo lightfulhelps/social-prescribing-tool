@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { Card, Col, Row, Button, Container } from 'react-bootstrap';
 import { FaChevronDown } from 'react-icons/fa';
-import { getFilteredRecords, getSortedRecords } from '../../../lib/filtering';
-import { useAppContext } from '../../../App';
-import { getRecords, TABLES } from '../../../lib/airtable';
-import Loader from '../../Loader';
+import { getFilteredRecords, getSortedRecords } from '../../lib/filtering';
+import { useAppContext } from '../../App';
+import { getRecords, TABLES } from '../../lib/airtable';
+import Loader from '../Loader';
 
 const CaseStudies: React.FC = () => {
   const { filters } = useAppContext();

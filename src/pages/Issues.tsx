@@ -1,9 +1,9 @@
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { useQuery } from 'react-query';
-import CardWrapper from '../CardWrapper';
-import { getRecords, TABLES } from '../../lib/airtable';
-import Loader from '../Loader';
+import CardWrapper from '../components/CardWrapper';
+import { getRecords, TABLES } from '../lib/airtable';
+import Loader from '../components/Loader';
 
 const Issues: React.FC = () => {
   const { isLoading, data: issues } = useQuery<Issue[]>(TABLES.ISSUES, () =>

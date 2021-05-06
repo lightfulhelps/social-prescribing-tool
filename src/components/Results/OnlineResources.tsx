@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { FaChevronDown } from 'react-icons/fa';
 import { Col, Row, Button, Container } from 'react-bootstrap';
 import { useQuery } from 'react-query';
-import { getRecords, TABLES } from '../../../lib/airtable';
-import { useAppContext } from '../../../App';
-import { getFilteredRecords, getSortedRecords } from '../../../lib/filtering';
-import Loader from '../../Loader';
-import ResultCard from './ResultCard';
+import { getRecords, TABLES } from '../../lib/airtable';
+import { useAppContext } from '../../App';
+import { getFilteredRecords, getSortedRecords } from '../../lib/filtering';
+import Loader from '../Loader';
+import ResultCard from '../ResultCard';
 
 const OnlineResources: React.FC = () => {
   const { filters } = useAppContext();

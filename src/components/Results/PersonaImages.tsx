@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
-import { useAppContext } from '../../../App';
-import { TABLES } from '../../../lib/airtable';
-import { getPersonaImage } from '../../../lib/images';
+import { useAppContext } from '../../App';
+import { TABLES } from '../../lib/airtable';
+import { getPersonaImage } from '../../lib/images';
 
 const PersonaImages = () => {
   const { filters } = useAppContext();

@@ -2,10 +2,10 @@ import React from 'react';
 import { Col, Row, OverlayTrigger, Form, Popover } from 'react-bootstrap';
 import { useQuery } from 'react-query';
 import { FaInfoCircle } from 'react-icons/fa';
-import { getRecords, TABLES } from '../../lib/airtable';
-import CardWrapper from '../CardWrapper';
-import DropdownWrapper from '../DropdownWrapper';
-import Loader from '../Loader';
+import { getRecords, TABLES } from '../lib/airtable';
+import CardWrapper from '../components/CardWrapper';
+import DropdownWrapper from '../components/DropdownWrapper';
+import Loader from '../components/Loader';
 
 const Demographics: React.FC = () => {
   const { isLoading: isLoadingGenders, data: genders } = useQuery<Gender[]>(TABLES.GENDER, () =>

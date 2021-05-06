@@ -28,9 +28,9 @@ const Navigation: React.FC<Props> = ({ handleNext, handleBack, handleReset }) =>
           <Nav.Item>
             {currentStep !== 1 && (
               <Button
-                variant="white"
+                variant="outline-info"
                 size={winWidth > breakpoints.md ? 'lg' : undefined}
-                className="text-info border-info bg-white text-uppercase"
+                className="text-uppercase"
                 onClick={() => handleBack()}
               >
                 <FaArrowLeft /> Back
@@ -40,9 +40,9 @@ const Navigation: React.FC<Props> = ({ handleNext, handleBack, handleReset }) =>
           <Nav.Item>
             {currentStep === 4 ? (
               <Button
-                variant="white"
+                variant="outline-info"
                 size={winWidth > breakpoints.md ? 'lg' : undefined}
-                className="text-info border-info bg-white text-uppercase"
+                className="text-uppercase"
                 onClick={() => handleReset()}
               >
                 Start Over
