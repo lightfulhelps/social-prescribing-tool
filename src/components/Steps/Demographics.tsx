@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Row, OverlayTrigger, Tooltip, Form } from 'react-bootstrap';
+import { Col, Row, OverlayTrigger, Form, Popover } from 'react-bootstrap';
 import { useQuery } from 'react-query';
 import { FaInfoCircle } from 'react-icons/fa';
 import { getRecords, TABLES } from '../../lib/airtable';
@@ -19,13 +19,6 @@ const Demographics: React.FC = () => {
     getRecords(TABLES.OTHER)
   );
 
-  const renderTooltip = (props: any) => (
-    <Tooltip id="button-tooltip" {...props}>
-      Always consider the appropriateness of service suggestions in relation to chracteristics that
-      someone in need may have.
-    </Tooltip>
-  );
-
   if (isLoadingGenders || isLoadingAgeRanges || isLoadingOthers) return <Loader />;
 
   return (
@@ -38,7 +31,14 @@ const Demographics: React.FC = () => {
             <OverlayTrigger
               placement="right"
               delay={{ show: 250, hide: 400 }}
-              overlay={renderTooltip}
+              overlay={(props: any) => (
+                <Popover id="button-popover" {...props}>
+                  <Popover.Content>
+                    Always consider the appropriateness of service suggestions in relation to
+                    chracteristics that someone in need may have.
+                  </Popover.Content>
+                </Popover>
+              )}
             >
               <FaInfoCircle />
             </OverlayTrigger>

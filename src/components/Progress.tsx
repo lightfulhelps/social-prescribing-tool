@@ -1,7 +1,7 @@
 import React from 'react';
 import { useWindowSize } from 'react-use';
 import { useAppContext } from '../App';
-import { breakpoints } from '../lib/cssVariables';
+import breakpoints from '../lib/breakpoints';
 
 const Divider: React.FC<{ active: boolean }> = ({ active }) => {
   const { width } = useWindowSize();

@@ -4,7 +4,7 @@ import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { useWindowSize } from 'react-use';
 import { useAppContext } from '../App';
 import { TABLES } from '../lib/airtable';
-import { breakpoints } from '../lib/cssVariables';
+import breakpoints from '../lib/breakpoints';
 
 type Props = {
   handleNext: Function;
@@ -26,18 +26,6 @@ const Navigation: React.FC<Props> = ({ handleNext, handleBack, handleReset }) =>
           }`}
         >
           <Nav.Item>
-            {currentStep === 4 && (
-              <>
-                <Button
-                  variant="white"
-                  size={winWidth > breakpoints.md ? 'lg' : undefined}
-                  className="text-info border-info mr-2 bg-white text-uppercase"
-                  onClick={() => handleReset()}
-                >
-                  Start Over
-                </Button>
-              </>
-            )}
             {currentStep !== 1 && (
               <Button
                 variant="white"
@@ -50,7 +38,16 @@ const Navigation: React.FC<Props> = ({ handleNext, handleBack, handleReset }) =>
             )}
           </Nav.Item>
           <Nav.Item>
-            {currentStep !== 4 && (
+            {currentStep === 4 ? (
+              <Button
+                variant="white"
+                size={winWidth > breakpoints.md ? 'lg' : undefined}
+                className="text-info border-info bg-white text-uppercase"
+                onClick={() => handleReset()}
+              >
+                Start Over
+              </Button>
+            ) : (
               <Button
                 variant="info"
                 className="text-uppercase"

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Col, Row, Button, Container, Tooltip, OverlayTrigger } from 'react-bootstrap';
+import { Col, Row, Button, Container, Popover, OverlayTrigger } from 'react-bootstrap';
 import { FaChevronDown, FaInfoCircle } from 'react-icons/fa';
 import { useQuery } from 'react-query';
 import { useAppContext } from '../../../App';
@@ -34,14 +34,15 @@ const ServiceTips: React.FC = () => {
         <h3 className="h4 text-white mb-4 text-uppercase d-flex align-items-center">
           Service Recommendations{' '}
           <OverlayTrigger
-            placement="right"
             delay={{ show: 200, hide: 200 }}
             overlay={(props: any) => (
-              <Tooltip id="service-recommendations-tooltip" {...props}>
-                These are examples that are drawn from social prescribers' experiences with helping
-                people that may match this profile, but services should always be based on an
-                individuals' personalised goals.
-              </Tooltip>
+              <Popover id="service-recommendations-popover" {...props}>
+                <Popover.Content>
+                  These are examples that are drawn from social prescribers' experiences with
+                  helping people that may match this profile, but services should always be based on
+                  an individuals' personalised goals.
+                </Popover.Content>
+              </Popover>
             )}
           >
             <FaInfoCircle className="ml-1 flex-shrink-0" />

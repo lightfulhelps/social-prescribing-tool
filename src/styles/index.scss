@@ -26,15 +26,11 @@ $btn-font-weight: $font-weight-bold;
 $btn-border-width: 2px;
 $dropdown-link-active-color: $body-color;
 $dropdown-link-active-bg: $warning;
-$tooltip-padding-y: $spacer;
-$tooltip-padding-x: $spacer;
-$tooltip-opacity: 1;
-$tooltip-color: $body-color;
-$tooltip-bg: $white;
 
 @import '~bootstrap/scss/bootstrap';
 
 @import 'card-wrapper';
 @import 'challenges-obstacles';
 @import 'persona-images';
+
 @import 'utils';
