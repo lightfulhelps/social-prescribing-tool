@@ -8,9 +8,9 @@ A read-only version of the database can be viewed at: https://airtable.com/shrKb
 
 ## Airtable setup
 
-To run your own version of the Social Prescribing Tool you will need to make a copy of our blank Airtable database.
+To run your own version of the Social Prescribing Tool you will need an Airtable database.
 
-This can be created by visiting the read-only version of the Social Prescribing database at [https://airtable.com/shrlKSweAlM2lMu62](https://airtable.com/shrlKSweAlM2lMu62) and clicking "Copy base" in the top-right corner.
+This can be created by visiting our empty version of the Social Prescribing database at [https://airtable.com/shrlKSweAlM2lMu62](https://airtable.com/shrlKSweAlM2lMu62) and clicking "Copy base" in the top-right corner.
 
 Airtable will then ask you to create an account if you don't already have one.
 
